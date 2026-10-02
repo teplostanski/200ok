@@ -12,7 +12,7 @@ pnpm dev
 In another terminal:
 
 ```sh
-curl http://localhost:3000
+curl http://localhost:3000/v1/ip
 ```
 
 Local requests return a loopback address such as `127.0.0.1` or `::1`.
@@ -32,8 +32,55 @@ To build and run locally with Docker instead:
 
 ```sh
 docker compose up -d --build --wait
-curl http://127.0.0.1:3000
+curl http://127.0.0.1:3000/v1/ip
 ```
+
+## API
+
+API endpoints use the `/v1` prefix. `/health` is unversioned and always returns JSON. `/` is reserved for future documentation and currently returns `404`.
+
+| Endpoint | Default text response | JSON response (`?format=json`) |
+| --- | --- | --- |
+| `/v1/ip` | Two lines: `v4: <address or unknown>` and `v6: <address or unknown>` | `{"v4":"192.0.2.1","v6":null}` |
+| `/v1/ip/v4` | IPv4 address or `unknown`, without a label | `{"ip":"192.0.2.1"}` or `{"ip":null}` |
+| `/v1/ip/v6` | IPv6 address or `unknown`, without a label | `{"ip":"2001:db8::1"}` or `{"ip":null}` |
+| `/health` | Always JSON | `{"status":"ok"}` |
+
+For `/v1` endpoints, omitted `format` and `format=text` select `text/plain`; `format=json` selects `application/json`. Values are case-sensitive. Unsupported, empty, or repeated `format` values return `400` with a plain-text explanation. The `format` parameter does not affect `/health`.
+
+A request reveals one client address, either IPv4 or IPv6. The other family is `unknown` in text and `null` in JSON. Selecting `/ip/v6` does not force an IPv6 connection. IPv4-mapped addresses such as `::ffff:192.0.2.1` are normalized to IPv4. NAT or VPN connections expose the address visible to the server, not necessarily the device's local address. IP responses include `Cache-Control: no-store`.
+
+```sh
+curl 'http://localhost:3000/v1/ip?format=json'
+curl 'http://localhost:3000/v1/ip/v4?format=text'
+curl 'http://localhost:3000/v1/ip/v6?format=json'
+curl -i 'http://localhost:3000/v1/ip?format=xml'
+curl -i http://localhost:3000/health
+```
+
+Docker's healthcheck requests `/health` and checks the HTTP status.
+
+## Source structure
+
+```text
+src/
+  server.ts                     # Listening, port validation, shutdown
+  app.ts                        # Express settings and router mounting
+  constants.ts                  # Route paths and format names
+  middleware/
+    response-format.ts          # Validate format and set res.locals.format
+  routes/
+    health.ts                   # Unversioned health endpoint
+    v1/
+      index.ts                  # Assemble v1 middleware and routers
+      ip.ts                     # IP endpoints and response formatting
+  utils/
+    client-addresses.ts         # Normalize and classify an IP, without Express
+```
+
+Requests to `/v1/ip` pass through `app.ts`, the v1 router, the format middleware, and the IP handler. Middleware calls `next()` to continue or sends an error response to stop processing. `/health` is mounted separately and bypasses the API format middleware.
+
+Add future v1 route modules in `src/routes/v1/` and register them in its `index.ts`. Keep reusable request processing in `middleware/` and code independent of HTTP in `utils/`.
 
 ## Deploy to your own VPS
 
@@ -143,7 +190,7 @@ Start the server:
 
 ```sh
 docker compose up -d --wait --wait-timeout 90
-curl -fsS http://127.0.0.1:3000
+curl -fsS http://127.0.0.1:3000/v1/ip
 ```
 
 The direct request should return the Docker gateway address. That is expected: this request has not passed through Caddy.
@@ -194,7 +241,7 @@ Caddy obtains the HTTPS certificate automatically. Its [reverse proxy](https://c
 **Local computer:**
 
 ```sh
-curl -fsS https://example.com
+curl -fsS https://example.com/v1/ip
 ```
 
 The response should be your connection's public IP. A request made from the VPS itself returns the VPS's public IP. If your shell displays `%` after the address, that marker is not part of the response.
@@ -331,7 +378,7 @@ For HTTP errors, run **on the VPS**, in the deployment directory:
 ```sh
 docker compose ps
 docker compose logs --tail=50 app
-curl -i http://127.0.0.1:3000
+curl -i http://127.0.0.1:3000/health
 sudo journalctl -u caddy -n 50 --no-pager
 ```
 
