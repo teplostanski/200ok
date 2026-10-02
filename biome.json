@@ -1,0 +1,6 @@
+{
+  "files": { "includes": ["**", "!!dist", "!!node_modules"] },
+  "formatter": { "enabled": true, "indentStyle": "space", "indentWidth": 2 },
+  "linter": { "enabled": true, "rules": { "preset": "none" } },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } }
+}
