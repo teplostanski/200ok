@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   checks:
@@ -39,6 +39,8 @@ jobs:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    outputs:
+      image: ${{ steps.image.outputs.name }}
     permissions:
       contents: read
       packages: write
@@ -72,3 +74,62 @@ jobs:
             org.opencontainers.image.revision=${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy:
+    name: Deploy to VPS
+    needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      VPS_HOST: ${{ secrets.VPS_HOST }}
+      VPS_USER: ${{ secrets.VPS_USER }}
+      VPS_PORT: ${{ secrets.VPS_PORT }}
+      VPS_DEPLOY_PATH: ${{ secrets.VPS_DEPLOY_PATH }}
+      DEPLOY_IMAGE: ${{ needs.publish.outputs.image }}:sha-${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+        run: |
+          test -n "$VPS_HOST"
+          test -n "$VPS_USER"
+          test -n "$VPS_PORT"
+          test -n "$VPS_DEPLOY_PATH"
+          [[ "$VPS_DEPLOY_PATH" == /* ]]
+          test -n "$SSH_PRIVATE_KEY"
+          test -n "$SSH_KNOWN_HOSTS"
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+      - name: Upload Compose configuration
+        run: |
+          remote_path=$(python3 -c 'import os, shlex; print(shlex.quote(os.environ["VPS_DEPLOY_PATH"]))')
+          ssh -p "$VPS_PORT" -o BatchMode=yes -o StrictHostKeyChecking=yes \
+            "$VPS_USER@$VPS_HOST" \
+            "mkdir -p -- $remote_path && cd -- $remote_path && cat > compose.yaml.next" \
+            < compose.production.yaml
+      - name: Pull image and update container
+        run: |
+          remote_args=$(python3 -c 'import os, shlex; print(shlex.join([os.environ["DEPLOY_IMAGE"], os.environ["VPS_DEPLOY_PATH"]]))')
+          ssh -p "$VPS_PORT" -o BatchMode=yes -o StrictHostKeyChecking=yes \
+            "$VPS_USER@$VPS_HOST" "bash -s -- $remote_args" <<'REMOTE'
+          set -euo pipefail
+          cd -- "$2"
+          export APP_IMAGE="$1"
+          docker compose -p http-server -f compose.yaml.next config --quiet
+          docker compose -p http-server -f compose.yaml.next pull app
+          mv compose.yaml.next compose.yaml
+          docker compose -p http-server up -d --wait --wait-timeout 90
+          touch .env
+          sed -i '/^APP_IMAGE=/d' .env
+          printf '\nAPP_IMAGE=%s\n' "$APP_IMAGE" >> .env
+          docker compose -p http-server ps
+          REMOTE
+      - name: Remove SSH credentials
+        if: always()
+        run: rm -f ~/.ssh/id_ed25519 ~/.ssh/known_hosts

@@ -1,0 +1,13 @@
+name: http-server
+
+services:
+  app:
+    image: ${APP_IMAGE:?Set APP_IMAGE to the published image tag}
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "3000"
+      TRUST_PROXY: ${TRUST_PROXY:?Set TRUST_PROXY in the VPS .env file}
+    restart: unless-stopped
+    stop_grace_period: 15s
