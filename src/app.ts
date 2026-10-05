@@ -12,5 +12,10 @@ if (process.env.TRUST_PROXY?.trim()) {
   app.set("trust proxy", process.env.TRUST_PROXY);
 }
 
+app.use((_req, res, next) => {
+  res.set("Cache-Control", "no-store");
+  next();
+});
+
 app.use(healthRouter);
 app.use(ROUTES.apiV1, v1Router);

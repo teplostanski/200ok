@@ -8,8 +8,6 @@ ipRouter.get(ROUTES.ip, (req, res) => {
   const ip = req.ip ?? req.socket.remoteAddress;
   const addresses = getClientAddresses(ip);
 
-  res.set("Cache-Control", "no-store");
-
   if (res.locals.format === FORMATS.json) {
     res.json(addresses);
   } else {
@@ -25,8 +23,6 @@ ipRouter.get(ROUTES.ipV4, (req, res) => {
   const ip = req.ip ?? req.socket.remoteAddress;
   const addresses = getClientAddresses(ip);
 
-  res.set("Cache-Control", "no-store");
-
   if (res.locals.format === FORMATS.json) {
     res.json({ ip: addresses.v4 });
   } else {
@@ -37,8 +33,6 @@ ipRouter.get(ROUTES.ipV4, (req, res) => {
 ipRouter.get(ROUTES.ipV6, (req, res) => {
   const ip = req.ip ?? req.socket.remoteAddress;
   const addresses = getClientAddresses(ip);
-
-  res.set("Cache-Control", "no-store");
 
   if (res.locals.format === FORMATS.json) {
     res.json({ ip: addresses.v6 });

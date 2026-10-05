@@ -6,6 +6,7 @@ export const ROUTES = {
   ipV4: "/ip/v4",
   ipV6: "/ip/v6",
   echo: "/echo",
+  headers: "/headers",
 } as const;
 
 export const FORMATS = {
