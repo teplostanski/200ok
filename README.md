@@ -20,8 +20,8 @@ Local requests return a loopback address such as `127.0.0.1` or `::1`.
 | Command | Purpose |
 | --- | --- |
 | `pnpm dev` | Restart the server when source files change |
-| `pnpm check` | Run Biome checks |
-| `pnpm check:fix` | Apply Biome fixes |
+| `pnpm lint` | Run Biome checks |
+| `pnpm lint:fix` | Apply Biome fixes |
 | `pnpm typecheck` | Check TypeScript types |
 | `pnpm build` | Compile into `dist/` |
 | `pnpm start` | Run the compiled server |
