@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /v1/
+Disallow: /health

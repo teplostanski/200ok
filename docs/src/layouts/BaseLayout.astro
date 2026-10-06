@@ -1,0 +1,56 @@
+---
+import plexMono from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url";
+import soraLatin from "@fontsource-variable/sora/files/sora-latin-wght-normal.woff2?url";
+import "../styles/fonts.css";
+import "../styles/global.css";
+
+import { type Locale, messages } from "../i18n/messages";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  locale,
+  description = messages[Astro.props.locale].metaDescription,
+} = Astro.props;
+const t = messages[locale];
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f3f5f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1216" media="(prefers-color-scheme: dark)" />
+    <link rel="preload" href={soraLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={plexMono} as="font" type="font/woff2" crossorigin />
+    <link rel="alternate" hreflang="en" href="/" />
+    <link rel="alternate" hreflang="ru" href="/ru/" />
+    <link rel="alternate" hreflang="x-default" href="/" />
+    <title>{title} - HTTP418</title>
+  </head>
+  <body>
+    <header>
+      <a href={locale === "en" ? "/" : "/ru/"}>HTTP418</a>
+      <div class="header-tools">
+        <span>API v1</span>
+        <nav class="language-switch" aria-label={t.language}>
+          <a href="/" lang="en" hreflang="en" aria-current={locale === "en" ? "page" : undefined}>English</a>
+          <a href="/ru/" lang="ru" hreflang="ru" aria-current={locale === "ru" ? "page" : undefined}>Русский</a>
+        </nav>
+      </div>
+    </header>
+    <main><slot /></main>
+    <footer>
+      <span>© 2026-present Teplostanski Igor</span>
+      <a href="https://github.com/teplostanski/http418">GitHub</a>
+    </footer>
+  </body>
+</html>

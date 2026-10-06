@@ -1,0 +1,64 @@
+---
+import { type Locale, messages } from "../i18n/messages";
+
+interface Schema {
+  type?: string | string[];
+  description?: string;
+  const?: unknown;
+  items?: Schema;
+  anyOf?: Schema[];
+  properties?: Record<string, Schema>;
+  required?: string[];
+  additionalProperties?: Schema | boolean;
+}
+interface Props {
+  locale: Locale;
+  schema: Schema;
+}
+const { schema, locale } = Astro.props;
+const t = messages[locale];
+const typeName = (field: Schema): string => {
+  if (field.anyOf) return field.anyOf.map(typeName).join(" | ");
+  if (field.type === "array") return `${typeName(field.items ?? {})}[]`;
+  return Array.isArray(field.type)
+    ? field.type.join(" | ")
+    : (field.type ?? "unknown");
+};
+const rows = Object.entries(schema.properties ?? {}).map(([name, field]) => ({
+  name,
+  field,
+  required: schema.required?.includes(name) ?? false,
+}));
+if (typeof schema.additionalProperties === "object") {
+  rows.push({
+    name: t.headerName,
+    field: schema.additionalProperties,
+    required: false,
+  });
+}
+---
+<div class="response-model">
+  <table>
+    <thead><tr><th scope="col">{t.field}</th><th scope="col">{t.fieldType}</th><th scope="col">{t.description}</th></tr></thead>
+    <tbody>
+      {rows.map(({ name, field, required }) => (
+        <tr>
+          <th scope="row"><code>{name}</code>{required && <span class="field-required">{t.required}</span>}</th>
+          <td><code class="field-type">{typeName(field)}</code></td>
+          <td>{field.description ?? (name === "v4" ? t.fieldV4 : name === "v6" ? t.fieldV6 : name === "ip" ? t.fieldIp : name === "method" ? t.fieldMethod : name === "error" ? t.fieldError : name === "limitBytes" ? t.fieldLimit : t.fieldHeader)}{field.const !== undefined && <> {t.value}: <code>{String(field.const)}</code>.</>}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  {schema.properties?.body && <details class="binary-model">
+    <summary>body · {t.binaryObject}</summary>
+    <table>
+      <thead><tr><th scope="col">{t.field}</th><th scope="col">{t.fieldType}</th><th scope="col">{t.description}</th></tr></thead>
+      <tbody>
+        <tr><th scope="row"><code>encoding</code><span class="field-required">{t.required}</span></th><td><code class="field-type">string</code></td><td>{t.always} <code>"base64"</code>.</td></tr>
+        <tr><th scope="row"><code>sizeBytes</code><span class="field-required">{t.required}</span></th><td><code class="field-type">integer</code></td><td>{t.byteCount}</td></tr>
+        <tr><th scope="row"><code>data</code><span class="field-required">{t.required}</span></th><td><code class="field-type">string</code></td><td>{t.base64Content}</td></tr>
+      </tbody>
+    </table>
+  </details>}
+</div>

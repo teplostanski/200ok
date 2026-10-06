@@ -1,0 +1,75 @@
+---
+import { type Locale, messages } from "../i18n/messages";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EndpointCard from "./EndpointCard.astro";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = messages[locale];
+
+const groups = [
+  {
+    title: "IP",
+    id: "ip",
+    endpoints: [
+      {
+        methods: ["GET"],
+        path: "/v1/ip",
+        description: t.ipBoth,
+      },
+      {
+        methods: ["GET"],
+        path: "/v1/ip/v4",
+        description: t.ipv4,
+      },
+      {
+        methods: ["GET"],
+        path: "/v1/ip/v6",
+        description: t.ipv6,
+      },
+    ],
+  },
+  {
+    title: "Echo",
+    id: "echo",
+    endpoints: [
+      {
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+        path: "/v1/echo",
+        description: t.echoDescription,
+      },
+    ],
+  },
+  {
+    title: "Headers",
+    id: "headers",
+    endpoints: [
+      {
+        methods: ["GET"],
+        path: "/v1/headers",
+        description: t.headersDescription,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout title={t.docTitle} locale={locale}>
+  <p class="eyebrow">{t.reference}</p>
+  <h1>{t.hero}</h1>
+
+  <section aria-labelledby="endpoints">
+    <h2 id="endpoints">{t.endpoints}</h2>
+    {groups.map(({ title, id, endpoints }) => (
+      <section class="endpoint-group" aria-labelledby={`group-${id}`}>
+        <h3 id={`group-${id}`}>{title}</h3>
+        <div class="endpoints">
+          {endpoints.map((endpoint) => <EndpointCard {...endpoint} locale={locale} />)}
+        </div>
+      </section>
+    ))}
+  </section>
+
+</BaseLayout>

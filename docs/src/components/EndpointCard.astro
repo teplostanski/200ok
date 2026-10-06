@@ -1,0 +1,291 @@
+---
+import { requestExamples } from "../data/request-examples";
+import { responsesFor } from "../data/responses";
+import { type Locale, messages } from "../i18n/messages";
+import ResponseModel from "./ResponseModel.astro";
+
+interface Props {
+  locale: Locale;
+  path: string;
+  methods: string[];
+  description: string;
+}
+
+const { path, methods, description, locale } = Astro.props;
+const t = messages[locale];
+const id = path.replaceAll("/", "-");
+const isEcho = path === "/v1/echo";
+const responses = responsesFor(path, locale);
+const initialBody = JSON.stringify({ name: "Bob" });
+---
+
+<article class="endpoint-card" data-endpoint={path} data-locale={locale}>
+  <div class="endpoint-heading">
+    <h4><a data-endpoint-link href={path}><code>{path.split(/([/_])/).map((part) =>
+      part === "/" || part === "_"
+        ? <span class="endpoint-punctuation">{part}</span>
+        : part
+    )}<span class="endpoint-query" data-endpoint-query></span></code></a></h4>
+    <fieldset class="output-selector">
+      <legend>{t.output}</legend>
+      <div class="output-options">
+        <label><input type="radio" name={`output${id}`} value="json" /><span>JSON</span></label>
+        <label><input type="radio" name={`output${id}`} value="text" checked /><span>{t.plainText}</span></label>
+      </div>
+    </fieldset>
+  </div>
+  <div class="endpoint-methods" aria-label={t.httpMethods}>
+    {methods.map((method) => <span class="method">{method}</span>)}
+  </div>
+  <p>{description}</p>
+  <details class="endpoint-details">
+    <summary>{t.details}</summary>
+    <h5 class="responses-heading">{t.requestExamples}</h5>
+    {requestExamples(path, "text", undefined, locale).map(({ label, command }, index) => (
+      <div>
+        <p class="example-label">{label}</p>
+        <pre><code data-curl-example={index}>{command}</code></pre>
+      </div>
+    ))}
+    <h5 class="responses-heading">{t.responses}</h5>
+    {responses.map((response) => (
+      <div class="response-example">
+        <h6><span class="response-code">{response.status}</span> {response.label}</h6>
+        <p>{response.description}</p>
+        <div data-output-panel="text">
+          <p class="example-label">{t.example} · text/plain</p>
+          <pre><code>{response.text}</code></pre>
+        </div>
+        <div data-output-panel="json" hidden>
+          <p class="example-label">{t.example} · {response.alwaysText ? "text/plain" : "application/json"}</p>
+          <pre><code>{response.alwaysText ? response.text : JSON.stringify(response.json, null, 2)}</code></pre>
+          {response.schema && (
+            <Fragment>
+            <p class="example-label">{t.schema} · object</p>
+            <ResponseModel schema={response.schema} locale={locale} />
+            </Fragment>
+          )}
+        </div>
+      </div>
+    ))}
+    {isEcho && <p class="parser-note">{t.parserNote}</p>}
+  </details>
+  <form class="endpoint-execute" data-execute-form>
+    {isEcho && (
+      <Fragment>
+      <label class="request-field">{t.method}
+        <select name="method" data-request-method>
+          {methods.map((method) => <option value={method}>{method}</option>)}
+        </select>
+      </label>
+      <div data-request-body-fields hidden>
+        <label class="request-field">Content-Type
+          <select name="contentType" data-request-content-type>
+            <option value="application/json">application/json</option>
+            <option value="text/plain">text/plain</option>
+            <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+            <option value="application/octet-stream">application/octet-stream</option>
+          </select>
+        </label>
+        <label class="request-field" data-text-body-label>{t.body}
+          <textarea name="body" data-request-body rows="4" spellcheck="false">{initialBody}</textarea>
+        </label>
+        <label class="request-field" data-file-body-label hidden>{t.file}
+          <input type="file" data-request-file />
+        </label>
+        <p class="request-hint">{t.bodyLimitHint}</p>
+      </div>
+      </Fragment>
+    )}
+    <div class="execute-actions">
+    <button type="submit" class="execute-button" data-execute-button aria-busy="false" aria-label={t.execute}>
+      <span class="execute-idle">{t.execute}</span>
+      <span class="execute-busy" aria-hidden="true"></span>
+    </button>
+    <button type="button" class="clear-button" data-clear-button disabled>{t.clear}</button>
+    </div>
+    <p class="execution-notice" data-execution-notice role="status" aria-live="polite"></p>
+    <div class="live-response" data-live-response hidden>
+      <p class="request-hint" data-request-description></p>
+      <p role="status" aria-live="polite" data-response-status></p>
+      <pre><code data-response-body></code></pre>
+    </div>
+  </form>
+</article>
+
+<script>
+  import { requestExamples } from "../data/request-examples";
+  import { messages } from "../i18n/messages";
+
+  for (const card of document.querySelectorAll<HTMLElement>("[data-endpoint]")) {
+    const locale = card.dataset.locale === "ru" ? "ru" : "en";
+    const t = messages[locale];
+    const link = card.querySelector<HTMLAnchorElement>("[data-endpoint-link]");
+    const query = link?.querySelector("[data-endpoint-query]");
+    const path = card.dataset.endpoint;
+    const form = card.querySelector<HTMLFormElement>("[data-execute-form]");
+    const button = card.querySelector<HTMLButtonElement>("[data-execute-button]");
+    const clear = card.querySelector<HTMLButtonElement>("[data-clear-button]");
+    const notice = card.querySelector<HTMLElement>("[data-execution-notice]");
+    const result = card.querySelector<HTMLElement>("[data-live-response]");
+    const status = card.querySelector<HTMLElement>("[data-response-status]");
+    const bodyOutput = card.querySelector<HTMLElement>("[data-response-body]");
+    const requestDescription = card.querySelector<HTMLElement>(
+      "[data-request-description]",
+    );
+    if (
+      !clear ||
+      !notice ||
+      !link ||
+      !query ||
+      !path ||
+      !form ||
+      !button ||
+      !result ||
+      !status ||
+      !bodyOutput ||
+      !requestDescription
+    )
+      continue;
+
+    const methodSelect = card.querySelector<HTMLSelectElement>(
+      "[data-request-method]",
+    );
+    const typeSelect = card.querySelector<HTMLSelectElement>(
+      "[data-request-content-type]",
+    );
+    const textarea = card.querySelector<HTMLTextAreaElement>(
+      "[data-request-body]",
+    );
+    const fileInput = card.querySelector<HTMLInputElement>("[data-request-file]");
+    const bodyDrafts = new Map<string, string>([
+      ["application/json", textarea?.value ?? '{"name":"Bob"}'],
+      ["text/plain", "Hello!"],
+      ["application/x-www-form-urlencoded", "name=Bob&age=42"],
+    ]);
+    let bodyType = typeSelect?.value ?? "application/json";
+
+    typeSelect?.addEventListener("change", () => {
+      if (!textarea) return;
+      if (bodyType !== "application/octet-stream") {
+        bodyDrafts.set(bodyType, textarea.value);
+      }
+      bodyType = typeSelect.value;
+      textarea.value = bodyDrafts.get(bodyType) ?? "";
+    });
+
+    const selectedFormat = () =>
+      card.querySelector<HTMLInputElement>('input[type="radio"]:checked')
+        ?.value ?? "text";
+
+    const updateCurlExamples = () => {
+      const examples = requestExamples(
+        path,
+        selectedFormat(),
+        window.location.origin,
+        locale,
+      );
+      for (const code of card.querySelectorAll<HTMLElement>(
+        "[data-curl-example]",
+      )) {
+        code.textContent =
+          examples[Number(code.dataset.curlExample)]?.command ?? "";
+      }
+    };
+    updateCurlExamples();
+
+    card.addEventListener("change", () => {
+      updateCurlExamples();
+      const format = selectedFormat();
+      link.setAttribute("href", format === "json" ? `${path}?format=json` : path);
+      query.textContent = format === "json" ? "?format=json" : "";
+      for (const panel of card.querySelectorAll<HTMLElement>(
+        "[data-output-panel]",
+      )) {
+        panel.hidden = panel.dataset.outputPanel !== format;
+      }
+      const fields = card.querySelector<HTMLElement>(
+        "[data-request-body-fields]",
+      );
+      if (fields) fields.hidden = methodSelect?.value === "GET";
+      const binary = typeSelect?.value === "application/octet-stream";
+      const textLabel = card.querySelector<HTMLElement>("[data-text-body-label]");
+      const fileLabel = card.querySelector<HTMLElement>("[data-file-body-label]");
+      if (textLabel) textLabel.hidden = binary;
+      if (fileLabel) fileLabel.hidden = !binary;
+    });
+
+    let activeRequest: AbortController | undefined;
+    let requestId = 0;
+
+    clear.addEventListener("click", () => {
+      requestId++;
+      activeRequest?.abort();
+      activeRequest = undefined;
+      result.hidden = true;
+      result.style.minHeight = "";
+      requestDescription.textContent = "";
+      status.textContent = "";
+      bodyOutput.textContent = "";
+      notice.textContent = "";
+      button.disabled = false;
+      button.setAttribute("aria-busy", "false");
+      clear.disabled = true;
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const method = methodSelect?.value ?? "GET";
+      const url = link.getAttribute("href") ?? path;
+      if (button.disabled) return;
+      const init: RequestInit = { method };
+      if (method !== "GET") {
+        const contentType = typeSelect?.value ?? "application/json";
+        init.headers = { "Content-Type": contentType };
+        if (contentType === "application/octet-stream") {
+          const file = fileInput?.files?.[0];
+          if (!file) {
+            notice.textContent = t.chooseFile;
+            return;
+          }
+          init.body = file;
+        } else {
+          init.body = textarea?.value ?? "";
+        }
+      }
+      const currentRequest = ++requestId;
+      activeRequest = new AbortController();
+      init.signal = AbortSignal.any([
+        activeRequest.signal,
+        AbortSignal.timeout(15000),
+      ]);
+      if (!result.hidden) {
+        result.style.minHeight = `${result.getBoundingClientRect().height}px`;
+      }
+      result.hidden = false;
+      clear.disabled = false;
+      button.disabled = true;
+      button.setAttribute("aria-busy", "true");
+      notice.textContent = "";
+      try {
+        const response = await fetch(url, init);
+        const responseBody = await response.text();
+        if (currentRequest !== requestId) return;
+        requestDescription.textContent = `${method} ${url}`;
+        status.textContent = `${response.status} ${response.statusText} · ${response.headers.get("content-type") ?? t.noContentType}`;
+        bodyOutput.textContent = responseBody || t.emptyResponse;
+        result.style.minHeight = `${result.getBoundingClientRect().height}px`;
+        notice.textContent = "";
+      } catch (error) {
+        if (currentRequest !== requestId) return;
+        notice.textContent = `${t.requestFailed}: ${error instanceof Error ? error.message : String(error)}`;
+      } finally {
+        if (currentRequest === requestId) {
+          activeRequest = undefined;
+          button.disabled = false;
+          button.setAttribute("aria-busy", "false");
+        }
+      }
+    });
+  }
+</script>
