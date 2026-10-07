@@ -5,6 +5,7 @@ WORKDIR /app
 
 FROM base AS dependencies
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY docs/package.json ./docs/package.json
 # Use the same pnpm version as local development.
 RUN npm install --global "$(node -p 'require("./package.json").packageManager')"
 
@@ -12,6 +13,7 @@ FROM dependencies AS build
 RUN pnpm install --frozen-lockfile
 COPY tsconfig.json tsconfig.build.json ./
 COPY src ./src
+COPY docs ./docs
 RUN pnpm build
 
 FROM dependencies AS production-dependencies

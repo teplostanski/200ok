@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import express from "express";
 import { ROUTES } from "./constants.js";
 import { healthRouter } from "./routes/health.js";
@@ -19,3 +20,6 @@ app.use((_req, res, next) => {
 
 app.use(healthRouter);
 app.use(ROUTES.apiV1, v1Router);
+
+const docsDirectory = fileURLToPath(new URL("../dist/docs/", import.meta.url));
+app.use(express.static(docsDirectory, { cacheControl: false }));

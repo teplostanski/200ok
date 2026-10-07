@@ -6,3 +6,7 @@
 !tsconfig.build.json
 !src/
 !src/**
+!docs/
+!docs/**
+docs/.astro/
+docs/node_modules/
