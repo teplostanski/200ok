@@ -1,6 +1,6 @@
-# HTTP418
+# 200 OK
 
-[API documentation](https://http.teplostanski.me/)
+[API documentation](https://200ok.hacks.run/)
 
 ## Local setup
 
