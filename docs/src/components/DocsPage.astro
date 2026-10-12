@@ -1,6 +1,7 @@
 ---
 import { type Locale, messages } from "../i18n/messages";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import DocsNavigation from "./DocsNavigation.astro";
 import EndpointCard from "./EndpointCard.astro";
 
 interface Props {
@@ -57,8 +58,10 @@ const groups = [
 ---
 
 <BaseLayout title={t.docTitle} locale={locale}>
-  <p class="eyebrow">{t.reference}</p>
+  <div class="docs-heading">
+  <DocsNavigation locale={locale} />
   <h1 class="header">{t.hero}</h1>
+  </div>
 
   <section aria-labelledby="endpoints">
     <h2 id="endpoints">{t.endpoints}</h2>

@@ -1,10 +1,18 @@
 ---
 import plexMono from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url";
+import plexMonoSemibold from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2?url";
 import soraLatin from "@fontsource-variable/sora/files/sora-latin-wght-normal.woff2?url";
 import "../styles/fonts.css";
 import "../styles/global.css";
 
+import {
+  defaultLocale,
+  localeCodes,
+  locales,
+  localizedPath,
+} from "../../../src/locales";
 import { type Locale, messages } from "../i18n/messages";
+import { languageUrl } from "../i18n/paths";
 
 interface Props {
   locale: Locale;
@@ -31,20 +39,21 @@ const t = messages[locale];
     <meta name="theme-color" content="#0d1216" media="(prefers-color-scheme: dark)" />
     <link rel="preload" href={soraLatin} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={plexMono} as="font" type="font/woff2" crossorigin />
-    <link rel="alternate" hreflang="en" href="/" />
-    <link rel="alternate" hreflang="ru" href="/ru/" />
-    <link rel="alternate" hreflang="x-default" href="/" />
-    <title>{title} - HTTP418</title>
+    <link rel="preload" href={plexMonoSemibold} as="font" type="font/woff2" crossorigin />
+    {localeCodes.map((code) => <link rel="alternate" hreflang={code} href={languageUrl(Astro.url, code)} />)}
+    <link rel="alternate" hreflang="x-default" href={languageUrl(Astro.url, defaultLocale)} />
+    <title>{title} - 200 OK</title>
   </head>
   <body>
     <header>
-      <a href={locale === "en" ? "/" : "/ru/"}>HTTP418</a>
+      <a class="brand" href={localizedPath("/", locale)}>200 OK</a>
       <div class="header-tools">
         <span>API v1</span>
-        <nav class="language-switch" aria-label={t.language}>
-          <a href="/" lang="en" hreflang="en" aria-current={locale === "en" ? "page" : undefined}>English</a>
-          <a href="/ru/" lang="ru" hreflang="ru" aria-current={locale === "ru" ? "page" : undefined}>Русский</a>
-        </nav>
+        <select class="language-switch" aria-label={t.language} data-language-select>
+          {localeCodes.map((code) => (
+            <option value={code} lang={code} selected={locale === code}>{locales[code]}</option>
+          ))}
+        </select>
       </div>
     </header>
     <main><slot /></main>
@@ -54,3 +63,25 @@ const t = messages[locale];
     </footer>
   </body>
 </html>
+
+<script>
+  import { isLocale, localeFromPath } from "../../../src/locales";
+  import { languageUrl } from "../i18n/paths";
+
+  const select = document.querySelector<HTMLSelectElement>("[data-language-select]");
+  if (select) {
+    const syncLocale = () => {
+      select.value = localeFromPath(window.location.pathname);
+    };
+    syncLocale();
+    window.addEventListener("pageshow", syncLocale);
+    select.addEventListener("change", () => {
+      if (!isLocale(select.value)) return;
+      const url = new URL(window.location.href);
+      const target = languageUrl(url, select.value);
+      if (target !== `${url.pathname}${url.search}${url.hash}`) {
+        window.location.assign(target);
+      }
+    });
+  }
+</script>

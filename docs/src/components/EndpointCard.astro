@@ -114,11 +114,12 @@ const initialBody = JSON.stringify({ name: "Bob" });
 </article>
 
 <script>
+  import { isLocale, defaultLocale } from "../../../src/locales";
   import { requestExamples } from "../data/request-examples";
   import { messages } from "../i18n/messages";
 
   for (const card of document.querySelectorAll<HTMLElement>("[data-endpoint]")) {
-    const locale = card.dataset.locale === "ru" ? "ru" : "en";
+    const locale = isLocale(card.dataset.locale) ? card.dataset.locale : defaultLocale;
     const t = messages[locale];
     const link = card.querySelector<HTMLAnchorElement>("[data-endpoint-link]");
     const query = link?.querySelector("[data-endpoint-query]");

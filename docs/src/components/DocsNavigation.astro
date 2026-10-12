@@ -1,0 +1,36 @@
+---
+import { localizedPath, navigationItems } from "../data/navigation";
+import { type Locale, messages } from "../i18n/messages";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
+const currentPath = normalizePath(Astro.url.pathname);
+const items = navigationItems(locale).map((item) => {
+  const href =
+    item.kind === "internal" ? localizedPath(item.path, locale) : item.href;
+  const current =
+    item.kind === "internal" && normalizePath(href) === currentPath;
+  return {
+    label: item.label,
+    href,
+    current,
+    disabled: current || (item.kind === "internal" && item.disabled === true),
+  };
+});
+---
+
+<nav class="eyebrow" aria-label={messages[locale].resources}>
+  {items.map((item) => (
+    item.disabled ? (
+      <span role="link" aria-disabled="true" aria-current={item.current ? "page" : undefined}>
+        {item.label}
+      </span>
+    ) : (
+      <a href={item.href}>{item.label}</a>
+    )
+  ))}
+</nav>
