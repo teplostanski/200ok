@@ -1,0 +1,33 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "enabledManagers": ["npm", "dockerfile", "github-actions"],
+  "dependencyDashboard": false,
+  "semanticCommits": "enabled",
+  "automerge": false,
+  "automergeType": "pr",
+  "platformAutomerge": false,
+  "rebaseWhen": "behind-base-branch",
+  "minimumReleaseAge": "3 days",
+  "separateMinorPatch": true,
+  "prConcurrentLimit": 5,
+  "packageRules": [
+    {
+      "description": "Automerge stable npm patch updates only after all checks pass",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["dependencies", "devDependencies"],
+      "matchUpdateTypes": ["patch"],
+      "matchCurrentVersion": ">=1.0.0",
+      "automerge": true
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "vulnerabilityFixStrategy": "lowest"
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": false,
+    "schedule": ["before 6am on monday"]
+  }
+}
