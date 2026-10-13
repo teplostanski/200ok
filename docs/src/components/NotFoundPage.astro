@@ -1,0 +1,50 @@
+---
+import { localizedPath } from "../../../src/locales";
+import { type Locale, messages } from "../i18n/messages";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = messages[locale];
+---
+
+<BaseLayout locale={locale} title={`404 · ${t.notFound}`}>
+  <section class="not-found">
+    <p class="not-found-code">404</p>
+    <h1>{t.notFound}</h1>
+    <a href={localizedPath("/", locale)}>{t.backToDocs}</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    width: 100%;
+    min-height: 55vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+  }
+  .not-found-code {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: clamp(4rem, 15vw, 8rem);
+    line-height: 1;
+    color: var(--ink-faint);
+  }
+  .not-found h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+  }
+  .not-found a {
+    color: var(--accent);
+  }
+  .not-found a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+</style>

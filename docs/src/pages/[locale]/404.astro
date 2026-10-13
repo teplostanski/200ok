@@ -1,0 +1,17 @@
+---
+import { defaultLocale, localeCodes } from "../../../../src/locales";
+import NotFoundPage from "../../components/NotFoundPage.astro";
+
+export function getStaticPaths() {
+  return localeCodes
+    .filter((locale) => locale !== defaultLocale)
+    .map((locale) => ({
+      params: { locale },
+      props: { locale },
+    }));
+}
+
+const { locale } = Astro.props;
+---
+
+<NotFoundPage locale={locale} />
