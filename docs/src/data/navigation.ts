@@ -16,7 +16,7 @@ export function navigationItems(locale: Locale): NavigationItem[] {
     {
       label: t.github,
       kind: "external",
-      href: "https://github.com/teplostanski/http418",
+      href: "https://github.com/teplostanski/200ok",
     },
   ];
 }
