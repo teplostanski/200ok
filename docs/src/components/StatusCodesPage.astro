@@ -1,0 +1,22 @@
+---
+import { type Locale, messages } from "../i18n/messages";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DocsNavigation from "./DocsNavigation.astro";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = messages[locale];
+---
+
+<BaseLayout locale={locale} title={t.statusCodes}>
+  <div class="docs-heading">
+    <DocsNavigation locale={locale} />
+    <div>
+      <h1 class="header">{t.statusCodes}</h1>
+      <p>{t.inDevelopment}</p>
+    </div>
+  </div>
+</BaseLayout>

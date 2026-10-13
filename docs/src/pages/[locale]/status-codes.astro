@@ -1,0 +1,17 @@
+---
+import { defaultLocale, localeCodes } from "../../../../src/locales";
+import StatusCodesPage from "../../components/StatusCodesPage.astro";
+
+export function getStaticPaths() {
+  return localeCodes
+    .filter((locale) => locale !== defaultLocale)
+    .map((locale) => ({
+      params: { locale },
+      props: { locale },
+    }));
+}
+
+const { locale } = Astro.props;
+---
+
+<StatusCodesPage locale={locale} />
