@@ -1,5 +1,7 @@
 # 200 OK
 
+[![Service status][service-status-badge]][service-url]
+
 [API documentation](https://200ok.hacks.run/)
 
 ## Local setup
@@ -159,3 +161,10 @@ sudo journalctl -u caddy -n 50 --no-pager
 | SSH connection times out | Check the address, port, firewall, and access from GitHub-hosted runners. |
 
 After fixing a deployment issue, use **Re-run failed jobs** in GitHub Actions.
+
+## License
+
+[MIT](./LICENSE) License © 2026-present [Teplostanski Igor](https://github.com/teplostanski)
+
+[service-status-badge]: https://img.shields.io/website?url=https%3A%2F%2F200ok.hacks.run%2Fhealth&label=service&up_message=online&down_message=offline
+[service-url]: https://200ok.hacks.run
