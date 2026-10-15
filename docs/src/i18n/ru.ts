@@ -2,8 +2,13 @@ import type { MessageDictionary } from "./messages";
 
 export const ru: MessageDictionary = {
   docTitle: "Документация",
-  metaDescription: "200 OK - тестовый API для разработки и отладки.",
-  hero: "Тестовый API для разработки и отладки.",
+  metaDescription:
+    "200 OK — Сервис HTTP-запросов и ответов. Исследуйте запросы, тестируйте ответы и отлаживайте интеграции.",
+  hero: "Сервис HTTP-запросов и ответов",
+  heroSubtitle:
+    "Исследуйте запросы, тестируйте ответы и отлаживайте интеграции.",
+  randDescription:
+    "Для генерации случайных строк и идентификаторов используйте",
   reference: "СПРАВОЧНИК API",
   resources: "Ресурсы",
   inDevelopment: "В разработке",
@@ -12,7 +17,7 @@ export const ru: MessageDictionary = {
   github: "GitHub",
   statusCodes: "Коды состояния HTTP",
   endpoints: "Эндпоинты",
-  ipBoth: "IPv4 и IPv6 адрес клиента.",
+  ipCurrent: "IP-адрес клиента (IPv4 или IPv6).",
   ipv4: "IPv4 адрес клиента.",
   ipv6: "IPv6 адрес клиента.",
   echoDescription:
@@ -27,7 +32,7 @@ export const ru: MessageDictionary = {
   example: "Пример",
   schema: "Схема",
   parserNote:
-    "Некорректный JSON также возвращает 400. Ошибки синтаксиса и кодировки парсера пока используют стандартный HTML-ответ Express, независимо от выбранного формата.",
+    "Некорректный JSON возвращает 400. Ошибки API возвращаются в выбранном формате: обычный текст или JSON.",
   method: "Метод",
   body: "Тело запроса",
   file: "Файл",
@@ -43,9 +48,7 @@ export const ru: MessageDictionary = {
   description: "Описание",
   required: "обязательное",
   headerName: "[имя заголовка]",
-  fieldV4: "IPv4; null, если неизвестен.",
-  fieldV6: "IPv6; null, если неизвестен.",
-  fieldIp: "IP-адрес; null, если неизвестен.",
+  fieldIp: "IP-адрес; null, если семейство адреса не совпадает с запрошенным.",
   fieldMethod: "HTTP-метод запроса.",
   fieldError: "Описание ошибки.",
   fieldLimit: "Максимальный размер тела в байтах.",
@@ -61,7 +64,7 @@ export const ru: MessageDictionary = {
   headersResponse:
     "Заголовки входящего запроса. Набор и значения зависят от клиента.",
   ipResponse:
-    "Адрес соединения клиента. Пример использует демонстрационный IP. Неизвестное семейство: unknown в тексте и null в JSON.",
+    "Адрес соединения клиента. Пример использует демонстрационный IP. Если семейство адреса не совпадает с запрошенным, возвращается unknown в тексте и null в JSON.",
   formatError:
     "Недопустимый format, например ?format=xml. Эта ошибка всегда возвращается обычным текстом.",
   limitError: "Тело превышает 102 400 байт (100 КиБ).",

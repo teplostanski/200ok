@@ -3,8 +3,12 @@ import type { MessageDictionary } from "./messages";
 export const de: MessageDictionary = {
   inDevelopment: "In Entwicklung",
   docTitle: "API-Dokumentation",
-  metaDescription: "200 OK - eine Test-API für Entwicklung und Debugging.",
-  hero: "Eine Test-API für Entwicklung und Debugging.",
+  metaDescription:
+    "200 OK — Service für HTTP-Anfragen und -Antworten. Untersuche Anfragen, teste Antworten und debugge Integrationen.",
+  hero: "Service für HTTP-Anfragen und -Antworten",
+  heroSubtitle:
+    "Untersuche Anfragen, teste Antworten und debugge Integrationen.",
+  randDescription: "Für zufällige Zeichenfolgen und IDs nutze",
   reference: "API-REFERENZ",
   resources: "Ressourcen",
   notFound: "Seite nicht gefunden",
@@ -12,7 +16,7 @@ export const de: MessageDictionary = {
   github: "GitHub",
   statusCodes: "HTTP-Statuscodes",
   endpoints: "Endpunkte",
-  ipBoth: "Die IPv4- und IPv6-Adressen des Clients.",
+  ipCurrent: "Die IP-Adresse des Clients (IPv4 oder IPv6).",
   ipv4: "Die IPv4-Adresse des Clients.",
   ipv6: "Die IPv6-Adresse des Clients.",
   echoDescription:
@@ -27,7 +31,7 @@ export const de: MessageDictionary = {
   example: "Beispiel",
   schema: "Schema",
   parserNote:
-    "Ungültiges JSON führt ebenfalls zu 400. Bei Syntax- und Kodierungsfehlern des Parsers wird derzeit unabhängig vom Ausgabeformat die Standard-HTML-Antwort von Express verwendet.",
+    "Ungültiges JSON führt zu 400. API-Fehler verwenden das gewählte Ausgabeformat: Klartext oder JSON.",
   method: "Methode",
   body: "Anfrageinhalt",
   file: "Datei",
@@ -44,9 +48,7 @@ export const de: MessageDictionary = {
   description: "Beschreibung",
   required: "erforderlich",
   headerName: "[Headername]",
-  fieldV4: "IPv4; null, wenn unbekannt.",
-  fieldV6: "IPv6; null, wenn unbekannt.",
-  fieldIp: "IP-Adresse; null, wenn unbekannt.",
+  fieldIp: "IP-Adresse; null, wenn die Adressfamilie nicht übereinstimmt.",
   fieldMethod: "Die HTTP-Methode der Anfrage.",
   fieldError: "Fehlerbeschreibung.",
   fieldLimit: "Maximale Größe des Anfrageinhalts in Bytes.",
@@ -63,7 +65,7 @@ export const de: MessageDictionary = {
   headersResponse:
     "Header der eingehenden Anfrage. Namen und Werte hängen vom Client ab.",
   ipResponse:
-    "Die Adresse der Clientverbindung. Das Beispiel verwendet eine Dokumentations-IP. Eine unbekannte Adressfamilie wird im Text als unknown und in JSON als null ausgegeben.",
+    "Die Adresse der Clientverbindung. Das Beispiel verwendet eine Dokumentations-IP. Passt die Adressfamilie nicht zum Endpunkt, wird unknown als Text und null in JSON zurückgegeben.",
   formatError:
     "Ungültiges format, zum Beispiel ?format=xml. Dieser Fehler wird immer als Klartext zurückgegeben.",
   limitError: "Der Anfrageinhalt überschreitet 102.400 Bytes (100 KiB).",

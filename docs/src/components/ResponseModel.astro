@@ -45,7 +45,7 @@ if (typeof schema.additionalProperties === "object") {
         <tr>
           <th scope="row"><code>{name}</code>{required && <span class="field-required">{t.required}</span>}</th>
           <td><code class="field-type">{typeName(field)}</code></td>
-          <td>{field.description ?? (name === "v4" ? t.fieldV4 : name === "v6" ? t.fieldV6 : name === "ip" ? t.fieldIp : name === "method" ? t.fieldMethod : name === "error" ? t.fieldError : name === "limitBytes" ? t.fieldLimit : t.fieldHeader)}{field.const !== undefined && <> {t.value}: <code>{String(field.const)}</code>.</>}</td>
+          <td>{field.description ?? (name === "ip" ? t.fieldIp : name === "method" ? t.fieldMethod : name === "error" ? t.fieldError : name === "limitBytes" ? t.fieldLimit : t.fieldHeader)}{field.const !== undefined && <> {t.value}: <code>{String(field.const)}</code>.</>}</td>
         </tr>
       ))}
     </tbody>

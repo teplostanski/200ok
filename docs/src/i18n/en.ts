@@ -1,7 +1,10 @@
 export const en = {
   docTitle: "API docs",
-  metaDescription: "200 OK - a test API for development and debugging.",
-  hero: "A test API for development and debugging.",
+  metaDescription:
+    "200 OK — HTTP Request & Response Service. Inspect requests, test responses, and debug integrations.",
+  hero: "HTTP Request & Response Service",
+  heroSubtitle: "Inspect requests, test responses, and debug integrations.",
+  randDescription: "For random strings and IDs, try",
   reference: "API REFERENCE",
   resources: "Resources",
   inDevelopment: "Under development",
@@ -10,7 +13,7 @@ export const en = {
   github: "GitHub",
   statusCodes: "HTTP status codes",
   endpoints: "Endpoints",
-  ipBoth: "The client’s IPv4 and IPv6 addresses.",
+  ipCurrent: "The client’s IP address (IPv4 or IPv6).",
   ipv4: "The client’s IPv4 address.",
   ipv6: "The client’s IPv6 address.",
   echoDescription:
@@ -25,7 +28,7 @@ export const en = {
   example: "Example",
   schema: "Schema",
   parserNote:
-    "Invalid JSON also returns 400. Parser syntax and encoding errors currently use Express’s default HTML response regardless of the selected output format.",
+    "Invalid JSON returns 400. API errors use the selected output format: plain text or JSON.",
   method: "Method",
   body: "Body",
   file: "File",
@@ -41,9 +44,7 @@ export const en = {
   description: "Description",
   required: "required",
   headerName: "[header name]",
-  fieldV4: "IPv4; null if unknown.",
-  fieldV6: "IPv6; null if unknown.",
-  fieldIp: "IP address; null if unknown.",
+  fieldIp: "IP address; null if the address family does not match.",
   fieldMethod: "The HTTP request method.",
   fieldError: "Error description.",
   fieldLimit: "Maximum body size in bytes.",
@@ -60,9 +61,9 @@ export const en = {
   headersResponse:
     "Incoming request headers. Names and values depend on the client.",
   ipResponse:
-    "The client connection address. This example uses a documentation IP. An unknown address family is unknown in text and null in JSON.",
+    "The client connection address. This example uses a documentation IP. If the address family does not match the endpoint, the response is unknown in text and null in JSON.",
   formatError:
-    "Invalid format, such as ?format=xml. This error is always returned as plain text.",
+    "Invalid format, for example ?format=xml. This error always returns plain text.",
   limitError: "The body exceeds 102,400 bytes (100 KiB).",
   contentTypeError:
     "An unsupported or missing Content-Type for a nonempty body.",

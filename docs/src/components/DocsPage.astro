@@ -18,7 +18,7 @@ const groups = [
       {
         methods: ["GET"],
         path: "/v1/ip",
-        description: t.ipBoth,
+        description: t.ipCurrent,
       },
       {
         methods: ["GET"],
@@ -59,8 +59,12 @@ const groups = [
 
 <BaseLayout title={t.docTitle} locale={locale}>
   <div class="docs-heading">
-  <DocsNavigation locale={locale} />
-  <h1 class="header">{t.hero}</h1>
+    <DocsNavigation locale={locale} />
+    <div>
+      <h1 class="header">{t.hero}</h1>
+      <p class="intro">{t.heroSubtitle}</p>
+      <p>{t.randDescription} <a class="rand-link" href="https://rand.hacks.run/">rand.hacks.run</a>.</p>
+    </div>
   </div>
 
   <section aria-labelledby="endpoints">
@@ -76,3 +80,9 @@ const groups = [
   </section>
 
 </BaseLayout>
+
+<style>
+  .rand-link {
+    color: var(--accent);
+  }
+</style>

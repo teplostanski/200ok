@@ -4,8 +4,12 @@ export const fr: MessageDictionary = {
   inDevelopment: "En cours de développement",
   docTitle: "Documentation de l’API",
   metaDescription:
-    "200 OK - une API de test pour le développement et le débogage.",
-  hero: "Une API de test pour le développement et le débogage.",
+    "200 OK — Service de requêtes et de réponses HTTP. Inspectez les requêtes, testez les réponses et déboguez les intégrations.",
+  hero: "Service de requêtes et de réponses HTTP",
+  heroSubtitle:
+    "Inspectez les requêtes, testez les réponses et déboguez les intégrations.",
+  randDescription:
+    "Pour générer des chaînes aléatoires et des identifiants, essayez",
   reference: "RÉFÉRENCE DE L’API",
   resources: "Ressources",
   notFound: "Page introuvable",
@@ -13,7 +17,7 @@ export const fr: MessageDictionary = {
   github: "GitHub",
   statusCodes: "Codes de statut HTTP",
   endpoints: "Points de terminaison",
-  ipBoth: "Les adresses IPv4 et IPv6 du client.",
+  ipCurrent: "L’adresse IP du client (IPv4 ou IPv6).",
   ipv4: "L’adresse IPv4 du client.",
   ipv6: "L’adresse IPv6 du client.",
   echoDescription:
@@ -28,7 +32,7 @@ export const fr: MessageDictionary = {
   example: "Exemple",
   schema: "Schéma",
   parserNote:
-    "Un JSON invalide renvoie également 400. Les erreurs de syntaxe et d’encodage du parseur utilisent actuellement la réponse HTML par défaut d’Express, quel que soit le format de sortie choisi.",
+    "Un JSON invalide renvoie 400. Les erreurs de l’API utilisent le format choisi : texte brut ou JSON.",
   method: "Méthode",
   body: "Corps de la requête",
   file: "Fichier",
@@ -45,9 +49,7 @@ export const fr: MessageDictionary = {
   description: "Description",
   required: "obligatoire",
   headerName: "[nom de l’en-tête]",
-  fieldV4: "IPv4 ; null si inconnue.",
-  fieldV6: "IPv6 ; null si inconnue.",
-  fieldIp: "Adresse IP ; null si inconnue.",
+  fieldIp: "Adresse IP ; null si la famille d’adresses ne correspond pas.",
   fieldMethod: "La méthode HTTP de la requête.",
   fieldError: "Description de l’erreur.",
   fieldLimit: "Taille maximale du corps en octets.",
@@ -64,9 +66,9 @@ export const fr: MessageDictionary = {
   headersResponse:
     "En-têtes de la requête entrante. Les noms et les valeurs dépendent du client.",
   ipResponse:
-    "L’adresse de connexion du client. Cet exemple utilise une IP réservée à la documentation. Une famille d’adresses inconnue est représentée par unknown en texte et null en JSON.",
+    "L’adresse de connexion du client. Cet exemple utilise une IP réservée à la documentation. Si la famille d’adresses ne correspond pas au point de terminaison, la réponse est unknown en texte et null en JSON.",
   formatError:
-    "Valeur de format invalide, par exemple ?format=xml. Cette erreur est toujours renvoyée en texte brut.",
+    "Format invalide, par exemple ?format=xml. Cette erreur est toujours renvoyée en texte brut.",
   limitError: "Le corps dépasse 102 400 octets (100 Kio).",
   contentTypeError:
     "Content-Type non pris en charge ou absent pour un corps non vide.",

@@ -59,17 +59,19 @@ export function responsesFor(
       },
     };
   } else {
-    const both = path === "/v1/ip";
     const ip = path.endsWith("/v6") ? "2001:db8::1" : "192.0.2.1";
     success = {
       status: 200,
       label: "OK",
-      description: t.ipResponse,
-      text: both ? "v4: 192.0.2.1\nv6: unknown" : ip,
-      json: both ? { v4: ip, v6: null } : { ip },
-      schema: objectSchema(
-        both ? { v4: nullableIp, v6: nullableIp } : { ip: nullableIp },
-      ),
+      description: path === "/v1/ip" ? t.ipCurrent : t.ipResponse,
+      text: ip,
+      json: { ip },
+      schema: objectSchema({
+        ip:
+          path === "/v1/ip"
+            ? { type: "string", description: t.ipCurrent }
+            : nullableIp,
+      }),
     };
   }
 
@@ -79,7 +81,7 @@ export function responsesFor(
       status: 400,
       label: "Bad Request",
       description: t.formatError,
-      text: "Unsupported format: xml\nValid values: text, json",
+      text: "Unsupported format: xml. Valid values: text, json",
       json: null,
       alwaysText: true,
     },

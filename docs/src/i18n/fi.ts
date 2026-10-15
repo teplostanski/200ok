@@ -4,8 +4,12 @@ export const fi: MessageDictionary = {
   inDevelopment: "Kehitteillä",
   docTitle: "API-dokumentaatio",
   metaDescription:
-    "200 OK - testirajapinta kehitykseen ja virheenjäljitykseen.",
-  hero: "Testirajapinta kehitykseen ja virheenjäljitykseen.",
+    "200 OK — HTTP-pyyntöjen ja -vastausten palvelu. Tutki pyyntöjä, testaa vastauksia ja selvitä integraatioiden virheitä.",
+  hero: "HTTP-pyyntöjen ja -vastausten palvelu",
+  heroSubtitle:
+    "Tutki pyyntöjä, testaa vastauksia ja selvitä integraatioiden virheitä.",
+  randDescription:
+    "Satunnaisten merkkijonojen ja tunnisteiden luomiseen kokeile palvelua",
   reference: "API-DOKUMENTAATIO",
   resources: "Resurssit",
   notFound: "Sivua ei löytynyt",
@@ -13,7 +17,7 @@ export const fi: MessageDictionary = {
   github: "GitHub",
   statusCodes: "HTTP-tilakoodit",
   endpoints: "Päätepisteet",
-  ipBoth: "Asiakkaan IPv4- ja IPv6-osoitteet.",
+  ipCurrent: "Asiakkaan IP-osoite (IPv4 tai IPv6).",
   ipv4: "Asiakkaan IPv4-osoite.",
   ipv6: "Asiakkaan IPv6-osoite.",
   echoDescription:
@@ -28,7 +32,7 @@ export const fi: MessageDictionary = {
   example: "Esimerkki",
   schema: "Skeema",
   parserNote:
-    "Virheellinen JSON palauttaa myös koodin 400. Jäsentimen syntaksi- ja merkistökoodausvirheet käyttävät toistaiseksi Expressin oletusarvoista HTML-vastausta valitusta vastausmuodosta riippumatta.",
+    "Virheellinen JSON palauttaa koodin 400. API-virheet palautetaan valitussa muodossa: pelkkänä tekstinä tai JSONina.",
   method: "Metodi",
   body: "Pyynnön sisältö",
   file: "Tiedosto",
@@ -45,9 +49,7 @@ export const fi: MessageDictionary = {
   description: "Kuvaus",
   required: "pakollinen",
   headerName: "[otsakkeen nimi]",
-  fieldV4: "IPv4; null, jos tuntematon.",
-  fieldV6: "IPv6; null, jos tuntematon.",
-  fieldIp: "IP-osoite; null, jos tuntematon.",
+  fieldIp: "IP-osoite; null, jos osoiteperhe ei vastaa pyydettyä.",
   fieldMethod: "Pyynnön HTTP-metodi.",
   fieldError: "Virheen kuvaus.",
   fieldLimit: "Pyynnön sisällön enimmäiskoko tavuina.",
@@ -64,9 +66,9 @@ export const fi: MessageDictionary = {
   headersResponse:
     "Saapuvan pyynnön otsakkeet. Nimet ja arvot riippuvat asiakkaasta.",
   ipResponse:
-    "Asiakasyhteyden osoite. Esimerkissä käytetään dokumentaatioon varattua IP-osoitetta. Tuntematon osoiteperhe esitetään tekstissä arvona unknown ja JSONissa arvona null.",
+    "Asiakasyhteyden osoite. Esimerkissä käytetään dokumentaatioon varattua IP-osoitetta. Jos osoiteperhe ei vastaa päätepistettä, vastaus on tekstissä unknown ja JSONissa null.",
   formatError:
-    "Virheellinen format-arvo, esimerkiksi ?format=xml. Tämä virhe palautetaan aina pelkkänä tekstinä.",
+    "Virheellinen format, esimerkiksi ?format=xml. Tämä virhe palautetaan aina pelkkänä tekstinä.",
   limitError: "Sisältö ylittää 102 400 tavua (100 KiB).",
   contentTypeError:
     "Content-Type puuttuu tai sitä ei tueta, vaikka pyynnössä on sisältöä.",

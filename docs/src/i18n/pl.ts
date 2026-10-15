@@ -3,8 +3,12 @@ import type { MessageDictionary } from "./messages";
 export const pl: MessageDictionary = {
   inDevelopment: "W przygotowaniu",
   docTitle: "Dokumentacja API",
-  metaDescription: "200 OK - testowe API do programowania i debugowania.",
-  hero: "Testowe API do programowania i debugowania.",
+  metaDescription:
+    "200 OK — Serwis żądań i odpowiedzi HTTP. Analizuj żądania, testuj odpowiedzi i debuguj integracje.",
+  hero: "Serwis żądań i odpowiedzi HTTP",
+  heroSubtitle: "Analizuj żądania, testuj odpowiedzi i debuguj integracje.",
+  randDescription:
+    "Aby generować losowe ciągi znaków i identyfikatory, skorzystaj z",
   reference: "DOKUMENTACJA API",
   resources: "Zasoby",
   notFound: "Nie znaleziono strony",
@@ -12,7 +16,7 @@ export const pl: MessageDictionary = {
   github: "GitHub",
   statusCodes: "Kody statusu HTTP",
   endpoints: "Endpointy",
-  ipBoth: "Adresy IPv4 i IPv6 klienta.",
+  ipCurrent: "Adres IP klienta (IPv4 lub IPv6).",
   ipv4: "Adres IPv4 klienta.",
   ipv6: "Adres IPv6 klienta.",
   echoDescription:
@@ -27,7 +31,7 @@ export const pl: MessageDictionary = {
   example: "Przykład",
   schema: "Schemat",
   parserNote:
-    "Nieprawidłowy JSON również zwraca 400. Błędy składni i kodowania parsera obecnie zwracają domyślną odpowiedź HTML Express, niezależnie od wybranego formatu.",
+    "Nieprawidłowy JSON zwraca 400. Błędy API używają wybranego formatu: zwykłego tekstu lub JSON.",
   method: "Metoda",
   body: "Treść żądania",
   file: "Plik",
@@ -43,9 +47,7 @@ export const pl: MessageDictionary = {
   description: "Opis",
   required: "wymagane",
   headerName: "[nazwa nagłówka]",
-  fieldV4: "IPv4; null, jeśli nieznany.",
-  fieldV6: "IPv6; null, jeśli nieznany.",
-  fieldIp: "Adres IP; null, jeśli nieznany.",
+  fieldIp: "Adres IP; null, jeśli rodzina adresów nie odpowiada żądanej.",
   fieldMethod: "Metoda HTTP żądania.",
   fieldError: "Opis błędu.",
   fieldLimit: "Maksymalny rozmiar treści w bajtach.",
@@ -62,7 +64,7 @@ export const pl: MessageDictionary = {
   headersResponse:
     "Nagłówki przychodzącego żądania. Nazwy i wartości zależą od klienta.",
   ipResponse:
-    "Adres połączenia klienta. Przykład używa adresu IP przeznaczonego do dokumentacji. Nieznana rodzina adresów jest oznaczona jako unknown w tekście i null w JSON.",
+    "Adres połączenia klienta. Przykład używa adresu IP przeznaczonego do dokumentacji. Jeśli rodzina adresów nie odpowiada endpointowi, odpowiedź to unknown w tekście i null w JSON.",
   formatError:
     "Nieprawidłowy format, np. ?format=xml. Ten błąd jest zawsze zwracany jako zwykły tekst.",
   limitError: "Treść przekracza 102 400 bajtów (100 KiB).",
