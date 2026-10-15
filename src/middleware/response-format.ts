@@ -16,7 +16,7 @@ export const responseFormat: RequestHandler = (req, res, next) => {
     res
       .status(400)
       .type("text/plain")
-      .send(`${message}\nValid values: ${FORMATS.plainText}, ${FORMATS.json}`);
+      .send(`${message}. Valid values: ${FORMATS.plainText}, ${FORMATS.json}`);
     return;
   }
 

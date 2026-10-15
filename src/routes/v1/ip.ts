@@ -1,26 +1,22 @@
 import { Router } from "express";
 import { FORMATS, ROUTES } from "../../constants.js";
 import { getClientAddresses } from "../../utils/client-addresses.js";
+import { getClientIp } from "../../utils/client-ip.js";
 
 export const ipRouter = Router();
 
 ipRouter.get(ROUTES.ip, (req, res) => {
-  const ip = req.ip ?? req.socket.remoteAddress;
-  const addresses = getClientAddresses(ip);
+  const ip = getClientIp(req);
 
   if (res.locals.format === FORMATS.json) {
-    res.json(addresses);
+    res.json({ ip });
   } else {
-    res
-      .type("text/plain")
-      .send(
-        `v4: ${addresses.v4 ?? "unknown"}\nv6: ${addresses.v6 ?? "unknown"}`,
-      );
+    res.type("text/plain").send(ip);
   }
 });
 
 ipRouter.get(ROUTES.ipV4, (req, res) => {
-  const ip = req.ip ?? req.socket.remoteAddress;
+  const ip = getClientIp(req);
   const addresses = getClientAddresses(ip);
 
   if (res.locals.format === FORMATS.json) {
@@ -31,7 +27,7 @@ ipRouter.get(ROUTES.ipV4, (req, res) => {
 });
 
 ipRouter.get(ROUTES.ipV6, (req, res) => {
-  const ip = req.ip ?? req.socket.remoteAddress;
+  const ip = getClientIp(req);
   const addresses = getClientAddresses(ip);
 
   if (res.locals.format === FORMATS.json) {

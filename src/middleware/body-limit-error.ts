@@ -12,10 +12,7 @@ export const bodyLimitError: ErrorRequestHandler = (err, _req, res, next) => {
   res.status(413);
 
   if (res.locals.format === FORMATS.json) {
-    res.json({
-      error: ERROR_MESSAGE,
-      limitBytes: BODY_LIMIT_BYTES,
-    });
+    res.json({ error: ERROR_MESSAGE, limitBytes: BODY_LIMIT_BYTES });
   } else {
     res.type("text/plain").send(ERROR_MESSAGE);
   }
