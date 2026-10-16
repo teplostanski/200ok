@@ -7,24 +7,29 @@ export function requestExamples(
   locale: Locale = "en",
 ): { label: string; command: string }[] {
   const t = messages[locale];
-  const url = `${origin}${path}${format === "json" ? "?format=json" : ""}`;
+  const host =
+    origin === "https://200ok.hacks.run"
+      ? "200ok.hacks.run"
+      : origin.replace(/^http:\/\//, "");
+  const url = `${host}${path}${format === "json" ? "?format=json" : ""}`;
+  const target = format === "json" ? `'${url}'` : url;
   if (path === "/v1/echo") {
     return [
       {
         label: "POST · JSON",
-        command: `curl '${url}' \\\n  -H 'Content-Type: application/json' \\\n  --data-binary '{"name":"Bob"}'`,
+        command: `curl ${target} \\\n  -H 'Content-Type: application/json' \\\n  --data-binary '{"name":"Bob"}'`,
       },
       {
         label: `POST · ${t.plainText}`,
-        command: `curl '${url}' \\\n  -H 'Content-Type: text/plain' \\\n  --data-binary 'Hello!'`,
+        command: `curl ${target} \\\n  -H 'Content-Type: text/plain' \\\n  --data-binary 'Hello!'`,
       },
       {
         label: `POST · ${t.form}`,
-        command: `curl '${url}' \\\n  --data-urlencode 'name=Bob' \\\n  --data-urlencode 'age=42'`,
+        command: `curl ${target} \\\n  --data-urlencode 'name=Bob' \\\n  --data-urlencode 'age=42'`,
       },
       {
         label: `POST · ${t.binaryFile}`,
-        command: `curl '${url}' \\\n  -H 'Content-Type: application/octet-stream' \\\n  --data-binary '@./file.bin'`,
+        command: `curl ${target} \\\n  -H 'Content-Type: application/octet-stream' \\\n  --data-binary '@./file.bin'`,
       },
     ];
   }
@@ -32,9 +37,9 @@ export function requestExamples(
     return [
       {
         label: t.customHeader,
-        command: `curl '${url}' \\\n  -H 'X-Test: hello'`,
+        command: `curl ${target} \\\n  -H 'X-Test: hello'`,
       },
     ];
   }
-  return [{ label: "GET", command: `curl '${url}'` }];
+  return [{ label: "GET", command: `curl ${target}` }];
 }
