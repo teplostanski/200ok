@@ -25,12 +25,17 @@ Open [localhost:3000](http://localhost:3000). Optional environment settings are 
 
 For development, run `pnpm dev` to start both the API and Astro, then open the docs URL printed in the terminal (usually http://localhost:4321). `pnpm dev:docs` is an alias for the same command.
 
-The dev command watches the API sources and restarts both servers when they change. Listhen selects an available port, preferring 3000 through 3100, and passes the address directly to the Astro proxy. Set `PORT` to require a specific API port. Production (`pnpm start`) uses a fixed port, defaulting to 3000.
+The dev command watches API sources and restarts both servers. Defaults live in
+`.env.development` and `.env.production`; `.env` overrides them, and process
+variables take priority. `HOST` / `PORT` configure the API; `DOCS_HOST` /
+`DOCS_PORT` configure Astro. Occupied ports fail startup rather than silently changing.
+`TRUST_PROXY=` disables proxy trust. Set trusted proxy IPs/subnets explicitly on the VPS.
+`BIND_HOST` / `PUBLISHED_PORT` control Docker's published address and port.
 
-Or build and run with Docker:
+Or build and run with Docker (create `.env` with `touch .env` first):
 
 ```sh
-docker compose up -d --build --wait
+docker compose --env-file .env.production --env-file .env up -d --build --wait
 ```
 
 ## Request limits and checks
@@ -58,8 +63,9 @@ For local Docker testing:
 docker run --rm -e BODY_LIMIT_BYTES=1048576 -e JSON_MAX_DEPTH=256 -p 3000:3000 ghcr.io/teplostanski/200ok:latest
 ```
 
-With production Compose, set `BODY_LIMIT_BYTES` and `JSON_MAX_DEPTH` in the VPS `.env` file and recreate the
-container. Defaults are 102400 bytes and 64 levels when omitted. These settings require an image built from
+Production Compose loads versioned defaults from `.env.production`, then VPS overrides
+from `.env`. Set `BODY_LIMIT_BYTES` and `JSON_MAX_DEPTH` in the VPS `.env` and recreate
+the container to override the defaults. These settings require an image built from
 this version of the source; an older published image may not support these settings.
 
 Run `pnpm test` for HTTP security regression tests, `pnpm typecheck` for type checks,
@@ -97,6 +103,7 @@ Copy [compose.production.yaml](compose.production.yaml) to that directory as `co
 
 ```sh
 scp -P SSH_PORT compose.production.yaml SSH_USER@VPS_ADDRESS:/ABSOLUTE/DEPLOY/PATH/compose.yaml
+scp -P SSH_PORT .env.production SSH_USER@VPS_ADDRESS:/ABSOLUTE/DEPLOY/PATH/.env.production
 ```
 
 Create `.env` in the deployment directory:
@@ -110,15 +117,15 @@ The initial `TRUST_PROXY` value is temporary. Create the container and inspect i
 
 ```sh
 chmod 600 .env
-docker compose pull app
-docker compose create app
+docker compose --env-file .env.production --env-file .env pull app
+docker compose --env-file .env.production --env-file .env create app
 docker network inspect http-server_default --format '{{(index .IPAM.Config 0).Gateway}}'
 ```
 
 Replace `TRUST_PROXY` in `.env` with the returned gateway address, then start:
 
 ```sh
-docker compose up -d --wait --wait-timeout 90
+docker compose --env-file .env.production --env-file .env up -d --wait --wait-timeout 90
 curl -fsS http://127.0.0.1:3000/health
 ```
 
@@ -166,40 +173,40 @@ For port 22, use `VPS_ADDRESS` without brackets or a port. Copy one complete key
 
 Run **Actions → CI → Run workflow** again. Subsequent pushes to `main` build and deploy automatically; pull requests only run checks.
 
-The workflow replaces the server's `compose.yaml` and saves the deployed image tag in `.env`, preserving other environment settings. A deployment can briefly interrupt service. Failed deployments do not roll back automatically.
+The workflow replaces the server's `compose.yaml` and `.env.production` and saves the deployed image tag in `.env`, preserving other environment settings. A deployment can briefly interrupt service. Failed deployments do not roll back automatically.
 
 ### Updates and rollback
 
 To deploy a specific version manually, set `APP_IMAGE` in the VPS `.env` to `ghcr.io/YOUR_OWNER/YOUR_REPOSITORY:sha-FULL_COMMIT_SHA`, then run:
 
 ```sh
-docker compose pull app
-docker compose up -d --wait --wait-timeout 90
+docker compose --env-file .env.production --env-file .env pull app
+docker compose --env-file .env.production --env-file .env up -d --wait --wait-timeout 90
 ```
 
-Use a previous tag to roll back. Avoid `docker compose down` during updates: recreating the network may change its gateway and require updating `TRUST_PROXY`.
+Use a previous tag to roll back. Avoid `docker compose --env-file .env.production --env-file .env down` during updates: recreating the network may change its gateway and require updating `TRUST_PROXY`.
 
 ## Troubleshooting
 
 Run on the VPS from the deployment directory:
 
 ```sh
-docker compose ps
-docker compose logs --tail=50 app
+docker compose --env-file .env.production --env-file .env ps
+docker compose --env-file .env.production --env-file .env logs --tail=50 app
 curl -i http://127.0.0.1:3000/health
 sudo journalctl -u caddy -n 50 --no-pager
 ```
 
-| Problem                              | Check                                                                                                                     |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| Missing `APP_IMAGE` or `TRUST_PROXY` | Set both in the deployment directory's `.env`.                                                                            |
-| SSH authentication fails             | Check the user, port, private key, and `authorized_keys`. The workflow requires a key without a passphrase.               |
-| Host-key verification fails          | Check `VPS_KNOWN_HOSTS` against the configured host and port. Verify any changed fingerprint before replacing the record. |
-| Image pull denied                    | Check GHCR visibility or log in as the deployment user with package read access.                                          |
-| Docker permission denied             | The SSH user must be able to run Docker without `sudo`.                                                                   |
-| HTTPS returns `502`                  | Check container health, the Caddy upstream, and both services' logs.                                                      |
-| Client IP is incorrect               | Check `TRUST_PROXY` against the Docker network gateway and recreate the container after changing `.env`.                  |
-| SSH connection times out             | Check the address, port, firewall, and access from GitHub-hosted runners.                                                 |
+| Problem                      | Check                                                                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Missing environment settings | Load `.env.production` and `.env` with `--env-file`; set `APP_IMAGE` in `.env`.                                           |
+| SSH authentication fails     | Check the user, port, private key, and `authorized_keys`. The workflow requires a key without a passphrase.               |
+| Host-key verification fails  | Check `VPS_KNOWN_HOSTS` against the configured host and port. Verify any changed fingerprint before replacing the record. |
+| Image pull denied            | Check GHCR visibility or log in as the deployment user with package read access.                                          |
+| Docker permission denied     | The SSH user must be able to run Docker without `sudo`.                                                                   |
+| HTTPS returns `502`          | Check container health, the Caddy upstream, and both services' logs.                                                      |
+| Client IP is incorrect       | Check `TRUST_PROXY` against the Docker network gateway and recreate the container after changing `.env`.                  |
+| SSH connection times out     | Check the address, port, firewall, and access from GitHub-hosted runners.                                                 |
 
 After fixing a deployment issue, use **Re-run failed jobs** in GitHub Actions.
 
@@ -212,28 +219,25 @@ After fixing a deployment issue, use **Re-run failed jobs** in GitHub Actions.
 
 ### Base URL
 
-Set `BASE_URL=https://api.example.com` in the root `.env` file to configure the
-origin for API documentation links and documentation builds. Use an HTTP(S)
-origin with no path, query, fragment or credentials.
-
-Without `BASE_URL`, API links use the request origin; during `pnpm dev`, they
-point to the actual Astro development port. Building static documentation requires
-an explicit `BASE_URL`. No deployment domain is hardcoded in application code.
-
-`docker compose up -d --build` reads `BASE_URL` from `.env` and passes it as a build
-argument. Docker stores that value in the image environment, so the build and
-running API share one setting. Alternatively, pass it once when building manually:
+Set `BASE_URL` in the versioned `.env.production` file. Documentation builds,
+GitHub Actions and Docker use this file; no GitHub variable or build argument is
+needed. For self-hosting, change the URL before building your image:
 
 ```sh
-docker build --build-arg BASE_URL=https://api.example.com -t 200ok-local .
+docker build -t 200ok-local .
 docker run --rm -p 3000:3000 200ok-local
 ```
 
-For published images, set the GitHub Actions repository variable `BASE_URL`.
-Production Compose uses the value already stored in the image.
-Canonical URLs, Markdown and `llms.txt` are generated at build time: changing the
-deployment domain requires rebuilding the image. Overriding only the runtime
-environment does not rewrite static documentation.
+Use an HTTP(S) origin without a path, query, fragment or credentials. Explicit
+environment values override the file. Documentation builds also read local `.env`
+overrides. Development does not load `.env.production`: API links use the request
+origin or the actual Astro development port unless a local `BASE_URL` is set.
+
+The image includes `.env.production` and loads it when starting Node. Production
+Compose loads the same defaults followed by VPS-specific `.env` overrides.
+Canonical URLs, Markdown and `llms.txt` are generated at build time, so changing
+the domain requires rebuilding the image. A runtime override alone does not
+rewrite static documentation.
 
 ## Automated dependency updates
 

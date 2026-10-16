@@ -2,7 +2,11 @@
 set -euo pipefail
 
 image=${1:?Provide the image to test}
-container=$(docker run --detach "$image")
+run_args=()
+if [ -n "${2:-}" ]; then
+  run_args+=(--env "PORT=$2")
+fi
+container=$(docker run --detach "${run_args[@]}" "$image")
 cleanup() {
   result=$?
   if [ "$result" -ne 0 ]; then
@@ -15,7 +19,7 @@ trap cleanup EXIT
 
 ready=false
 for attempt in {1..30}; do
-  if docker exec "$container" node -e "fetch('http://127.0.0.1:3000/health', { signal: AbortSignal.timeout(2000) }).then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"; then
+  if docker exec "$container" node --env-file=.env.production -e "fetch('http://127.0.0.1:' + process.env.PORT + '/health', { signal: AbortSignal.timeout(2000) }).then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"; then
     ready=true
     break
   fi
@@ -26,9 +30,10 @@ if [ "$ready" != true ]; then
   exit 1
 fi
 
-docker exec --interactive "$container" node --input-type=module <<'JS'
+docker exec --interactive "$container" node --env-file=.env.production --input-type=module <<'JS'
 import assert from 'node:assert/strict'
-const origin = 'http://127.0.0.1:3000'
+assert.ok(process.env.PORT, 'Container must define PORT')
+const origin = `http://127.0.0.1:${process.env.PORT}`
 for (const path of ['/', '/ru/', '/status-codes', '/index.md', '/ru/index.md', '/llms.txt', '/llms-full.txt']) {
   const response = await fetch(`${origin}${path}`, { signal: AbortSignal.timeout(10000) })
   assert.equal(response.status, 200, path)

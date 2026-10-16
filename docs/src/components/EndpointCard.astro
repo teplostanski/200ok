@@ -124,7 +124,7 @@ const initialBody = JSON.stringify({ name: 'Bob' })
         requestExamples(
           isStatus ? '/status/200' : path,
           'text',
-          import.meta.env.PROD ? Astro.site?.origin : Astro.url.origin,
+          import.meta.env.PROD ? (Astro.site?.origin ?? Astro.url.origin) : Astro.url.origin,
           locale,
         ).map(({ label, command }, index) => (
           <div>

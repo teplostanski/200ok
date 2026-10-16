@@ -1,6 +1,7 @@
 import type { RequestHandler } from 'express'
 import { BASE_URL } from '../base-url.js'
 import { JSON_MAX_DEPTH } from '../constants.js'
+import { PORT } from '../runtime-config.js'
 import { send } from '../utils/send.js'
 
 export const jsonDepthLimit: RequestHandler = (req, res, next) => {
@@ -18,7 +19,7 @@ export const jsonDepthLimit: RequestHandler = (req, res, next) => {
         BASE_URL ?? req.app.locals.documentationOrigin ?? `${req.protocol}://${req.get('host')}`
       const documentation = new URL('/#run-locally', origin).href
       const exampleDepth = Math.min(512, Math.max(256, JSON_MAX_DEPTH * 2))
-      const localCommand = `docker run --rm -e JSON_MAX_DEPTH=${exampleDepth} -p 3000:3000 ghcr.io/teplostanski/200ok:latest`
+      const localCommand = `docker run --rm -e JSON_MAX_DEPTH=${exampleDepth} -e PORT=${PORT} -p ${PORT}:${PORT} ghcr.io/teplostanski/200ok:latest`
       send({
         res,
         status: 400,

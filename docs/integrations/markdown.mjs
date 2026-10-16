@@ -88,13 +88,6 @@ export default function markdownDocumentation() {
   return {
     name: 'markdown-documentation',
     hooks: {
-      'astro:config:setup': ({ command, config }) => {
-        if (command === 'build' && !config.site) {
-          throw new Error(
-            'Set BASE_URL in the root .env file or environment before building documentation',
-          )
-        }
-      },
       'astro:config:done': ({ config }) => {
         site = config.site ? new URL(config.site).origin : undefined
       },

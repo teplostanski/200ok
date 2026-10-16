@@ -10,3 +10,4 @@
 !docs/**
 docs/.astro/
 docs/node_modules/
+!.env.production

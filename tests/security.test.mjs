@@ -1,3 +1,4 @@
+import './environment.mjs'
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
 import { once } from 'node:events'
@@ -6,6 +7,7 @@ import { gzipSync } from 'node:zlib'
 
 process.env.JSON_MAX_DEPTH = '64'
 delete process.env.BASE_URL
+process.env.TRUST_PROXY = ''
 const { app } = await import('../dist/app.js')
 const { BODY_LIMIT_BYTES, JSON_MAX_DEPTH } = await import('../dist/constants.js')
 
@@ -97,9 +99,10 @@ test('JSON_MAX_DEPTH accepts supported values and rejects invalid configuration 
       [
         '--input-type=module',
         '-e',
-        "import { JSON_MAX_DEPTH } from './dist/constants.js'; console.log(JSON_MAX_DEPTH)",
+        "import { JSON_MAX_DEPTH } from './dist/constants.js'; process.stdout.write(String(JSON_MAX_DEPTH))",
       ],
       {
+        cwd: new URL('../', import.meta.url),
         encoding: 'utf8',
         env: { ...process.env, JSON_MAX_DEPTH: value },
       },
@@ -112,6 +115,7 @@ test('JSON_MAX_DEPTH accepts supported values and rejects invalid configuration 
       process.execPath,
       ['--input-type=module', '-e', "import './dist/constants.js'"],
       {
+        cwd: new URL('../', import.meta.url),
         encoding: 'utf8',
         env: { ...process.env, JSON_MAX_DEPTH: value },
       },
@@ -128,7 +132,7 @@ test('nesting errors include the active limit and local testing instructions', a
   const error = await response.json()
   assert.equal(error.limitDepth, JSON_MAX_DEPTH)
   assert.equal(error.documentation, `${origin}/#run-locally`)
-  assert.match(error.localCommand, /docker run --rm -e JSON_MAX_DEPTH=256 -p 3000:3000/)
+  assert.match(error.localCommand, /docker run --rm -e JSON_MAX_DEPTH=256 -e PORT=\d+ -p \d+:\d+/)
 })
 
 test('BODY_LIMIT_BYTES validates configuration at startup', () => {
@@ -149,9 +153,13 @@ test('BODY_LIMIT_BYTES validates configuration at startup', () => {
       [
         '--input-type=module',
         '-e',
-        "import { BODY_LIMIT_BYTES } from './dist/constants.js'; console.log(BODY_LIMIT_BYTES)",
+        "import { BODY_LIMIT_BYTES } from './dist/constants.js'; process.stdout.write(String(BODY_LIMIT_BYTES))",
       ],
-      { encoding: 'utf8', env: { ...process.env, BODY_LIMIT_BYTES: value } },
+      {
+        cwd: new URL('../', import.meta.url),
+        encoding: 'utf8',
+        env: { ...process.env, BODY_LIMIT_BYTES: value },
+      },
     )
     if (['1', '102400', '1048576'].includes(value)) {
       assert.equal(result.status, 0, result.stderr)

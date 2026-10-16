@@ -1,8 +1,6 @@
 # syntax=docker/dockerfile:1
 
 FROM node:24-bookworm-slim AS base
-ARG BASE_URL
-ENV BASE_URL=${BASE_URL}
 WORKDIR /app
 
 FROM base AS dependencies
@@ -13,6 +11,7 @@ RUN npm install --global "$(node -p 'require("./package.json").packageManager')"
 
 FROM dependencies AS build
 RUN HUSKY=0 pnpm install --frozen-lockfile
+COPY .env.production ./
 COPY tsconfig.json tsconfig.build.json ./
 COPY src ./src
 COPY docs ./docs
@@ -24,12 +23,10 @@ FROM dependencies AS production-dependencies
 RUN pnpm install --frozen-lockfile --prod --ignore-scripts
 
 FROM base AS runtime
-ENV NODE_ENV=production HOST=0.0.0.0 PORT=3000
 COPY --from=production-dependencies /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
-COPY package.json ./package.json
+COPY package.json .env.production ./
 USER node
-EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD node -e "fetch('http://127.0.0.1:' + process.env.PORT + '/health', { signal: AbortSignal.timeout(3000) }).then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
-CMD ["node", "--enable-source-maps", "dist/server.js"]
+  CMD node --env-file=.env.production -e "fetch('http://127.0.0.1:' + process.env.PORT + '/health', { signal: AbortSignal.timeout(3000) }).then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
+CMD ["node", "--env-file=.env.production", "--enable-source-maps", "dist/server.js"]

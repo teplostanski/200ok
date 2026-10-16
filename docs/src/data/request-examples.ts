@@ -3,7 +3,7 @@ import { type Locale, messages } from '../i18n/messages'
 export const requestExamples = (
   path: string,
   format: string,
-  origin = 'http://localhost:3000',
+  origin: string,
   locale: Locale = 'en',
 ): { label: string; command: string }[] => {
   const t = messages[locale]

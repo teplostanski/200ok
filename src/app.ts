@@ -6,14 +6,13 @@ import { documentation } from './middleware/documentation.js'
 import { responseFormat } from './middleware/response-format.js'
 import { healthRouter } from './routes/health.js'
 import { v1Router } from './routes/v1/index.js'
+import { TRUST_PROXY } from './runtime-config.js'
 
 export const app = express()
 
 app.disable('x-powered-by')
 
-if (process.env.TRUST_PROXY?.trim()) {
-  app.set('trust proxy', process.env.TRUST_PROXY)
-}
+app.set('trust proxy', TRUST_PROXY || false)
 
 app.use((_req, res, next) => {
   res.set('Cache-Control', 'no-store')

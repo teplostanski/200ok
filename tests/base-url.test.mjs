@@ -1,3 +1,4 @@
+import './environment.mjs'
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import { parseBaseUrl } from '../dist/base-url.js'
@@ -53,6 +54,7 @@ test('API links prefer BASE_URL, then the dev UI, then the request origin', asyn
     `,
       ],
       {
+        cwd: new URL('../', import.meta.url),
         env: { ...process.env, BASE_URL: configured, JSON_MAX_DEPTH: '1' },
         encoding: 'utf8',
       },
