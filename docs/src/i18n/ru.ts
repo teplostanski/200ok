@@ -15,7 +15,7 @@ export const ru: MessageDictionary = {
   notFound: "Страница не найдена",
   backToDocs: "К документации",
   github: "GitHub",
-  statusCodes: "Коды состояния HTTP",
+  statusCodes: "Коды статусов HTTP",
   endpoints: "Эндпоинты",
   ipCurrent: "IP-адрес клиента (IPv4 или IPv6).",
   ipv4: "IPv4 адрес клиента.",
