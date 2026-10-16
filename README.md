@@ -2,7 +2,14 @@
 
 [![Service status][service-status-badge]][service-url]
 
+**HTTP Request & Response Service**
+
+Inspect requests, test responses, and debug integrations.
+
 [API documentation](https://200ok.hacks.run/)
+
+> [!NOTE]
+> For random strings and IDs, try [rand.hacks.run](https://rand.hacks.run/).
 
 ## Local setup
 

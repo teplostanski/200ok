@@ -16,6 +16,12 @@ if (process.env.TRUST_PROXY?.trim()) {
 
 app.use((_req, res, next) => {
   res.set("Cache-Control", "no-store");
+  res.set("x-glhf", "teplostanski coded this.");
+  next();
+});
+
+app.all(`${ROUTES.apiV1}${ROUTES.headers}`, (_req, res, next) => {
+  res.removeHeader("x-glhf");
   next();
 });
 
