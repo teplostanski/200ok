@@ -24,6 +24,8 @@ export const ru: MessageDictionary = {
     "Возвращает метод и тело запроса. Принимает JSON, обычный текст, простые формы и бинарные данные.",
   headersDescription: "Заголовки входящего запроса.",
   output: "Формат ответа",
+  formatNote:
+    "По умолчанию и при `?format=text` ответ возвращается обычным текстом. Для JSON используйте `?json` или `?format=json`. Если указан `format`, он имеет приоритет над `?json`.",
   plainText: "Обычный текст",
   httpMethods: "HTTP-методы",
   details: "Подробнее",

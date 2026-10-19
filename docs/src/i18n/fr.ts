@@ -24,6 +24,8 @@ export const fr: MessageDictionary = {
     "Renvoie la méthode et le corps de la requête. Accepte JSON, le texte brut, les données de formulaire simples et les données binaires.",
   headersDescription: "En-têtes de la requête entrante.",
   output: "Format de sortie",
+  formatNote:
+    "La réponse est en texte brut par défaut ou avec `?format=text`. Pour du JSON, utilisez `?json` ou `?format=json`. Si `format` est spécifié, il est prioritaire sur `?json`.",
   plainText: "Texte brut",
   httpMethods: "Méthodes HTTP",
   details: "Détails",

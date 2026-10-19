@@ -23,6 +23,8 @@ export const pl: MessageDictionary = {
     "Zwraca metodę i treść żądania. Obsługuje JSON, zwykły tekst, proste dane formularza i dane binarne.",
   headersDescription: "Nagłówki przychodzącego żądania.",
   output: "Format odpowiedzi",
+  formatNote:
+    "Domyślnie oraz przy `?format=text` odpowiedź jest zwracana jako zwykły tekst. Aby otrzymać JSON, użyj `?json` lub `?format=json`. Jeśli podano `format`, ma on pierwszeństwo przed `?json`.",
   plainText: "Zwykły tekst",
   httpMethods: "Metody HTTP",
   details: "Szczegóły",

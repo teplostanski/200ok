@@ -11,7 +11,7 @@ export function requestExamples(
     origin === "https://200ok.hacks.run"
       ? "200ok.hacks.run"
       : origin.replace(/^http:\/\//, "");
-  const url = `${host}${path}${format === "json" ? "?format=json" : ""}`;
+  const url = `${host}${path}${format === "json" ? "?json" : ""}`;
   const target = format === "json" ? `'${url}'` : url;
   if (path === "/v1/echo") {
     return [

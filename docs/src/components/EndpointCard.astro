@@ -198,8 +198,8 @@ const initialBody = JSON.stringify({ name: "Bob" });
     card.addEventListener("change", () => {
       updateCurlExamples();
       const format = selectedFormat();
-      link.setAttribute("href", format === "json" ? `${path}?format=json` : path);
-      query.textContent = format === "json" ? "?format=json" : "";
+      link.setAttribute("href", format === "json" ? `${path}?json` : path);
+      query.textContent = format === "json" ? "?json" : "";
       for (const panel of card.querySelectorAll<HTMLElement>(
         "[data-output-panel]",
       )) {

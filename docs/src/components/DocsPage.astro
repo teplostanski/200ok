@@ -67,6 +67,13 @@ const groups = [
     </div>
   </div>
 
+  <section aria-labelledby="response-format">
+    <h2 id="response-format">{t.output}</h2>
+    <p class="format-note">{t.formatNote.split("`").map((part, index) =>
+      index % 2 === 1 ? <code>{part}</code> : part
+    )}</p>
+  </section>
+
   <section aria-labelledby="endpoints">
     <h2 id="endpoints">{t.endpoints}</h2>
     {groups.map(({ title, id, endpoints }) => (
@@ -82,6 +89,14 @@ const groups = [
 </BaseLayout>
 
 <style>
+  .format-note code {
+    white-space: nowrap;
+    padding: 0.1em 0.3em;
+    border-radius: 4px;
+    background: var(--line-strong);
+    font-size: 0.9em;
+  }
+
   .rand-link {
     color: var(--accent);
   }

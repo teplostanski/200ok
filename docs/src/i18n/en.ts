@@ -20,6 +20,8 @@ export const en = {
     "Returns the request method and body. Accepts JSON, plain text, URL-encoded forms, and binary data.",
   headersDescription: "Incoming request headers.",
   output: "Output",
+  formatNote:
+    "Plain text is returned by default or with `?format=text`. Use `?json` or `?format=json` for JSON. If `format` is specified, it takes priority over `?json`.",
   plainText: "Plain text",
   httpMethods: "HTTP methods",
   details: "Details",

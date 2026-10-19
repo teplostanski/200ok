@@ -24,6 +24,8 @@ export const fi: MessageDictionary = {
     "Palauttaa pyynnön metodin ja sisällön. Hyväksyy JSONin, pelkän tekstin, yksinkertaiset lomaketiedot ja binääridatan.",
   headersDescription: "Saapuvan pyynnön otsakkeet.",
   output: "Vastausmuoto",
+  formatNote:
+    "Vastaus palautetaan oletuksena tekstinä, samoin parametrilla `?format=text`. JSON-muodon saat parametrilla `?json` tai `?format=json`. Jos `format` on määritetty, se on etusijalla `?json`-parametriin nähden.",
   plainText: "Pelkkä teksti",
   httpMethods: "HTTP-metodit",
   details: "Lisätiedot",

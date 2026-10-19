@@ -23,6 +23,8 @@ export const de: MessageDictionary = {
     "Gibt die Methode und den Inhalt der Anfrage zurück. Akzeptiert JSON, Klartext, einfache Formulardaten und Binärdaten.",
   headersDescription: "Header der eingehenden Anfrage.",
   output: "Ausgabe",
+  formatNote:
+    "Standardmäßig und mit `?format=text` wird Klartext zurückgegeben. Für JSON verwende `?json` oder `?format=json`. Wenn `format` angegeben ist, hat es Vorrang vor `?json`.",
   plainText: "Klartext",
   httpMethods: "HTTP-Methoden",
   details: "Details",
