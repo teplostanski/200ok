@@ -9,9 +9,12 @@ export const ROUTES = {
   headers: "/headers",
 } as const;
 
+export const ROOT_API_PATHS = [ROUTES.ip, ROUTES.echo, ROUTES.headers] as const;
+
 export const FORMATS = {
   plainText: "text",
   json: "json",
+  prettyJson: "pretty",
 } as const;
 
 export const BODY_LIMIT_BYTES = 102_400;

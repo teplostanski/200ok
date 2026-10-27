@@ -1,5 +1,6 @@
 import { type RequestHandler, raw, text, urlencoded } from "express";
 import { BODY_LIMIT_BYTES, FORMATS } from "../constants.js";
+import { sendJson } from "../utils/send-json.js";
 
 const validateContentType: RequestHandler = (req, res, next) => {
   const hasBody =
@@ -18,8 +19,11 @@ const validateContentType: RequestHandler = (req, res, next) => {
     const error =
       "Unsupported Content-Type. Supported: application/json, text/plain, application/x-www-form-urlencoded, application/octet-stream";
     res.status(415);
-    if (res.locals.format === FORMATS.json) {
-      res.json({ error });
+    if (
+      res.locals.format === FORMATS.json ||
+      res.locals.format === FORMATS.prettyJson
+    ) {
+      sendJson(res, { error });
     } else {
       res.type("text/plain").send(error);
     }

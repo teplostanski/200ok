@@ -1,13 +1,16 @@
 import { STATUS_CODES } from "node:http";
 import type { ErrorRequestHandler, RequestHandler } from "express";
-
 import { FORMATS } from "../constants.js";
+import { sendJson } from "../utils/send-json.js";
 
 export const apiNotFound: RequestHandler = (_req, res) => {
   res.status(404);
 
-  if (res.locals.format === FORMATS.json) {
-    res.json({ error: "Not Found" });
+  if (
+    res.locals.format === FORMATS.json ||
+    res.locals.format === FORMATS.prettyJson
+  ) {
+    sendJson(res, { error: "Not Found" });
   } else {
     res.type("text/plain").send("Not Found");
   }
@@ -30,8 +33,11 @@ export const apiError: ErrorRequestHandler = (err, _req, res, next) => {
 
   res.status(status);
 
-  if (res.locals.format === FORMATS.json) {
-    res.json({ error: message });
+  if (
+    res.locals.format === FORMATS.json ||
+    res.locals.format === FORMATS.prettyJson
+  ) {
+    sendJson(res, { error: message });
   } else {
     res.type("text/plain").send(message);
   }
