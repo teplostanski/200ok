@@ -2,8 +2,7 @@
 import plexMono from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url";
 import plexMonoSemibold from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2?url";
 import soraLatin from "@fontsource-variable/sora/files/sora-latin-wght-normal.woff2?url";
-import "../styles/fonts.css";
-import "../styles/global.css";
+import "../styles/site.css";
 
 import {
   defaultLocale,
@@ -35,6 +34,20 @@ const t = messages[locale];
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="color-scheme" content="light dark" />
+    <style is:inline>
+      html {
+        color-scheme: light;
+        background-color: #f3f5f7;
+        color: #152028;
+      }
+      @media (prefers-color-scheme: dark) {
+        html {
+          color-scheme: dark;
+          background-color: #0d1216;
+          color: #e7eef2;
+        }
+      }
+    </style>
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -54,7 +67,7 @@ const t = messages[locale];
       <a class="brand" href={localizedPath("/", locale)}>200 OK</a>
       <div class="header-tools">
         <span>API v1</span>
-        <select class="language-switch" aria-label={t.language} data-language-select>
+        <select class="select select-sm language-switch" aria-label={t.language} data-language-select>
           {localeCodes.map((code) => (
             <option value={code} lang={code} selected={locale === code}>{locales[code]}</option>
           ))}

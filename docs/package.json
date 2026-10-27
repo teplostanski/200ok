@@ -12,7 +12,10 @@
     "@astrojs/check": "^0.9.10",
     "@fontsource-variable/sora": "^5.3.0",
     "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.5",
+    "daisyui": "^5.7.50",
+    "tailwindcss": "^4.3.3",
     "typescript": "^6.0.0"
   }
 }

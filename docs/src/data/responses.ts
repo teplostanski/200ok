@@ -7,7 +7,6 @@ export interface ResponseExample {
   text: string;
   json: unknown;
   schema?: Record<string, unknown>;
-  alwaysText?: boolean;
 }
 
 const nullableIp = { type: ["string", "null"] };
@@ -25,7 +24,7 @@ export function responsesFor(
 ): ResponseExample[] {
   const t = messages[locale];
   let success: ResponseExample;
-  if (path === "/v1/echo") {
+  if (path === "/echo") {
     success = {
       status: 200,
       label: "OK",
@@ -40,7 +39,7 @@ export function responsesFor(
         },
       }),
     };
-  } else if (path === "/v1/headers") {
+  } else if (path === "/headers") {
     success = {
       status: 200,
       label: "OK",
@@ -63,31 +62,21 @@ export function responsesFor(
     success = {
       status: 200,
       label: "OK",
-      description: path === "/v1/ip" ? t.ipCurrent : t.ipResponse,
+      description: path === "/ip" ? t.ipCurrent : t.ipResponse,
       text: ip,
       json: { ip },
       schema: objectSchema({
         ip:
-          path === "/v1/ip"
+          path === "/ip"
             ? { type: "string", description: t.ipCurrent }
             : nullableIp,
       }),
     };
   }
 
-  const responses: ResponseExample[] = [
-    success,
-    {
-      status: 400,
-      label: "Bad Request",
-      description: t.formatError,
-      text: "Unsupported format: xml. Valid values: text, json",
-      json: null,
-      alwaysText: true,
-    },
-  ];
+  const responses: ResponseExample[] = [success];
 
-  if (path === "/v1/echo") {
+  if (path === "/echo") {
     const error = "Request body exceeds the size limit of 100 KiB";
     const unsupported =
       "Unsupported Content-Type. Supported: application/json, text/plain, application/x-www-form-urlencoded, application/octet-stream";

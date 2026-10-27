@@ -25,7 +25,7 @@ export const fr: MessageDictionary = {
   headersDescription: "En-têtes de la requête entrante.",
   output: "Format de sortie",
   formatNote:
-    "La réponse est en texte brut par défaut ou avec `?format=text`. Pour du JSON, utilisez `?json` ou `?format=json`. Si `format` est spécifié, il est prioritaire sur `?json`.",
+    "La réponse est en texte brut par défaut. Utilisez `?json` pour du JSON compact ou `?pretty` pour du JSON formaté. La présence du paramètre active le drapeau, quelle que soit sa valeur. `?pretty` est prioritaire sur `?json`.",
   plainText: "Texte brut",
   httpMethods: "Méthodes HTTP",
   details: "Détails",
@@ -69,8 +69,6 @@ export const fr: MessageDictionary = {
     "En-têtes de la requête entrante. Les noms et les valeurs dépendent du client.",
   ipResponse:
     "L’adresse de connexion du client. Cet exemple utilise une IP réservée à la documentation. Si la famille d’adresses ne correspond pas au point de terminaison, la réponse est unknown en texte et null en JSON.",
-  formatError:
-    "Format invalide, par exemple ?format=xml. Cette erreur est toujours renvoyée en texte brut.",
   limitError: "Le corps dépasse 102 400 octets (100 Kio).",
   contentTypeError:
     "Content-Type non pris en charge ou absent pour un corps non vide.",

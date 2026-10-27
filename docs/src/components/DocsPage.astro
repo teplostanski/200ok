@@ -17,17 +17,17 @@ const groups = [
     endpoints: [
       {
         methods: ["GET"],
-        path: "/v1/ip",
+        path: "/ip",
         description: t.ipCurrent,
       },
       {
         methods: ["GET"],
-        path: "/v1/ip/v4",
+        path: "/ip/v4",
         description: t.ipv4,
       },
       {
         methods: ["GET"],
-        path: "/v1/ip/v6",
+        path: "/ip/v6",
         description: t.ipv6,
       },
     ],
@@ -38,7 +38,7 @@ const groups = [
     endpoints: [
       {
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-        path: "/v1/echo",
+        path: "/echo",
         description: t.echoDescription,
       },
     ],
@@ -49,7 +49,7 @@ const groups = [
     endpoints: [
       {
         methods: ["GET"],
-        path: "/v1/headers",
+        path: "/headers",
         description: t.headersDescription,
       },
     ],

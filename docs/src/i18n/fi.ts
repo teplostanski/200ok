@@ -25,7 +25,7 @@ export const fi: MessageDictionary = {
   headersDescription: "Saapuvan pyynnön otsakkeet.",
   output: "Vastausmuoto",
   formatNote:
-    "Vastaus palautetaan oletuksena tekstinä, samoin parametrilla `?format=text`. JSON-muodon saat parametrilla `?json` tai `?format=json`. Jos `format` on määritetty, se on etusijalla `?json`-parametriin nähden.",
+    "Vastaus palautetaan oletuksena tekstinä. Käytä parametria `?json` tiiviille JSONille tai `?pretty` muotoillulle JSONille. Parametrin olemassaolo aktivoi valinnan arvosta riippumatta. `?pretty` on etusijalla `?json`-parametriin nähden.",
   plainText: "Pelkkä teksti",
   httpMethods: "HTTP-metodit",
   details: "Lisätiedot",
@@ -69,8 +69,6 @@ export const fi: MessageDictionary = {
     "Saapuvan pyynnön otsakkeet. Nimet ja arvot riippuvat asiakkaasta.",
   ipResponse:
     "Asiakasyhteyden osoite. Esimerkissä käytetään dokumentaatioon varattua IP-osoitetta. Jos osoiteperhe ei vastaa päätepistettä, vastaus on tekstissä unknown ja JSONissa null.",
-  formatError:
-    "Virheellinen format, esimerkiksi ?format=xml. Tämä virhe palautetaan aina pelkkänä tekstinä.",
   limitError: "Sisältö ylittää 102 400 tavua (100 KiB).",
   contentTypeError:
     "Content-Type puuttuu tai sitä ei tueta, vaikka pyynnössä on sisältöä.",

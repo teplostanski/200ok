@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
@@ -12,5 +13,6 @@ export default defineConfig({
         "/health": "http://127.0.0.1:3000",
       },
     },
+    plugins: [tailwindcss()],
   },
 });

@@ -24,7 +24,7 @@ export const de: MessageDictionary = {
   headersDescription: "Header der eingehenden Anfrage.",
   output: "Ausgabe",
   formatNote:
-    "Standardmäßig und mit `?format=text` wird Klartext zurückgegeben. Für JSON verwende `?json` oder `?format=json`. Wenn `format` angegeben ist, hat es Vorrang vor `?json`.",
+    "Standardmäßig wird Klartext zurückgegeben. Verwende `?json` für kompaktes JSON oder `?pretty` für formatiertes JSON. Die Anwesenheit des Parameters aktiviert das Flag unabhängig vom Wert. `?pretty` hat Vorrang vor `?json`.",
   plainText: "Klartext",
   httpMethods: "HTTP-Methoden",
   details: "Details",
@@ -68,8 +68,6 @@ export const de: MessageDictionary = {
     "Header der eingehenden Anfrage. Namen und Werte hängen vom Client ab.",
   ipResponse:
     "Die Adresse der Clientverbindung. Das Beispiel verwendet eine Dokumentations-IP. Passt die Adressfamilie nicht zum Endpunkt, wird unknown als Text und null in JSON zurückgegeben.",
-  formatError:
-    "Ungültiges format, zum Beispiel ?format=xml. Dieser Fehler wird immer als Klartext zurückgegeben.",
   limitError: "Der Anfrageinhalt überschreitet 102.400 Bytes (100 KiB).",
   contentTypeError:
     "Nicht unterstützter oder fehlender Content-Type bei nicht leerem Anfrageinhalt.",

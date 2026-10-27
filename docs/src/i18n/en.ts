@@ -21,7 +21,7 @@ export const en = {
   headersDescription: "Incoming request headers.",
   output: "Output",
   formatNote:
-    "Plain text is returned by default or with `?format=text`. Use `?json` or `?format=json` for JSON. If `format` is specified, it takes priority over `?json`.",
+    "Plain text is returned by default. Use `?json` for compact JSON or `?pretty` for formatted JSON. Flags are enabled by their presence, regardless of value. `?pretty` takes priority over `?json`.",
   plainText: "Plain text",
   httpMethods: "HTTP methods",
   details: "Details",
@@ -64,8 +64,6 @@ export const en = {
     "Incoming request headers. Names and values depend on the client.",
   ipResponse:
     "The client connection address. This example uses a documentation IP. If the address family does not match the endpoint, the response is unknown in text and null in JSON.",
-  formatError:
-    "Invalid format, for example ?format=xml. This error always returns plain text.",
   limitError: "The body exceeds 102,400 bytes (100 KiB).",
   contentTypeError:
     "An unsupported or missing Content-Type for a nonempty body.",

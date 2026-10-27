@@ -11,9 +11,9 @@ export function requestExamples(
     origin === "https://200ok.hacks.run"
       ? "200ok.hacks.run"
       : origin.replace(/^http:\/\//, "");
-  const url = `${host}${path}${format === "json" ? "?json" : ""}`;
-  const target = format === "json" ? `'${url}'` : url;
-  if (path === "/v1/echo") {
+  const url = `${host}${path}${format === "json" || format === "pretty" ? `?${format}` : ""}`;
+  const target = format !== "text" ? `'${url}'` : url;
+  if (path === "/echo") {
     return [
       {
         label: "POST · JSON",
@@ -33,7 +33,7 @@ export function requestExamples(
       },
     ];
   }
-  if (path === "/v1/headers") {
+  if (path === "/headers") {
     return [
       {
         label: t.customHeader,

@@ -102,10 +102,6 @@ a {
   color: inherit;
 }
 
-button {
-  font: inherit;
-}
-
 ::selection {
   background: var(--accent-soft);
   color: var(--accent-ink);
@@ -218,20 +214,12 @@ h3 {
   margin: 0;
 }
 
-.method {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--accent);
-  background: var(--accent-soft);
-  padding: 0.15rem 0.45rem;
-  border-radius: 999px;
-}
 .intro {
   font-size: 1.05rem;
   color: var(--ink-soft);
 }
 section {
+  width: 100%;
   margin-top: 48px;
 }
 .endpoints {
@@ -272,23 +260,6 @@ pre {
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow);
   overflow-x: auto;
-}
-button {
-  border: 1px solid transparent;
-  border-radius: var(--radius-sm);
-  padding: 12px 20px;
-  background: var(--btn);
-  color: var(--btn-text);
-  font-weight: 500;
-  cursor: pointer;
-  transition: opacity 160ms ease;
-}
-button:hover {
-  opacity: 0.85;
-}
-button:disabled {
-  opacity: 0.6;
-  cursor: wait;
 }
 :focus-visible {
   outline: 2px solid var(--accent);
@@ -350,65 +321,6 @@ footer {
   border-top: 1px solid var(--line);
   font-size: 0.875rem;
 }
-.output-selector {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-.output-selector legend {
-  float: left;
-  padding: 0;
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-}
-.output-fixed > span:first-child {
-  margin-bottom: 6px;
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-}
-.output-options {
-  display: flex;
-  padding: 3px;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-sm);
-  background: var(--bg-1);
-}
-.output-options label {
-  position: relative;
-  cursor: pointer;
-}
-.output-options input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-}
-.output-options span {
-  display: block;
-  padding: 6px 10px;
-  border-radius: 7px;
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-}
-.output-options input:checked + span {
-  background: var(--surface-solid);
-  color: var(--accent-ink);
-  box-shadow: var(--shadow);
-}
-.output-options input:focus-visible + span {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-.output-fixed {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  flex-shrink: 0;
-}
 @media (max-width: 540px) {
   .endpoint-heading {
     flex-direction: column;
@@ -418,14 +330,6 @@ footer {
 
 [hidden] {
   display: none !important;
-}
-.endpoint-details summary {
-  cursor: pointer;
-  font-weight: 500;
-  color: var(--ink-soft);
-}
-.endpoint-details summary:hover {
-  color: var(--accent);
 }
 .responses-heading {
   font-size: 1.05rem;
@@ -457,41 +361,6 @@ footer {
 .endpoint-execute {
   margin-top: 20px;
 }
-.execute-button {
-  display: grid;
-  width: max-content;
-  align-items: center;
-  justify-items: center;
-  line-height: 1.5;
-}
-.execute-button span {
-  grid-area: 1 / 1;
-}
-.execute-busy,
-.execute-button[aria-busy="true"] .execute-idle {
-  visibility: hidden;
-}
-.execute-button[aria-busy="true"] .execute-busy {
-  visibility: visible;
-  animation: execute-spin 700ms linear infinite;
-}
-.execute-busy {
-  width: 18px;
-  height: 18px;
-  border: 2px solid currentColor;
-  border-right-color: transparent;
-  border-radius: 50%;
-}
-@keyframes execute-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .execute-button[aria-busy="true"] .execute-busy {
-    animation-duration: 1800ms;
-  }
-}
 .request-field {
   display: flex;
   flex-direction: column;
@@ -499,41 +368,6 @@ footer {
   margin-bottom: 16px;
   font-size: 0.8rem;
   color: var(--ink-soft);
-}
-.request-field select,
-.request-field textarea,
-.request-field input,
-.language-switch {
-  width: 100%;
-  max-width: 100%;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-sm);
-  background: var(--surface-solid);
-  color: var(--ink);
-  padding: 10px;
-  font: inherit;
-}
-.request-field select,
-.language-switch {
-  appearance: none;
-  align-self: flex-start;
-  width: auto;
-  max-width: min(100%, 24rem);
-  padding-right: 36px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234a5a66' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 16px;
-}
-@media (prefers-color-scheme: dark) {
-  .request-field select,
-  .language-switch {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a7b4bc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  }
-}
-.request-field textarea {
-  font-family: var(--font-mono);
-  resize: vertical;
 }
 .endpoint-card .request-hint,
 .parser-note {
@@ -555,14 +389,6 @@ footer {
   display: flex;
   align-items: center;
   gap: 12px;
-}
-.clear-button {
-  background: transparent;
-  color: var(--ink-soft);
-  border-color: var(--line-strong);
-}
-.clear-button:disabled {
-  cursor: default;
 }
 .endpoint-card .execution-notice {
   margin: 12px 0;
@@ -618,8 +444,8 @@ footer {
   font-weight: 400;
   margin-top: 4px;
 }
-.binary-model > summary {
-  padding: 12px;
+.binary-model {
+  border-radius: 0;
 }
 
 .header-tools {
@@ -629,14 +455,126 @@ footer {
   justify-content: flex-end;
   gap: 16px;
 }
+
+/* Keep the existing visual design while using daisyUI controls. */
+.btn,
+.select,
+.textarea,
+.file-input {
+  font-family: inherit;
+}
+.btn {
+  font-weight: 500;
+}
+.select,
+.textarea,
+.file-input {
+  border-color: var(--line-strong);
+  background-color: var(--surface-solid);
+  color: var(--ink);
+  max-width: 100%;
+}
+.select {
+  padding-inline-end: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5a66' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");
+  background-position: right 12px center;
+  background-size: 18px 18px;
+  background-repeat: no-repeat;
+}
+@media (prefers-color-scheme: dark) {
+  .select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a7b4bc' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");
+  }
+}
+.request-field .select {
+  width: auto;
+  align-self: flex-start;
+}
+.request-field .textarea {
+  width: 100%;
+  font-family: var(--font-mono);
+  resize: vertical;
+}
+.request-field .file-input {
+  width: 100%;
+}
+.output-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.output-selector legend {
+  float: left;
+  padding: 0;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+.output-options .btn {
+  font-size: 0.75rem;
+  font-weight: 400;
+  border-color: var(--line-strong);
+  background: var(--bg-1);
+  color: var(--ink-soft);
+  box-shadow: none;
+}
+.output-options .btn:checked {
+  background: var(--surface-solid);
+  color: var(--accent-ink);
+  box-shadow: var(--shadow);
+}
+.method {
+  border: 0;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-weight: 400;
+}
+.endpoint-details {
+  border-radius: 0;
+}
+.endpoint-details > .collapse-title {
+  min-height: 0;
+  padding: 8px 24px 8px 0;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.endpoint-details > .collapse-title::after {
+  inset-inline-end: 4px;
+}
+.endpoint-details > .collapse-content {
+  padding-inline: 0;
+}
+.binary-model > .collapse-title {
+  min-height: 0;
+  padding: 12px 32px 12px 12px;
+}
+.binary-model > .collapse-content {
+  padding-inline: 0;
+}
+.execute-button {
+  display: grid;
+}
+.execute-button > span {
+  grid-area: 1 / 1;
+}
+.execute-busy,
+.execute-button[aria-busy="true"] .execute-idle {
+  visibility: hidden;
+}
+.execute-button[aria-busy="true"] .execute-busy {
+  visibility: visible;
+}
+.clear-button {
+  border-color: var(--line-strong);
+  color: var(--ink-soft);
+}
 .language-switch {
+  width: auto;
+  max-width: 10rem;
   font-size: 0.8rem;
-  cursor: pointer;
-}
-.language-switch:hover {
-  border-color: var(--accent);
-}
-.language-switch:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
 }

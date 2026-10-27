@@ -40,7 +40,7 @@
 @font-face {
   font-family: "IBM Plex Mono";
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
   font-weight: 600;
   src: url("@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2")
     format("woff2");
@@ -53,7 +53,7 @@
 @font-face {
   font-family: "Sora Variable";
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
   font-weight: 100 800;
   src: url("@fontsource-variable/sora/files/sora-latin-ext-wght-normal.woff2")
     format("woff2-variations");
@@ -64,7 +64,7 @@
 @font-face {
   font-family: "IBM Plex Mono";
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
   font-weight: 400;
   src: url("@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-ext-400-normal.woff2")
     format("woff2");
@@ -75,7 +75,7 @@
 @font-face {
   font-family: "IBM Plex Mono";
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
   font-weight: 500;
   src: url("@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-ext-500-normal.woff2")
     format("woff2");
@@ -86,7 +86,7 @@
 @font-face {
   font-family: "IBM Plex Mono";
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
   font-weight: 600;
   src: url("@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-ext-600-normal.woff2")
     format("woff2");

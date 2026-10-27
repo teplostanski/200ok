@@ -28,6 +28,7 @@
     "@biomejs/biome": "^2.5.15",
     "@types/express": "^5.0.6",
     "@types/node": "^24.19.0",
+    "listhen": "^1.10.1",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }

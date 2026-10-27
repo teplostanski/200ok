@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /v1/
 Disallow: /health
+Disallow: /ip
+Disallow: /echo
+Disallow: /headers

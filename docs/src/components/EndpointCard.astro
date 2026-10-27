@@ -14,7 +14,7 @@ interface Props {
 const { path, methods, description, locale } = Astro.props;
 const t = messages[locale];
 const id = path.replaceAll("/", "-");
-const isEcho = path === "/v1/echo";
+const isEcho = path === "/echo";
 const responses = responsesFor(path, locale);
 const initialBody = JSON.stringify({ name: "Bob" });
 ---
@@ -28,18 +28,20 @@ const initialBody = JSON.stringify({ name: "Bob" });
     )}<span class="endpoint-query" data-endpoint-query></span></code></a></h4>
     <fieldset class="output-selector">
       <legend>{t.output}</legend>
-      <div class="output-options">
-        <label><input type="radio" name={`output${id}`} value="json" /><span>JSON</span></label>
-        <label><input type="radio" name={`output${id}`} value="text" checked /><span>{t.plainText}</span></label>
+      <div class="join output-options">
+        <input class="btn btn-sm join-item" type="radio" name={`output${id}`} value="json" aria-label="JSON" />
+        <input class="btn btn-sm join-item" type="radio" name={`output${id}`} value="pretty" aria-label="Pretty JSON" />
+        <input class="btn btn-sm join-item" type="radio" name={`output${id}`} value="text" aria-label={t.plainText} checked />
       </div>
     </fieldset>
   </div>
   <div class="endpoint-methods" aria-label={t.httpMethods}>
-    {methods.map((method) => <span class="method">{method}</span>)}
+    {methods.map((method) => <span class="badge badge-sm method">{method}</span>)}
   </div>
   <p>{description}</p>
-  <details class="endpoint-details">
-    <summary>{t.details}</summary>
+  <details class="collapse collapse-arrow endpoint-details">
+    <summary class="collapse-title">{t.details}</summary>
+    <div class="collapse-content">
     <h5 class="responses-heading">{t.requestExamples}</h5>
     {requestExamples(path, "text", undefined, locale).map(({ label, command }, index) => (
       <div>
@@ -56,9 +58,10 @@ const initialBody = JSON.stringify({ name: "Bob" });
           <p class="example-label">{t.example} · text/plain</p>
           <pre><code>{response.text}</code></pre>
         </div>
-        <div data-output-panel="json" hidden>
-          <p class="example-label">{t.example} · {response.alwaysText ? "text/plain" : "application/json"}</p>
-          <pre><code>{response.alwaysText ? response.text : JSON.stringify(response.json, null, 2)}</code></pre>
+        {["json", "pretty"].map((format) => (
+        <div data-output-panel={format} hidden>
+          <p class="example-label">{t.example} · application/json</p>
+          <pre><code>{JSON.stringify(response.json, null, format === "pretty" ? 2 : undefined)}</code></pre>
           {response.schema && (
             <Fragment>
             <p class="example-label">{t.schema} · object</p>
@@ -66,21 +69,23 @@ const initialBody = JSON.stringify({ name: "Bob" });
             </Fragment>
           )}
         </div>
+        ))}
       </div>
     ))}
     {isEcho && <p class="parser-note">{t.parserNote}</p>}
+    </div>
   </details>
   <form class="endpoint-execute" data-execute-form>
     {isEcho && (
       <Fragment>
       <label class="request-field">{t.method}
-        <select name="method" data-request-method>
+        <select class="select" name="method" data-request-method>
           {methods.map((method) => <option value={method}>{method}</option>)}
         </select>
       </label>
       <div data-request-body-fields hidden>
         <label class="request-field">Content-Type
-          <select name="contentType" data-request-content-type>
+          <select class="select" name="contentType" data-request-content-type>
             <option value="application/json">application/json</option>
             <option value="text/plain">text/plain</option>
             <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
@@ -88,21 +93,21 @@ const initialBody = JSON.stringify({ name: "Bob" });
           </select>
         </label>
         <label class="request-field" data-text-body-label>{t.body}
-          <textarea name="body" data-request-body rows="4" spellcheck="false">{initialBody}</textarea>
+          <textarea class="textarea" name="body" data-request-body rows="4" spellcheck="false">{initialBody}</textarea>
         </label>
         <label class="request-field" data-file-body-label hidden>{t.file}
-          <input type="file" data-request-file />
+          <input class="file-input" type="file" data-request-file />
         </label>
         <p class="request-hint">{t.bodyLimitHint}</p>
       </div>
       </Fragment>
     )}
     <div class="execute-actions">
-    <button type="submit" class="execute-button" data-execute-button aria-busy="false" aria-label={t.execute}>
+    <button type="submit" class="btn btn-neutral execute-button" data-execute-button aria-busy="false" aria-label={t.execute}>
       <span class="execute-idle">{t.execute}</span>
-      <span class="execute-busy" aria-hidden="true"></span>
+      <span class="loading loading-spinner loading-sm execute-busy" aria-hidden="true"></span>
     </button>
-    <button type="button" class="clear-button" data-clear-button disabled>{t.clear}</button>
+    <button type="button" class="btn btn-outline clear-button" data-clear-button disabled>{t.clear}</button>
     </div>
     <p class="execution-notice" data-execution-notice role="status" aria-live="polite"></p>
     <div class="live-response" data-live-response hidden>
@@ -198,8 +203,9 @@ const initialBody = JSON.stringify({ name: "Bob" });
     card.addEventListener("change", () => {
       updateCurlExamples();
       const format = selectedFormat();
-      link.setAttribute("href", format === "json" ? `${path}?json` : path);
-      query.textContent = format === "json" ? "?json" : "";
+      const suffix = format === "text" ? "" : `?${format}`;
+      link.setAttribute("href", `${path}${suffix}`);
+      query.textContent = suffix;
       for (const panel of card.querySelectorAll<HTMLElement>(
         "[data-output-panel]",
       )) {

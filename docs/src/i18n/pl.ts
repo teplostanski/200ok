@@ -24,7 +24,7 @@ export const pl: MessageDictionary = {
   headersDescription: "Nagłówki przychodzącego żądania.",
   output: "Format odpowiedzi",
   formatNote:
-    "Domyślnie oraz przy `?format=text` odpowiedź jest zwracana jako zwykły tekst. Aby otrzymać JSON, użyj `?json` lub `?format=json`. Jeśli podano `format`, ma on pierwszeństwo przed `?json`.",
+    "Domyślnie odpowiedź jest zwracana jako zwykły tekst. Użyj `?json` dla zwartego JSON lub `?pretty` dla sformatowanego JSON. Obecność parametru włącza flagę niezależnie od wartości. `?pretty` ma pierwszeństwo przed `?json`.",
   plainText: "Zwykły tekst",
   httpMethods: "Metody HTTP",
   details: "Szczegóły",
@@ -67,8 +67,6 @@ export const pl: MessageDictionary = {
     "Nagłówki przychodzącego żądania. Nazwy i wartości zależą od klienta.",
   ipResponse:
     "Adres połączenia klienta. Przykład używa adresu IP przeznaczonego do dokumentacji. Jeśli rodzina adresów nie odpowiada endpointowi, odpowiedź to unknown w tekście i null w JSON.",
-  formatError:
-    "Nieprawidłowy format, np. ?format=xml. Ten błąd jest zawsze zwracany jako zwykły tekst.",
   limitError: "Treść przekracza 102 400 bajtów (100 KiB).",
   contentTypeError:
     "Nieobsługiwany lub brakujący Content-Type dla niepustej treści.",

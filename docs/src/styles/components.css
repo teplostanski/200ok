@@ -1,0 +1,46 @@
+/* Omit Preflight to preserve the site's typography and document spacing. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@plugin "daisyui" {
+  themes: false;
+  include: button, select, textarea, file-input, badge, loading, join, collapse;
+  logs: false;
+}
+
+/* Both color schemes use the existing palette, selected entirely through CSS. */
+@plugin "daisyui/theme" {
+  name: "200ok";
+  default: true;
+  prefersdark: false;
+  color-scheme: "light dark";
+  --color-base-100: var(--surface-solid);
+  --color-base-200: var(--bg-0);
+  --color-base-300: var(--bg-1);
+  --color-base-content: var(--ink);
+  --color-primary: var(--accent);
+  --color-primary-content: var(--bg-0);
+  --color-secondary: var(--accent-soft);
+  --color-secondary-content: var(--accent-ink);
+  --color-accent: var(--accent);
+  --color-accent-content: var(--bg-0);
+  --color-neutral: var(--btn);
+  --color-neutral-content: var(--btn-text);
+  --color-info: #2563eb;
+  --color-info-content: #ffffff;
+  --color-success: #15803d;
+  --color-success-content: #ffffff;
+  --color-warning: #facc15;
+  --color-warning-content: #152028;
+  --color-error: #b91c1c;
+  --color-error-content: #ffffff;
+  --radius-selector: 7px;
+  --radius-field: var(--radius-sm);
+  --radius-box: var(--radius);
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
