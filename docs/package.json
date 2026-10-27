@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "pnpm --dir .. dev",
     "build": "astro build",
     "check": "astro check"
   },

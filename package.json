@@ -8,14 +8,14 @@
     "node": ">=24"
   },
   "scripts": {
-    "dev": "tsx watch --env-file-if-exists=.env src/server.ts",
+    "dev": "tsx watch --env-file-if-exists=.env docs/dev.mjs",
     "build": "pnpm build:server && pnpm build:docs",
     "start": "node --env-file-if-exists=.env --enable-source-maps dist/server.js",
     "typecheck": "pnpm typecheck:server && pnpm typecheck:docs",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
-    "dev:docs": "pnpm --dir docs dev",
+    "dev:docs": "pnpm dev",
     "build:server": "tsc -p tsconfig.build.json",
     "build:docs": "pnpm --dir docs build",
     "typecheck:server": "tsc --noEmit",

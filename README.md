@@ -23,7 +23,9 @@ pnpm start
 
 Open [localhost:3000](http://localhost:3000). Optional environment settings are listed in [.env.example](.env.example).
 
-For development, run `pnpm dev` and `pnpm dev:docs` in separate terminals, then open [localhost:4321](http://localhost:4321).
+For development, run `pnpm dev` to start both the API and Astro, then open the docs URL printed in the terminal (usually http://localhost:4321). `pnpm dev:docs` is an alias for the same command.
+
+The dev command watches the API sources and restarts both servers when they change. Listhen selects an available port, preferring 3000 through 3100, and passes the address directly to the Astro proxy. Set `PORT` to require a specific API port. Production (`pnpm start`) uses a fixed port, defaulting to 3000.
 
 Or build and run with Docker:
 
