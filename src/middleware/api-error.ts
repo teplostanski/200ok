@@ -1,19 +1,10 @@
 import { STATUS_CODES } from "node:http";
 import type { ErrorRequestHandler, RequestHandler } from "express";
-import { FORMATS } from "../constants.js";
-import { sendJson } from "../utils/send-json.js";
+import { send } from "../utils/send.js";
 
-export const apiNotFound: RequestHandler = (_req, res) => {
-  res.status(404);
-
-  if (
-    res.locals.format === FORMATS.json ||
-    res.locals.format === FORMATS.prettyJson
-  ) {
-    sendJson(res, { error: "Not Found" });
-  } else {
-    res.type("text/plain").send("Not Found");
-  }
+export const apiNotFound: RequestHandler = (req, res) => {
+  const message = `Cannot ${req.method} ${req.originalUrl.split("?")[0]}`;
+  send({ res, status: 404, json: { error: message }, text: message });
 };
 
 export const apiError: ErrorRequestHandler = (err, _req, res, next) => {
@@ -31,14 +22,5 @@ export const apiError: ErrorRequestHandler = (err, _req, res, next) => {
 
   if (status >= 500) console.error(err);
 
-  res.status(status);
-
-  if (
-    res.locals.format === FORMATS.json ||
-    res.locals.format === FORMATS.prettyJson
-  ) {
-    sendJson(res, { error: message });
-  } else {
-    res.type("text/plain").send(message);
-  }
+  send({ res, status, json: { error: message }, text: message });
 };

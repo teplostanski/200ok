@@ -1,7 +1,7 @@
 import { type Request, type Response, Router } from "express";
-import { FORMATS, ROUTES } from "../../constants.js";
+import { ROUTES } from "../../constants.js";
 import { echoBody } from "../../middleware/echo-body.js";
-import { sendJson } from "../../utils/send-json.js";
+import { send } from "../../utils/send.js";
 
 export const echoRouter = Router();
 echoRouter.use(ROUTES.echo, echoBody);
@@ -77,14 +77,7 @@ const handleEcho = (req: Request, res: Response) => {
     return `${method}\n\n${bodyText}`;
   };
 
-  if (
-    res.locals.format === FORMATS.json ||
-    res.locals.format === FORMATS.prettyJson
-  ) {
-    sendJson(res, { method, body });
-  } else {
-    res.type("text/plain").send(formatEchoAsText(method, body));
-  }
+  send({ res, json: { method, body }, text: formatEchoAsText(method, body) });
 };
 
 echoRouter.get(ROUTES.echo, handleEcho);

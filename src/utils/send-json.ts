@@ -1,8 +1,13 @@
 import type { Response } from "express";
 import { FORMATS } from "../constants.js";
 
-export const sendJson = (res: Response, body: unknown) =>
+export const sendJson = (
+  res: Response,
+  body: unknown,
+  status: number = res.statusCode,
+) =>
   res
+    .status(status)
     .type("application/json")
     .send(
       JSON.stringify(
