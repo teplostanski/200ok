@@ -1,4 +1,5 @@
 import { type Locale, messages } from "../i18n/messages";
+import { statusEndpointMessages } from "../i18n/status-endpoint";
 
 export interface ResponseExample {
   status: number;
@@ -24,7 +25,19 @@ export function responsesFor(
 ): ResponseExample[] {
   const t = messages[locale];
   let success: ResponseExample;
-  if (path === "/echo") {
+  if (path === "/status/{code}") {
+    success = {
+      status: 200,
+      label: "OK",
+      description: statusEndpointMessages[locale].response,
+      text: "200 OK",
+      json: { code: 200, reason: "OK" },
+      schema: objectSchema({
+        code: { type: "integer" },
+        reason: { type: "string" },
+      }),
+    };
+  } else if (path === "/echo") {
     success = {
       status: 200,
       label: "OK",

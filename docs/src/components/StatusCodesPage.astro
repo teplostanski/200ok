@@ -1,22 +1,79 @@
 ---
+import "../styles/status-codes.css";
+import { localizedStatusCodes } from "../data/status-translations";
 import { type Locale, messages } from "../i18n/messages";
+import { statusMessages } from "../i18n/status";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DocsNavigation from "./DocsNavigation.astro";
+import StatusCodeGroup from "./StatusCodeGroup.astro";
 
 interface Props {
   locale: Locale;
 }
-
 const { locale } = Astro.props;
 const t = messages[locale];
+const statusText = statusMessages[locale];
+const statusCodes = localizedStatusCodes(locale);
+const groups = [
+  t.statusInformational,
+  t.statusSuccess,
+  t.statusRedirection,
+  t.statusClientError,
+  t.statusServerError,
+].map((title, index) => ({
+  id: `${index + 1}xx`,
+  title,
+  statuses: statusCodes.filter(
+    ({ code }) => Math.floor(code / 100) === index + 1,
+  ),
+}));
+const filters = [
+  { id: "all", title: t.allStatuses },
+  ...groups.map(({ id }) => ({ id, title: id })),
+];
 ---
 
 <BaseLayout locale={locale} title={t.statusCodes}>
   <div class="docs-heading">
     <DocsNavigation locale={locale} />
-    <div>
+    <div class="status-reference">
       <h1 class="header">{t.statusCodes}</h1>
-      <p>{t.inDevelopment}</p>
     </div>
   </div>
+  <div class="status-browser" data-status-browser>
+    <form class="status-filter-form" autocomplete="off">
+      <fieldset class="output-selector status-filters" aria-label={t.statusCodes}>
+        <div class="join output-options">
+          {filters.map(({ id, title }) => (
+            <input type="radio" name="status-group" class="btn btn-sm join-item" value={id} aria-label={title} checked={id === "all"} aria-controls="status-results" />
+          ))}
+        </div>
+      </fieldset>
+    </form>
+    <div id="status-results" class="status-results">
+      {groups.map((group) => <StatusCodeGroup {...group} locale={locale} />)}
+    </div>
+    <p class="status-license">
+      {statusText.credits} <a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a>,
+      {statusText.via} <a href="https://http.cat/">HTTP Cats</a>.
+      <a href="/status-description-licenses.txt">{statusText.licenses}</a>.
+    </p>
+  </div>
 </BaseLayout>
+
+<script>
+  for (const browser of document.querySelectorAll<HTMLElement>("[data-status-browser]")) {
+    const form = browser.querySelector<HTMLFormElement>("form");
+    const groups = browser.querySelectorAll<HTMLElement>("[data-status-group]");
+    const filter = () => {
+      const selected = form?.querySelector<HTMLInputElement>('input[name="status-group"]:checked')?.value ?? "all";
+      for (const group of groups) {
+        group.hidden = selected !== "all" && group.dataset.statusGroup !== selected;
+      }
+    };
+    form?.addEventListener("change", filter);
+    form?.addEventListener("submit", (event) => event.preventDefault());
+    window.addEventListener("pageshow", filter);
+    filter();
+  }
+</script>

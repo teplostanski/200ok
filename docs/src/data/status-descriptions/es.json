@@ -1,0 +1,254 @@
+{
+  "100": {
+    "descriptionHtml": "<p>El código de respuesta de estado informativo HTTP <code>100 Continue</code> indica que hasta ahora todo está bien y que el cliente debe continuar con la solicitud o ignorarla si ya ha finalizado.</p>\n<p>Para que un servidor verifique los encabezados de la solicitud, un cliente debe enviar <code>Expect: 100-continue</code> como encabezado en su solicitud inicial y recibir un código de estado <code>100 Continue</code> en respuesta antes de enviar el cuerpo.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/100"
+  },
+  "101": {
+    "descriptionHtml": "<p>El código de respuesta HTTP <code>101 Switching Protocols</code> indica un protocolo al que cambia el servidor. El protocolo se especifica en el encabezado de solicitud <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Upgrade\">Upgrade</a> recibido de un cliente.</p>\n<p>El servidor incluye en esta respuesta un encabezado de respuesta <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Upgrade\">Upgrade</a> para indicar el protocolo al que cambió.</p>\n<p>El proceso se describe en el siguiente artículo: <a href=\"https://developer.mozilla.org/es/docs/Web/HTTP/Guides/Protocol_upgrade_mechanism\">Mecanismo de actualización de protocolo</a></p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/101"
+  },
+  "102": {
+    "descriptionHtml": "<aside><strong>En desuso:</strong> este código de estado está en desuso. Cuando se utiliza, los clientes aún pueden aceptarlo, pero simplemente ignorarlo.</aside>\n<p>El código de respuesta de estado informativo HTTP <code>102 Processing</code> indica al cliente que se ha recibido una solicitud completa y que el servidor está trabajando en ella.</p>\n<p>Este código de estado solo se envía si el servidor espera que la solicitud demore mucho tiempo. Indica al cliente que su solicitud sigue en curso.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status#102_processing"
+  },
+  "103": {
+    "descriptionHtml": "<aside><strong>Experimental:</strong> Esta es una tecnología experimental. Consulte atentamente la tabla de compatibilidad del navegador antes de utilizarlo en producción.</aside>\n<p>La respuesta HTTP <code>103 Early Hints</code> de <a href=\"https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status\">carácter informativo</a> puede ser enviada por un servidor mientras aún está preparando una respuesta, con sugerencias sobre los recursos que el servidor espera que vincule la respuesta final.</p>\n<p>Esto permite que un navegador comience a <a href=\"https://developer.mozilla.org/es/docs/Web/HTML/Reference/Attributes/rel/preload\">precargar</a> recursos incluso antes de que el servidor haya preparado y enviado la respuesta final.</p>\n<p>La respuesta de sugerencia temprana está destinada principalmente a usarse con el encabezado <a href=\"https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Headers/Link\">Link</a>, que indica los recursos que se cargarán.</p>\n<p>También puede contener un encabezado <a href=\"https://developer.mozilla.org/es/docs/Web/HTTP/Guides/CSP\">Content-Security-Policy</a> que se aplica mientras se procesa la sugerencia inicial.</p>\n<p>Un servidor puede enviar varias respuestas <code>103</code>, por ejemplo, después de una redirección. Los navegadores solo procesan la primera respuesta de sugerencia temprana y esta respuesta debe descartarse si la solicitud da como resultado una redirección de origen cruzado. Los recursos precargados de la pista inicial se anteponen efectivamente al elemento head del <code>Document</code> y luego les siguen los recursos cargados en la respuesta final.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/103"
+  },
+  "200": {
+    "descriptionHtml": "<p>El código de respuesta de estado de éxito HTTP <code>200 OK</code> indica que la solicitud se realizó correctamente. Una respuesta 200 se puede almacenar en caché de forma predeterminada.</p>\n<p>El significado de éxito depende del método de solicitud HTTP:</p>\n<ul>\n<li><code>GET</code>: el recurso ha sido recuperado y se transmite en el cuerpo del mensaje.</li>\n<li><code>HEAD</code>: Los encabezados de representación se incluyen en la respuesta sin ningún cuerpo de mensaje.</li>\n<li><code>POST</code>: el recurso que describe el resultado de la acción se transmite en el cuerpo del mensaje.</li>\n<li><code>TRACE</code>: el cuerpo del mensaje contiene el mensaje de solicitud tal como lo recibió el servidor.</li>\n</ul>\n<p>El resultado exitoso de un <code>PUT</code> o un <code>DELETE</code> a menudo no es un <code>200 OK</code> sino un <code>204 No Content</code> (o un <code>201 Created</code> cuando el recurso se carga por primera vez).</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/200"
+  },
+  "201": {
+    "descriptionHtml": "<p>El código de respuesta de estado de éxito HTTP <code>201 Created</code> indica que la solicitud se realizó correctamente y condujo a la creación de un recurso.</p>\n<p>El nuevo recurso, o una descripción y un enlace al nuevo recurso, se crea efectivamente antes de que se envíe la respuesta y los elementos recién creados se devuelven en el cuerpo del mensaje, ubicado en la URL de la solicitud o en la URL en el valor del encabezado <code>Location</code>.</p>\n<p>El caso de uso común de este código de estado es el resultado de una solicitud <code>POST</code>.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/201"
+  },
+  "202": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>202 Accepted</code> indica que la solicitud ha sido aceptada para su procesamiento, pero el procesamiento no se ha completado; de hecho, es posible que el procesamiento aún no haya comenzado.</p>\n<p>Es posible que finalmente se actúe o no sobre la solicitud, ya que podría rechazarse cuando el procesamiento realmente se lleve a cabo.</p>\n<p><code>202</code> no tiene compromiso, lo que significa que no hay forma de que HTTP envíe posteriormente una respuesta asincrónica que indique el resultado del procesamiento de la solicitud. Está destinado a casos en los que otro proceso o servidor maneja la solicitud, o para procesamiento por lotes.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/202"
+  },
+  "203": {
+    "descriptionHtml": "<p>El estado de respuesta HTTP <code>203 Non-Authoritative Information</code> indica que la solicitud fue exitosa pero la carga útil adjunta ha sido modificada por un proxy transformador de la respuesta <code>200 OK</code> del servidor de origen.</p> <p>La respuesta <code>203</code> es similar al valor <code>214</code>, que significa <code>Transformation Applied</code>, del código de encabezado <code>Warning</code>, que tiene la ventaja adicional de ser aplicable a respuestas con cualquier código de estado.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/203"
+  },
+  "204": {
+    "descriptionHtml": "<p>El código de respuesta de estado de éxito HTTP <code>204 No Content</code> indica que una solicitud se realizó correctamente, pero que el cliente no necesita navegar fuera de su página actual.</p> <p>Esto podría usarse, por ejemplo, al implementar la funcionalidad \"guardar y continuar editando\" para un sitio wiki. En este caso, se utilizaría una solicitud <code>PUT</code> para guardar la página y la respuesta <code>204 No Content</code> se enviaría para indicar que el editor no debe ser reemplazado por otra página.</p> <p>Una respuesta <code>204</code> se puede almacenar en caché de forma predeterminada (se incluye un encabezado <code>ETag</code> en dicha respuesta).</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/204"
+  },
+  "205": {
+    "descriptionHtml": "<p>El estado de respuesta HTTP <code>205 Reset Content</code> le indica al cliente que restablezca la vista del documento (es decir, borre el contenido de un formulario, restablezca el estado del lienzo o la interfaz de usuario).</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/205"
+  },
+  "206": {
+    "descriptionHtml": "<p>El código de respuesta de estado de éxito HTTP <code>206 Partial Content</code> indica que la solicitud se realizó correctamente y que el cuerpo contiene los rangos de datos solicitados, como se describe en el encabezado Range de la solicitud.</p>\n<p>Si solo hay un rango, el <code>Content-Type</code> de toda la respuesta se establece en el tipo de documento y se proporciona un <code>Content-Range</code>.</p>\n<p>Si se devuelven varios rangos, <code>Content-Type</code> se establece en <code>multipart/byteranges</code> y cada fragmento cubre un rango, con <code>Content-Range</code> y <code>Content-Type</code> describiéndolo.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/206"
+  },
+  "207": {
+    "descriptionHtml": "<p>El código de respuesta HTTP <code>207 Multi-Status</code> indica que puede haber una mezcla de respuestas.</p> <p>El cuerpo de la respuesta es una entidad HTTP <code>text/xml</code> o <code>application/xml</code> con un elemento raíz <code>multistatus</code>. El cuerpo XML enumerará todos los códigos de respuesta individuales.</p> <aside><strong>Nota:</strong> La capacidad de devolver una colección de recursos es parte del protocolo WebDAV (puede ser recibida por aplicaciones web que acceden a un servidor WebDAV). Los navegadores que accedan a páginas web nunca encontrarán este código de estado.</aside>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/207"
+  },
+  "208": {
+    "descriptionHtml": "<p>El estado de respuesta HTTP <code>208 Already Reported</code> se utiliza en una respuesta <a href=\"https://http.cat/status/207\">207 Multi-Status</a> para ahorrar espacio y evitar conflictos. Si el mismo recurso se solicita varias veces (por ejemplo, como parte de una colección), con diferentes rutas, solo la primera se informa con <a href=\"https://http.cat/status/200\">200</a>. Las respuestas para todos los demás enlaces se informarán con este código de estado 208, por lo que no se crean conflictos y la respuesta es más breve.</p>\n<aside><strong>Nota:</strong>La capacidad de vincular un recurso a varias rutas es una extensión del protocolo WebDAV (puede ser recibida por aplicaciones web que acceden a un servidor WebDAV). Los navegadores que accedan a páginas web nunca encontrarán este código de estado.</aside>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/208"
+  },
+  "226": {
+    "descriptionHtml": "<p>El estado de respuesta HTTP <code>226 IM Used</code>, en el contexto de codificaciones delta, es un código de estado establecido por el servidor para indicar que está devolviendo un delta a la solicitud GET que recibió. IM significa <em>Manipulación de instancias</em>, el término utilizado para describir un algoritmo que genera un delta.</p>\n<p>Con codificación delta, un servidor responde a solicitudes <code>GET</code> con diferencias (llamadas deltas) en relación con un documento base determinado (en lugar del documento actual). El cliente utiliza el encabezado HTTP <code>A-IM:</code> para indicar qué algoritmo de diferenciación usar y el encabezado <code>If-None-Match:</code> para indicarle al servidor la última versión que obtuvo. El servidor genera un delta, enviándolo de vuelta en una respuesta HTTP con el código de estado <code>226</code> y que contiene los encabezados HTTP <code>IM:</code> (con el nombre del algoritmo utilizado) y <code>Delta-Base:</code> (con el <code>ETag</code> que coincide con el documento base asociado al delta).</p>\n<aside><strong>Nota:</strong> Los navegadores no admiten la codificación delta con HTTP. Este código de estado lo devuelven servidores personalizados utilizados por clientes específicos.</aside>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/226"
+  },
+  "300": {
+    "descriptionHtml": "<p>El código de respuesta de estado de redireccionamiento HTTP <code>300 Multiple Choices</code> indica que la solicitud tiene más de una respuesta posible.</p>\n<p>El agente de usuario o el usuario debe elegir una de ellas.</p>\n<p>Como no existe una forma estandarizada de elegir una de las respuestas, este código de respuesta rara vez se utiliza.</p>\n<p>Si el servidor tiene una opción preferida, debería generar un encabezado <code>Location</code>.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/300"
+  },
+  "301": {
+    "descriptionHtml": "<p>El código de respuesta de estado de redireccionamiento HTTP <code>301 Moved Permanently</code> indica que el recurso solicitado se ha movido definitivamente a la URL proporcionada por los encabezados <code>Location</code>. Un navegador redirige a la nueva URL y los motores de búsqueda actualizan sus enlaces al recurso.</p>\n<aside><strong>Nota:</strong> Aunque la especificación requiere que el método y el cuerpo permanezcan sin cambios cuando se realiza la redirección, no todos los agentes de usuario cumplen con este requisito. Utilice el código 301 solo como respuesta para los métodos GET o HEAD y utilice el redireccionamiento permanente 308 para los métodos POST, ya que el cambio de método está explícitamente prohibido con este estado.</aside>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/301"
+  },
+  "302": {
+    "descriptionHtml": "<p>El código de respuesta de estado de redireccionamiento HTTP <code>302 Found</code> indica que el recurso solicitado se ha movido temporalmente a la URL proporcionada por el encabezado <code>Location</code>. Un navegador redirige a esta página pero los motores de búsqueda no actualizan sus enlaces al recurso (en 'SEO-speak', se dice que el 'link-juice' no se envía a la nueva URL).</p> <p>Incluso si la especificación requiere que el método (y el cuerpo) no se modifiquen cuando se realiza la redirección, no todos los agentes de usuario se ajustan aquí; aún puede encontrar este tipo de software con errores. Por lo tanto, se recomienda configurar el código <code>302</code> solo como respuesta para los métodos <code>GET</code> o <code>HEAD</code> y usar <code>307 Temporary Redirect</code> en su lugar, ya que el cambio de método está explícitamente prohibido en ese caso.</p> <p>En los casos en los que desee que el método utilizado se cambie a <code>GET</code>, use <code>303 See Other</code> en su lugar. Esto es útil cuando desea dar una respuesta a un método <code>PUT</code> que no es el recurso cargado sino un mensaje de confirmación como: 'subiste XYZ exitosamente'.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/302"
+  },
+  "303": {
+    "descriptionHtml": "<p>El código de respuesta de estado de redireccionamiento HTTP <code>303 See Other</code> indica que los redireccionamientos no se vinculan al recurso solicitado en sí, sino a otra página (como una página de confirmación, una representación de un objeto del mundo real; consulte <a href=\"https://en.wikipedia.org/wiki/HTTPRange-14\">rango HTTP-14</a>; o una página de progreso de carga).</p> <p>Este código de respuesta a menudo se devuelve como resultado de <code>PUT</code> o <code>POST</code>.</p> <p>El método utilizado para mostrar esta página redirigida es siempre <code>GET</code>.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/303"
+  },
+  "304": {
+    "descriptionHtml": "<p>El código de respuesta de redirección del cliente HTTP <code>304 Not Modified</code> indica que no es necesario retransmitir los recursos solicitados. Es una redirección implícita a un recurso almacenado en caché. Esto sucede cuando el método de solicitud es un método seguro, como <code>GET</code> o <code>HEAD</code>, o cuando la solicitud es condicional y utiliza un encabezado <code>If-None-Match</code> o <code>If-Modified-Since</code>.</p> <p>La respuesta no debe contener un cuerpo y debe incluir los encabezados que se habrían enviado en una respuesta <code>200 OK</code> equivalente: <code>Cache-Control</code>, <code>Content-Location</code>, <code>Date</code>, <code>ETag</code>, <code>Expires</code> y <code>Vary</code>.</p> <aside><strong>Nota:</strong> Los paneles de red de navegadores de muchas herramientas de desarrollo crean solicitudes extrañas que conducen a respuestas 304, de modo que el acceso al caché local es visible para los desarrolladores.</aside>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/304"
+  },
+  "305": {
+    "descriptionHtml": "<aside><strong>Obsoleto:</strong> El código de estado HTTP 305 Usar proxy ha quedado obsoleto debido a problemas de seguridad y muchos clientes HTTP ignoran este código de estado.</aside>\n<p>El código de estado de respuesta HTTP <code>305 Use Proxy</code> es un código de estado HTTP obsoleto devuelto por un servidor de origen para indicar que solo se puede acceder al recurso solicitado a través de un servidor proxy.</p>\n<p>El código de estado <code>305 Use Proxy</code> se utiliza para informar al cliente que el recurso solicitado debe obtenerse a través de un servidor proxy e incluye esa dirección de proxy en el encabezado HTTP <code>Set-Proxy</code> o en el encabezado HTTP <code>Location</code>.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status"
+  },
+  "306": {
+    "descriptionHtml": "<p>Este código de estado no se utiliza en el registro de códigos de estado HTTP.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status"
+  },
+  "307": {
+    "descriptionHtml": "<p>El código de respuesta de estado de redirección HTTP <code>307 Temporary Redirect</code> indica que el recurso solicitado se ha movido temporalmente a la URL proporcionada por los encabezados <code>Location</code>.</p> <p>El método y el cuerpo de la solicitud original se reutilizan para realizar la solicitud redirigida. En los casos en los que desee que el método utilizado se cambie a <code>GET</code>, utilice <code>303 See Other</code> en su lugar. Esto es útil cuando desea dar una respuesta a un método <code>PUT</code> que no son los recursos cargados, sino un mensaje de confirmación (como \"Subiste XYZ exitosamente\").</p> <p>La única diferencia entre <code>307</code> y <code>302</code> es que <code>307</code> garantiza que el método y el cuerpo no se cambiarán cuando se realice la solicitud redirigida. Con <code>302</code>, algunos clientes antiguos cambiaban incorrectamente el método a <code>GET</code>: el comportamiento con métodos no GET y <code>302</code> es impredecible en la Web, mientras que el comportamiento con <code>307</code> es predecible. Para las solicitudes <code>GET</code>, su comportamiento es idéntico.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/307"
+  },
+  "308": {
+    "descriptionHtml": "<p>El código de respuesta de estado de redireccionamiento HTTP <code>308 Permanent Redirect</code> indica que el recurso solicitado se ha movido definitivamente a la URL proporcionada por los encabezados <code>Location</code>. Un navegador redirige a esta página y los motores de búsqueda actualizan sus enlaces al recurso (en 'SEO-speak', se dice que el 'link-juice' se envía a la nueva URL).</p> <p>El método de solicitud y el cuerpo no se modificarán, mientras que <code>301</code> a veces puede cambiarse incorrectamente a un método <code>GET</code>.</p> <aside><strong>Nota:</strong> Algunas aplicaciones web pueden usar 308 Permanent Redirect de forma no estándar y para otros fines. Por ejemplo, Google Drive utiliza una respuesta 308 Resume Incomplete para indicar al cliente cuando se detiene una carga incompleta.</aside>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/308"
+  },
+  "400": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>400 Bad Request</code> indica que el servidor no puede o no procesará la solicitud debido a algo que se percibe como un error del cliente (por ejemplo, sintaxis de solicitud incorrecta, encuadre de mensaje de solicitud no válido o enrutamiento de solicitud engañoso).</p>\n<aside><strong>Advertencia:</strong> El cliente no debe repetir esta solicitud sin modificaciones.</aside>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/400"
+  },
+  "401": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>401 Unauthorized</code> indica que la solicitud del cliente no se ha completado porque carece de credenciales de autenticación válidas para el recurso solicitado.</p> <p>Este código de estado se envía con un encabezado de respuesta HTTP <code>WWW-Authenticate</code> que contiene información sobre cómo el cliente puede solicitar el recurso nuevamente después de solicitar al usuario las credenciales de autenticación.</p> <p>Este código de estado es similar al código de estado <code>403 Forbidden</code>, excepto que en situaciones que producen este código de estado, la autenticación del usuario puede permitir el acceso al recurso.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/401"
+  },
+  "402": {
+    "descriptionHtml": "<aside><strong>Experimental:</strong> Esta es una tecnología experimental. Consulte atentamente la tabla de compatibilidad del navegador antes de utilizarlo en producción.</aside>\n<p>HTTP <code>402 Payment Required</code> es un código de estado de respuesta no estándar que está reservado para uso futuro. Este código de estado se creó para habilitar efectivo digital o sistemas de (micro)pago e indicaría que el contenido solicitado no está disponible hasta que el cliente realice un pago.</p>\n<p>A veces, este código de estado indica que la solicitud no se puede procesar hasta que el cliente realice un pago. Sin embargo, no existe ninguna convención de uso estándar y diferentes entidades la utilizan en diferentes contextos.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/402"
+  },
+  "403": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>403 Forbidden</code> indica que el servidor comprende la solicitud pero se niega a autorizarla.</p>\n<p>Este estado es similar a <code>401</code>, pero para el código de estado <code>403 Forbidden</code>, volver a autenticarse no hace ninguna diferencia. El acceso está vinculado a la lógica de la aplicación, como derechos insuficientes para un recurso.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/403"
+  },
+  "404": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>404 Not Found</code> indica que el servidor no puede encontrar el recurso solicitado. Los enlaces que conducen a una página <code>404</code> a menudo se denominan enlaces rotos o inactivos y pueden estar sujetos a deterioro del enlace.</p> <p>Un código de estado <code>404</code> solo indica que falta el recurso: no si la ausencia es temporal o permanente. Si un recurso se elimina permanentemente, utilice el estado <code>410 Gone</code> en su lugar.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/404"
+  },
+  "405": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>405 Method Not Allowed</code> indica que el servidor conoce el método de solicitud, pero el recurso de destino no admite este método.</p>\n<p>El servidor debe generar un campo de encabezado <code>Allow</code> en una respuesta de código de estado <code>405</code>. El campo debe contener una lista de métodos que el recurso de destino admite actualmente.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/405"
+  },
+  "406": {
+    "descriptionHtml": "<p>El código de respuesta de error del cliente HTTP <code>406 Not Acceptable</code> indica que el servidor no puede producir una respuesta que coincida con la lista de valores aceptables definidos en los encabezados de negociación de contenido proactivo de la solicitud y que el servidor no está dispuesto a proporcionar una representación predeterminada.</p> <p>Los encabezados de negociación de contenido proactivo incluyen:</p> <ul> <li><code>Accept</code></li> <li><code>Accept-Encoding</code></li> <li><code>Accept-Language</code></li> </ul> <p>En la práctica, este error se utiliza muy raramente. En lugar de responder utilizando este código de error, que sería críptico para el usuario final y difícil de solucionar, los servidores ignoran el encabezado relevante y muestran una página real al usuario. Se supone que incluso si el usuario no estará completamente satisfecho, preferirá esto a un código de error.</p> <p>Si un servidor devuelve dicho estado de error, el cuerpo del mensaje debe contener la lista de las representaciones disponibles de los recursos, permitiendo al usuario elegir entre ellas.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/406"
+  },
+  "407": {
+    "descriptionHtml": "<p>El código de respuesta de estado de error del cliente HTTP <code>407 Proxy Authentication Required</code> indica que la solicitud no se ha aplicado porque carece de credenciales de autenticación válidas para un servidor proxy que se encuentra entre el navegador y el servidor que puede acceder al recurso solicitado.</p> <p>Este estado se envía con un encabezado <code>Proxy-Authenticate</code> que contiene información sobre cómo autorizar correctamente.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/407"
+  },
+  "408": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>408 Request Timeout</code> significa que el servidor desea cerrar esta conexión no utilizada. Algunos servidores lo envían en una conexión inactiva, incluso sin ninguna solicitud previa por parte del cliente.</p> <p>Un servidor debe enviar el encabezado <code>Connection</code> con el valor close en la respuesta, ya que <code>408</code> implica que el servidor ha decidido cerrar la conexión en lugar de continuar esperando.</p> <p>Esta respuesta se usa mucho más ya que algunos navegadores, como Chrome, Firefox 27+ e IE9, usan mecanismos de preconexión HTTP para acelerar la navegación.</p> <aside><strong>Nota:</strong> algunos servidores simplemente cierran la conexión sin enviar este mensaje.</aside>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/408"
+  },
+  "409": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>409 Conflict</code> indica un conflicto de solicitud con el estado actual del recurso de destino.</p>\n<p>Es más probable que se produzcan conflictos en respuesta a una solicitud <code>PUT</code>. Por ejemplo, puede obtener una respuesta <code>409</code> al cargar un archivo que es más antiguo que el existente en el servidor, lo que resulta en un conflicto de control de versiones.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/409"
+  },
+  "410": {
+    "descriptionHtml": "<p>El código de respuesta de error del cliente HTTP <code>410 Gone</code> indica que el acceso al recurso de destino ya no está disponible en el servidor de origen y que es probable que esta condición sea permanente.</p>\n<p>Si no sabe si esta condición es temporal o permanente, debe utilizar un código de estado <code>404</code>.</p>\n<aside><strong>Nota:</strong> Una respuesta 410 se puede almacenar en caché de forma predeterminada.</aside>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/410"
+  },
+  "411": {
+    "descriptionHtml": "<p>El código de respuesta de error del cliente HTTP <code>411 Length Required</code> indica que el servidor se niega a aceptar la solicitud sin un encabezado <code>Content-Length</code> definido.</p> <aside><strong>Nota:</strong> por especificación, al enviar datos en una serie de fragmentos, el encabezado Content-Length se omite y al comienzo de cada fragmento es necesario agregar la longitud del fragmento actual en formato hexadecimal. Consulte Transfer-Encoding para obtener más detalles.</aside>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/411"
+  },
+  "412": {
+    "descriptionHtml": "<p>El código de respuesta de error del cliente HTTP <code>412 Precondition Failed</code> indica que se ha denegado el acceso al recurso de destino. Esto sucede con solicitudes condicionales en métodos distintos de <code>GET</code> o <code>HEAD</code> cuando no se cumple la condición definida por los encabezados <code>If-Unmodified-Since</code> o <code>If-None-Match</code>. En ese caso, la solicitud, generalmente una carga o modificación de un recurso, no se puede realizar y se devuelve esta respuesta de error.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/412"
+  },
+  "413": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>413 Content Too Large</code> indica que la entidad de solicitud es mayor que los límites definidos por el servidor; el servidor podría cerrar la conexión o devolver un campo de encabezado <code>Retry-After</code>.</p>\n<p>Antes de RFC 9110, la frase de respuesta para el estado era Payload Too Large. Ese nombre todavía se usa mucho.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/413"
+  },
+  "414": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>414 URI Too Long</code> indica que el URI solicitado por el cliente es más largo de lo que el servidor está dispuesto a interpretar.</p> <p>Hay algunas condiciones raras en las que esto puede ocurrir:</p> <ul> <li>cuando un cliente ha convertido incorrectamente una solicitud <code>POST</code> en una solicitud <code>GET</code> con información de consulta larga,</li> <li>cuando el cliente ha descendido a un bucle de redirección (por ejemplo, un prefijo URI redirigido que apunta a un sufijo de sí mismo)</li> <li>o cuando el servidor está bajo ataque por parte de un cliente que intenta explotar posibles agujeros de seguridad.</li> </ul>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/414"
+  },
+  "415": {
+    "descriptionHtml": "<p>El código de respuesta de error del cliente HTTP <code>415 Unsupported Media Type</code> indica que el servidor se niega a aceptar la solicitud porque el formato del cuerpo no es compatible.</p> <p>El problema de formato puede deberse a que la solicitud indica <code>Content-Type</code> o <code>Content-Encoding</code>, o como resultado de inspeccionar los datos directamente.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/415"
+  },
+  "416": {
+    "descriptionHtml": "<p>El código de respuesta de error HTTP <code>416 Range Not Satisfiable</code> indica que un servidor no puede atender los rangos solicitados. La razón más probable es que el documento no contiene dichos rangos o que el valor del encabezado Range, aunque sintácticamente correcto, no tiene sentido.</p>\n<p>El mensaje de respuesta <code>416</code> contiene un <code>Content-Range</code> que indica un rango insatisfecho (es decir, un <code>&#x27;*&#x27;</code>) seguido de un <code>&#x27;/&#x27;</code> y la longitud actual del recurso. P.ej. <code>Content-Range: bytes */12777</code>.</p>\n<p>Ante este error, los navegadores suelen cancelar la operación (por ejemplo, una descarga se considerará no reanudable) o solicitar el documento completo nuevamente.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/416"
+  },
+  "417": {
+    "descriptionHtml": "<p>El código de respuesta de error del cliente HTTP <code>417 Expectation Failed</code> indica que no se pudo cumplir la expectativa dada en el encabezado <code>Expect</code> de la solicitud.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/417"
+  },
+  "418": {
+    "descriptionHtml": "<p>El código de respuesta de error del cliente HTTP <code>418 I&#x27;m a teapot</code> indica que el servidor se niega a preparar café porque es, permanentemente, una tetera.</p>\n<p>Una cafetera/tetera combinada que se queda temporalmente sin café debería devolver 503. Este error es una referencia al protocolo de control de cafeteras de hipertexto definido en los chistes del 1 de abril de 1998 y 2014.</p>\n<p>Algunos sitios web utilizan esta respuesta para solicitudes que no desean gestionar, como consultas automáticas.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/418"
+  },
+  "421": {
+    "descriptionHtml": "<p>El código de respuesta de error del cliente HTTP <code>421 Misdirected Request</code> indica que la solicitud se dirigió a un servidor que no puede producir una respuesta. Esto podría ser posible si se reutiliza una conexión o si se selecciona un servicio alternativo.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/421"
+  },
+  "422": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>422 Unprocessable Content</code> indica que el servidor comprende el tipo de contenido de la entidad de solicitud y que la sintaxis de la entidad de solicitud es correcta, pero no pudo procesar las instrucciones contenidas.</p> <aside><strong>Advertencia:</strong> El cliente no debe repetir esta solicitud sin modificaciones.</aside>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/422"
+  },
+  "423": {
+    "descriptionHtml": "<p>El código de respuesta de error HTTP <code>423 Locked</code> indica que los recursos a los que intenta acceder la solicitud están bloqueados, lo que significa que no se puede acceder a ellos. Su contenido debe contener alguna información en formato XML de WebDAV.</p>\n<aside><strong>Nota:</strong> La capacidad de bloquear un recurso es específica de algunos servidores WebDAV. Los navegadores que accedan a páginas web nunca encontrarán este código de estado; en los casos erróneos que ocurra, lo manejarán como un código de estado 400 genérico.</aside>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/423"
+  },
+  "424": {
+    "descriptionHtml": "<p>El código de respuesta de error del cliente HTTP <code>424 Failed Dependency</code> indica que el método no se pudo realizar en el recurso porque la acción solicitada dependía de otra acción y esa acción falló.</p>\n<p>Los servidores web habituales normalmente no devolverán este código de estado. Pero algunos otros protocolos, como WebDAV, pueden devolverlo. Por ejemplo, en WebDAV, si se emitió una solicitud <code>PROPPATCH</code> y un comando falla, automáticamente todos los demás comandos también fallarán con <code>424 Failed Dependency</code>.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/424"
+  },
+  "425": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>425 Too Early</code> indica que el servidor no está dispuesto a correr el riesgo de procesar una solicitud que podría reproducirse, lo que crea la posibilidad de un ataque de reproducción.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/425"
+  },
+  "426": {
+    "descriptionHtml": "<p>El código de respuesta de error del cliente HTTP <code>426 Upgrade Required</code> indica que el servidor se niega a realizar la solicitud utilizando el protocolo actual, pero podría estar dispuesto a hacerlo después de que el cliente actualice a un protocolo diferente.</p> <p>El servidor envía un encabezado <code>Upgrade</code> con esta respuesta para indicar los protocolos requeridos.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/426"
+  },
+  "428": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>428 Precondition Required</code> indica que el servidor requiere que la solicitud sea condicional.</p>\n<p>Normalmente, esto significa que falta un encabezado de condición previa requerido, como <code>If-Match</code>.</p>\n<p>Cuando un encabezado de condición previa no coincide con el estado del lado del servidor, la respuesta debe ser <code>412 Precondition Failed</code>.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/428"
+  },
+  "429": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>429 Too Many Requests</code> indica que el usuario ha enviado demasiadas solicitudes en un período de tiempo determinado (\"limitación de velocidad\").</p>\n<p>Es posible que se incluya un encabezado <code>Retry-After</code> en esta respuesta que indique cuánto tiempo se debe esperar antes de realizar una nueva solicitud.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/429"
+  },
+  "431": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>431 Request Header Fields Too Large</code> indica que el servidor se niega a procesar la solicitud porque los encabezados HTTP de la solicitud son demasiado largos. La solicitud se puede volver a enviar después de reducir el tamaño de los encabezados de la solicitud.</p> <p><code>431</code> se puede utilizar cuando el tamaño total de los encabezados de la solicitud es demasiado grande o cuando un solo campo de encabezado es demasiado grande. Para ayudar a quienes se encuentren con este error, indique cuál de los dos es el problema en el cuerpo de la respuesta; Lo ideal es incluir también qué encabezados son demasiado grandes. Esto permite a los usuarios intentar solucionar el problema, por ejemplo borrando sus cookies.</p> <p>Los servidores a menudo producirán este estado si:</p> <ul> <li>La URL <code>Referer</code> es demasiado larga</li> <li>Se han enviado demasiadas cookies en la solicitud</li> </ul>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/431"
+  },
+  "451": {
+    "descriptionHtml": "<p>El código de respuesta de error del cliente HTTP <code>451 Unavailable For Legal Reasons</code> indica que el usuario solicitó un recurso que no está disponible por razones legales, como una página web por la cual se ha iniciado una acción legal.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/451"
+  },
+  "500": {
+    "descriptionHtml": "<p>El código de respuesta de error del servidor HTTP <code>500 Internal Server Error</code> indica que el servidor encontró una condición inesperada que le impidió cumplir con la solicitud.</p>\n<p>Esta respuesta de error es una respuesta genérica \"general\". Por lo general, esto indica que el servidor no puede encontrar un código de error <code>5xx</code> mejor para responder. A veces, los administradores del servidor registran respuestas de error como el código de estado <code>500</code> con más detalles sobre la solicitud para evitar que el error vuelva a ocurrir en el futuro.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/500"
+  },
+  "501": {
+    "descriptionHtml": "<p>El código de respuesta de error del servidor HTTP <code>501 Not Implemented</code> significa que el servidor no admite la funcionalidad necesaria para cumplir con la solicitud.</p>\n<p>Este estado también puede enviar un encabezado <code>Retry-After</code>, indicando al solicitante cuándo volver a verificar para ver si la funcionalidad es compatible para entonces.</p>\n<p><code>501</code> es la respuesta adecuada cuando el servidor no reconoce el método de solicitud y es incapaz de soportarlo para cualquier recurso. Los únicos métodos que los servidores deben admitir (y por lo tanto no deben devolver <code>501</code>) son <code>GET</code> y <code>HEAD</code>.</p>\n<p>Si el servidor reconoce el método, pero intencionalmente no lo admite, la respuesta adecuada es <code>405 Method Not Allowed</code>.</p>\n<aside><strong>Nota:</strong> Un error 501 no es algo que pueda corregir, pero requiere que el servidor web al que intenta acceder lo solucione.</aside>\n<aside><strong>Nota:</strong>Una respuesta 501 se puede almacenar en caché de forma predeterminada; es decir, a menos que los encabezados de almacenamiento en caché indiquen lo contrario.</aside>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/501"
+  },
+  "502": {
+    "descriptionHtml": "<p>El código de respuesta de error del servidor HTTP <code>502 Bad Gateway</code> indica que el servidor, mientras actuaba como puerta de enlace o proxy, recibió una respuesta no válida del servidor ascendente.</p>\n<aside><strong>Nota:</strong> Una puerta de enlace puede referirse a diferentes cosas en la red y un error 502 generalmente no es algo que pueda corregir, sino que requiere una solución por parte del servidor web o de los servidores proxy a través de los cuales intenta obtener acceso.</aside>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/502"
+  },
+  "503": {
+    "descriptionHtml": "<p>El código de respuesta de error del servidor HTTP <code>503 Service Unavailable</code> indica que el servidor no está listo para manejar la solicitud.</p>\n<p>Las causas comunes son un servidor que está inactivo por mantenimiento o que está sobrecargado. Esta respuesta debe usarse para condiciones temporales y el encabezado HTTP <code>Retry-After</code> debe, si es posible, contener el tiempo estimado para la recuperación del servicio.</p>\n<p>Se deben tener en cuenta los encabezados relacionados con el almacenamiento en caché que se envían junto con esta respuesta, ya que el estado <code>503</code> suele ser una condición temporal y las respuestas normalmente no se deben almacenar en caché.</p>\n<aside><strong>Nota:</strong> junto con esta respuesta, se debe enviar una página fácil de usar que explique el problema.</aside>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/503"
+  },
+  "504": {
+    "descriptionHtml": "<p>El código de respuesta de error del servidor HTTP <code>504 Gateway Timeout</code> indica que el servidor, aunque actuaba como puerta de enlace o proxy, no obtuvo a tiempo la respuesta del servidor ascendente que necesitaba para completar la solicitud.</p>\n<aside><strong>Nota:</strong> Una puerta de enlace puede referirse a diferentes cosas en la red y un error 504 generalmente no es algo que pueda corregir, sino que requiere una solución por parte del servidor web o de los servidores proxy a través de los cuales intenta obtener acceso.</aside>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/504"
+  },
+  "505": {
+    "descriptionHtml": "<p>El servidor no admite la versión HTTP utilizada por la solicitud.</p>",
+    "source": "https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status/505"
+  },
+  "506": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>506 Variant Also Negotiates</code> se puede proporcionar en el contexto de la negociación de contenido transparente (consulte RFC 2295). Este protocolo permite a un cliente recuperar la mejor variante de un recurso determinado, donde el servidor admite múltiples variantes.</p>\n<p>El código de estado Variant Also Negotiates indica un error de configuración del servidor interno en el que la variante elegida está configurada para participar en la negociación de contenido, por lo que no es un punto final de negociación adecuado.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/506"
+  },
+  "507": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>507 Insufficient Storage</code> se puede proporcionar en el contexto del protocolo WebDAV (consulte RFC 4918).</p>\n<p>Indica que no se pudo realizar un método porque el servidor no puede almacenar la representación necesaria para completar exitosamente la solicitud.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/507"
+  },
+  "508": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>508 Loop Detected</code> se puede proporcionar en el contexto del protocolo WebDAV.</p> <p>Indica que el servidor finalizó una operación porque encontró un bucle infinito mientras procesaba una solicitud con <code>&quot;Depth: infinity&quot;</code>. Este estado indica que toda la operación falló.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/508"
+  },
+  "510": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>510 Not Extended</code> se envía en el contexto del marco de extensión HTTP, definido en RFC 2774.</p> <p>En esa especificación, un cliente puede enviar una solicitud que contenga una declaración de extensión, que describa la extensión que se utilizará. Si el servidor recibe dicha solicitud, pero las extensiones descritas no son compatibles con la solicitud, entonces el servidor responde con el código de estado <code>510</code>.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/510"
+  },
+  "511": {
+    "descriptionHtml": "<p>El código de estado de respuesta HTTP <code>511 Network Authentication Required</code> indica que el cliente necesita autenticarse para obtener acceso a la red.</p> <p>Este estado no lo generan los servidores de origen, sino los proxies de interceptación que controlan el acceso a la red.</p> <p>Los operadores de red a veces requieren cierta autenticación, aceptación de términos u otra interacción del usuario antes de otorgar acceso (por ejemplo, en un cibercafé o en un aeropuerto). A menudo identifican a los clientes que no lo han hecho utilizando sus direcciones de control de acceso a medios (MAC).</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/511"
+  }
+}

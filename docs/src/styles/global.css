@@ -65,6 +65,14 @@
 
 html {
   color-scheme: light dark;
+  overflow-y: scroll;
+}
+
+@supports (scrollbar-gutter: stable) {
+  html {
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+  }
 }
 
 body {
@@ -253,6 +261,16 @@ pre {
 code {
   overflow-wrap: anywhere;
 }
+
+.format-note code,
+.status-notice code,
+.status-description :not(pre) > code {
+  white-space: nowrap;
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+  background: var(--line-strong);
+  font-size: 0.9em;
+}
 pre {
   padding: 20px;
   background: var(--surface);
@@ -321,7 +339,7 @@ footer {
   border-top: 1px solid var(--line);
   font-size: 0.875rem;
 }
-@media (max-width: 540px) {
+@media (max-width: 668px) {
   .endpoint-heading {
     flex-direction: column;
     gap: 12px;
@@ -345,6 +363,7 @@ footer {
   margin: 0;
 }
 .response-code {
+  font-size: 1rem;
   font-family: var(--font-mono);
   color: var(--accent);
 }
@@ -360,12 +379,14 @@ footer {
 }
 .endpoint-execute {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 .request-field {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 16px;
   font-size: 0.8rem;
   color: var(--ink-soft);
 }
@@ -456,7 +477,6 @@ footer {
   gap: 16px;
 }
 
-/* Keep the existing visual design while using daisyUI controls. */
 .btn,
 .select,
 .textarea,

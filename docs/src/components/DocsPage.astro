@@ -1,5 +1,6 @@
 ---
 import { type Locale, messages } from "../i18n/messages";
+import { statusEndpointMessages } from "../i18n/status-endpoint";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DocsNavigation from "./DocsNavigation.astro";
 import EndpointCard from "./EndpointCard.astro";
@@ -11,6 +12,17 @@ const { locale } = Astro.props;
 const t = messages[locale];
 
 const groups = [
+  {
+    title: "Status",
+    id: "status",
+    endpoints: [
+      {
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+        path: "/status/{code}",
+        description: statusEndpointMessages[locale].description,
+      },
+    ],
+  },
   {
     title: "IP",
     id: "ip",
@@ -89,13 +101,7 @@ const groups = [
 </BaseLayout>
 
 <style>
-  .format-note code {
-    white-space: nowrap;
-    padding: 0.1em 0.3em;
-    border-radius: 4px;
-    background: var(--line-strong);
-    font-size: 0.9em;
-  }
+
 
   .rand-link {
     color: var(--accent);

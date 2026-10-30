@@ -1,4 +1,3 @@
-/* Omit Preflight to preserve the site's typography and document spacing. */
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
@@ -9,7 +8,6 @@
   logs: false;
 }
 
-/* Both color schemes use the existing palette, selected entirely through CSS. */
 @plugin "daisyui/theme" {
   name: "200ok";
   default: true;

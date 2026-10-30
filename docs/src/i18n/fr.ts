@@ -1,7 +1,6 @@
 import type { MessageDictionary } from "./messages";
 
 export const fr: MessageDictionary = {
-  inDevelopment: "En cours de développement",
   docTitle: "Documentation de l’API",
   metaDescription:
     "200 OK — Service de requêtes et de réponses HTTP. Inspectez les requêtes, testez les réponses et déboguez les intégrations.",
@@ -15,6 +14,12 @@ export const fr: MessageDictionary = {
   notFound: "Page introuvable",
   backToDocs: "Retour à la documentation",
   github: "GitHub",
+  allStatuses: "Tous",
+  statusInformational: "Information",
+  statusSuccess: "Succès",
+  statusRedirection: "Redirections",
+  statusClientError: "Erreurs client",
+  statusServerError: "Erreurs serveur",
   statusCodes: "Codes de statut HTTP",
   endpoints: "Points de terminaison",
   ipCurrent: "L’adresse IP du client (IPv4 ou IPv6).",

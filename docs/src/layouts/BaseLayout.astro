@@ -9,7 +9,7 @@ import {
   localeCodes,
   locales,
   localizedPath,
-} from "../../../src/locales";
+} from "../i18n/locales";
 import { type Locale, messages } from "../i18n/messages";
 import { languageUrl } from "../i18n/paths";
 
@@ -84,7 +84,7 @@ const t = messages[locale];
 </html>
 
 <script>
-  import { isLocale, localeFromPath } from "../../../src/locales";
+  import { isLocale, localeFromPath } from "../i18n/locales";
   import { languageUrl } from "../i18n/paths";
 
   const select = document.querySelector<HTMLSelectElement>("[data-language-select]");

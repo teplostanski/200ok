@@ -1,0 +1,254 @@
+{
+  "100": {
+    "descriptionHtml": "<p>Der HTTP-Antwortcode <code>100 Continue</code> für den Informationsstatus gibt an, dass bisher alles in Ordnung ist und dass der Client mit der Anfrage fortfahren oder sie ignorieren sollte, wenn sie bereits abgeschlossen ist.</p>\n<p>Damit ein Server die Header der Anfrage überprüft, muss ein Client <code>Expect: 100-continue</code> als Header in seiner ersten Anfrage senden und als Antwort einen Statuscode <code>100 Continue</code> erhalten, bevor er den Anfragerumpf sendet.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/100"
+  },
+  "101": {
+    "descriptionHtml": "<p>Der HTTP-Antwortcode <code>101 Switching Protocols</code> gibt ein Protokoll an, zu dem der Server wechselt. Das Protokoll ist im <a href=\"https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Headers/Upgrade\">Upgrade</a>-Anfrageheader angegeben, der von einem Client empfangen wird.</p>\n<p>Der Server fügt in diese Antwort einen <a href=\"https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Headers/Upgrade\">Upgrade</a>-Antwortheader ein, um das Protokoll anzugeben, zu dem er gewechselt hat.</p>\n<p>Der Prozess wird im folgenden Artikel beschrieben: <a href=\"https://developer.mozilla.org/de/docs/Web/HTTP/Guides/Protocol_upgrade_mechanism\">Protokoll-Upgrade-Mechanismus</a></p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/101"
+  },
+  "102": {
+    "descriptionHtml": "<aside><strong>Veraltet:</strong>Dieser Statuscode ist veraltet. Wenn es verwendet wird, kann es sein, dass Kunden es immer noch akzeptieren, es aber einfach ignorieren.</aside>\n<p>Der Antwortcode für den HTTP-Informationsstatus <code>102 Processing</code> zeigt dem Client an, dass eine vollständige Anfrage empfangen wurde und der Server daran arbeitet.</p>\n<p>Dieser Statuscode wird nur gesendet, wenn der Server erwartet, dass die Anfrage viel Zeit in Anspruch nimmt. Es teilt dem Kunden mit, dass Ihre Anfrage noch nicht tot ist.</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status#102_processing"
+  },
+  "103": {
+    "descriptionHtml": "<aside><strong>Experimentell:</strong> Dies ist eine experimentelle Technologie. Überprüfen Sie sorgfältig die Browserkompatibilitätstabelle, bevor Sie diese in der Produktion verwenden.</aside>\n<p>Die HTTP-<code>103 Early Hints</code> <a href=\"https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status\">Informationsantwort</a> kann von einem Server gesendet werden, während er noch eine Antwort vorbereitet, mit Hinweisen zu den Ressourcen, die der Server voraussichtlich mit der endgültigen Antwort verknüpfen wird.</p>\n<p>Dadurch kann ein Browser mit dem <a href=\"https://developer.mozilla.org/de/docs/Web/HTML/Reference/Attributes/rel/preload\">Vorabladen</a> von Ressourcen beginnen, noch bevor der Server die endgültige Antwort vorbereitet und gesendet hat.</p>\n<p>Die frühe Hinweisantwort ist in erster Linie für die Verwendung mit dem <a href=\"https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Headers/Link\">Link</a>-Header gedacht, der die zu ladenden Ressourcen angibt.</p>\n<p>Es kann auch einen <a href=\"https://developer.mozilla.org/de/docs/Web/HTTP/Guides/CSP\">Content-Security-Policy</a>-Header enthalten, der während der Verarbeitung des frühen Hinweises erzwungen wird.</p>\n<p>Ein Server sendet möglicherweise mehrere <code>103</code>-Antworten, beispielsweise nach einer Umleitung. Browser verarbeiten nur die erste frühe Hinweisantwort, und diese Antwort muss verworfen werden, wenn die Anfrage zu einer Cross-Origin-Weiterleitung führt. Vorab geladene Ressourcen aus dem frühen Hinweis werden effektiv dem Kopfelement des <code>Document</code> vorangestellt, gefolgt von den in der endgültigen Antwort geladenen Ressourcen.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/103"
+  },
+  "200": {
+    "descriptionHtml": "<p>Der HTTP-Erfolgsstatus-Antwortcode <code>200 OK</code> gibt an, dass die Anfrage erfolgreich war. Eine 200-Antwort ist standardmäßig zwischenspeicherbar.</p>\n<p>Die Bedeutung eines Erfolgs hängt von der HTTP-Anfragemethode ab:</p>\n<ul>\n<li><code>GET</code>: Die Ressource wurde abgerufen und wird im Nachrichtentext übertragen.</li>\n<li><code>HEAD</code>: Die Darstellungsheader werden ohne Nachrichtentext in die Antwort eingefügt</li>\n<li><code>POST</code>: Die Ressource, die das Ergebnis der Aktion beschreibt, wird im Nachrichtentext übertragen</li>\n<li><code>TRACE</code>: Der Nachrichtentext enthält die vom Server empfangene Anforderungsnachricht.</li>\n</ul>\n<p>Das erfolgreiche Ergebnis eines <code>PUT</code> oder eines <code>DELETE</code> ist oft kein <code>200 OK</code>, sondern ein <code>204 No Content</code> (oder ein <code>201 Created</code>, wenn die Ressource zum ersten Mal hochgeladen wird).</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/200"
+  },
+  "201": {
+    "descriptionHtml": "<p>Der Erfolgsstatus-Antwortcode HTTP <code>201 Created</code> gibt an, dass die Anforderung erfolgreich war und zur Erstellung einer Ressource geführt hat.</p>\n<p>Die neue Ressource oder eine Beschreibung und ein Link zur neuen Ressource werden effektiv erstellt, bevor die Antwort zurückgesendet wird und die neu erstellten Elemente im Nachrichtentext zurückgegeben werden, die sich entweder an der URL der Anfrage oder an der URL im Wert des <code>Location</code>-Headers befinden.</p>\n<p>Der häufigste Anwendungsfall dieses Statuscodes ist das Ergebnis einer <code>POST</code>-Anfrage.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/201"
+  },
+  "202": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>202 Accepted</code> zeigt an, dass die Anfrage zur Verarbeitung angenommen wurde, die Verarbeitung jedoch noch nicht abgeschlossen wurde. Tatsächlich kann es sein, dass die Verarbeitung noch nicht begonnen hat.</p>\n<p>Es kann sein, dass auf die Anfrage letztendlich reagiert wird oder auch nicht, da sie möglicherweise abgelehnt wird, wenn die Verarbeitung tatsächlich stattfindet.</p>\n<p><code>202</code> ist unverbindlich, was bedeutet, dass es für HTTP keine Möglichkeit gibt, später eine asynchrone Antwort zu senden, die das Ergebnis der Verarbeitung der Anfrage angibt. Es ist für Fälle gedacht, in denen ein anderer Prozess oder Server die Anfrage bearbeitet, oder für die Stapelverarbeitung.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/202"
+  },
+  "203": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatus <code>203 Non-Authoritative Information</code> zeigt an, dass die Anfrage erfolgreich war, die beigefügte Nutzlast jedoch von einem transformierenden Proxy gegenüber der <code>200 OK</code>-Antwort des Ursprungsservers geändert wurde.</p>\n<p>Die <code>203</code>-Antwort ähnelt dem Wert <code>214</code>, was <code>Transformation Applied</code> bedeutet, des <code>Warning</code>-Header-Codes, was den zusätzlichen Vorteil hat, dass er auf Antworten mit jedem Statuscode anwendbar ist.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/203"
+  },
+  "204": {
+    "descriptionHtml": "<p>Der HTTP-Erfolgsstatus-Antwortcode <code>204 No Content</code> gibt an, dass eine Anfrage erfolgreich war, der Client jedoch seine aktuelle Seite nicht verlassen muss.</p>\n<p>Dies kann beispielsweise bei der Implementierung der Funktion „Speichern und Bearbeiten fortsetzen“ für eine Wiki-Site verwendet werden. In diesem Fall würde eine <code>PUT</code>-Anfrage zum Speichern der Seite verwendet und die Antwort <code>204 No Content</code> gesendet, um anzugeben, dass der Editor nicht durch eine andere Seite ersetzt werden soll.</p>\n<p>Eine <code>204</code>-Antwort ist standardmäßig zwischenspeicherbar (ein <code>ETag</code>-Header ist in einer solchen Antwort enthalten).</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/204"
+  },
+  "205": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatus <code>205 Reset Content</code> weist den Client an, die Dokumentansicht zurückzusetzen (d. h. den Inhalt eines Formulars zu löschen, den Canvas-Status oder die Benutzeroberfläche zurückzusetzen).</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/205"
+  },
+  "206": {
+    "descriptionHtml": "<p>Der Erfolgsstatus-Antwortcode HTTP <code>206 Partial Content</code> gibt an, dass die Anfrage erfolgreich war und der Text die angeforderten Datenbereiche enthält, wie im Range-Header der Anfrage beschrieben.</p>\n<p>Wenn nur ein Bereich vorhanden ist, wird der <code>Content-Type</code> der gesamten Antwort auf den Typ des Dokuments gesetzt und ein <code>Content-Range</code> bereitgestellt.</p>\n<p>Wenn mehrere Bereiche zurückgesendet werden, wird der <code>Content-Type</code> auf <code>multipart/byteranges</code> gesetzt und jedes Fragment deckt einen Bereich ab, wobei <code>Content-Range</code> und <code>Content-Type</code> ihn beschreiben.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/206"
+  },
+  "207": {
+    "descriptionHtml": "<p>Der HTTP-Antwortcode <code>207 Multi-Status</code> weist darauf hin, dass es möglicherweise eine Mischung aus Antworten gibt.</p>\n<p>Der Antworttext ist eine <code>text/xml</code>- oder <code>application/xml</code>-HTTP-Entität mit einem <code>multistatus</code>-Stammelement. Im XML-Text werden alle einzelnen Antwortcodes aufgelistet.</p>\n  <aside><strong>Hinweis:</strong> Die Möglichkeit, eine Sammlung von Ressourcen zurückzugeben, ist Teil des WebDAV-Protokolls (sie kann von Webanwendungen empfangen werden, die auf einen WebDAV-Server zugreifen). Bei Browsern, die auf Webseiten zugreifen, wird dieser Statuscode niemals angezeigt.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/207"
+  },
+  "208": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatus <code>208 Already Reported</code> wird in einer <a href=\"https://http.cat/status/207\">207 Multi-Status</a>-Antwort verwendet, um Platz zu sparen und Konflikte zu vermeiden. Wenn dieselbe Ressource mehrmals (z. B. als Teil einer Sammlung) mit unterschiedlichen Pfaden angefordert wird, wird nur die erste mit <a href=\"https://http.cat/status/200\">200</a> gemeldet. Antworten für alle anderen Bindungen werden mit diesem Statuscode 208 gemeldet, sodass keine Konflikte entstehen und die Antwort kürzer bleibt.</p>\n<aside><strong>Hinweis:</strong> Die Möglichkeit, eine Ressource an mehrere Pfade zu binden, ist eine Erweiterung des WebDAV-Protokolls (sie kann von Webanwendungen empfangen werden, die auf einen WebDAV-Server zugreifen). Bei Browsern, die auf Webseiten zugreifen, wird dieser Statuscode niemals angezeigt.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/208"
+  },
+  "226": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatus <code>226 IM Used</code> ist im Zusammenhang mit Delta-Codierungen ein vom Server festgelegter Statuscode, der angibt, dass er ein Delta an die empfangene GET-Anfrage zurückgibt. IM steht für <em>Instance Manipulations</em>, der Begriff, der zur Beschreibung eines Algorithmus verwendet wird, der ein Delta generiert.</p>\n<p>Bei der Delta-Kodierung antwortet ein Server auf <code>GET</code>-Anfragen mit Unterschieden (Deltas genannt) relativ zu einem bestimmten Basisdokument (und nicht zum aktuellen Dokument). Der Client verwendet den HTTP-Header <code>A-IM:</code>, um anzugeben, welcher Differenzierungsalgorithmus verwendet werden soll, und den Header <code>If-None-Match:</code>, um dem Server einen Hinweis auf die letzte Version zu geben, die er erhalten hat. Der Server generiert ein Delta, sendet es in einer HTTP-Antwort mit dem Statuscode <code>226</code> zurück und enthält die HTTP-Header <code>IM:</code> (mit dem Namen des verwendeten Algorithmus) und <code>Delta-Base:</code> (mit dem <code>ETag</code>, der dem mit dem Delta verknüpften Basisdokument entspricht).</p>\n<aside><strong>Hinweis:</strong> Browser unterstützen keine Delta-Kodierung mit HTTP. Dieser Statuscode wird von benutzerdefinierten Servern zurückgesendet, die von bestimmten Clients verwendet werden.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/226"
+  },
+  "300": {
+    "descriptionHtml": "<p>Der Antwortcode für den HTTP-Umleitungsstatus <code>300 Multiple Choices</code> gibt an, dass die Anfrage mehr als eine mögliche Antwort hat.</p>\n<p>Der Benutzeragent oder der Benutzer sollte eine davon auswählen.</p>\n<p>Da es keine standardisierte Möglichkeit zur Auswahl einer der Antworten gibt, wird dieser Antwortcode nur sehr selten verwendet.</p>\n<p>Wenn der Server eine bevorzugte Auswahl hat, sollte er einen <code>Location</code>-Header generieren.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/300"
+  },
+  "301": {
+    "descriptionHtml": "<p>Der Antwortcode für den HTTP-Umleitungsstatus <code>301 Moved Permanently</code> gibt an, dass die angeforderte Ressource definitiv zu der in den Headern <code>Location</code> angegebenen URL verschoben wurde. Ein Browser leitet zur neuen URL weiter und Suchmaschinen aktualisieren ihre Links zur Ressource.</p>\n<aside><strong>Hinweis:</strong> Obwohl die Spezifikation erfordert, dass die Methode und der Text bei der Umleitung unverändert bleiben, erfüllen nicht alle Benutzeragenten diese Anforderung. Verwenden Sie den 301-Code nur als Antwort für GET- oder HEAD-Methoden und verwenden Sie stattdessen die 308 Permanent Redirect für POST-Methoden, da der Methodenwechsel mit diesem Status explizit verboten ist.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/301"
+  },
+  "302": {
+    "descriptionHtml": "<p>Der Antwortcode für den HTTP-Umleitungsstatus <code>302 Found</code> zeigt an, dass die angeforderte Ressource vorübergehend zu der im Header <code>Location</code> angegebenen URL verschoben wurde. Ein Browser leitet auf diese Seite weiter, aber Suchmaschinen aktualisieren ihre Links zu der Ressource nicht (in der SEO-Sprache heißt es, dass der „Link-Juice“ nicht an die neue URL gesendet wird).</p>\n<p>Auch wenn die Spezifikation vorschreibt, dass die Methode (und der Textkörper) bei der Umleitung nicht geändert werden dürfen, sind nicht alle Benutzeragenten konform – Sie können diese Art von fehlerhafter Software immer noch finden. Es wird daher empfohlen, den Code <code>302</code> nur als Antwort für die Methoden <code>GET</code> oder <code>HEAD</code> festzulegen und stattdessen <code>307 Temporary Redirect</code> zu verwenden, da der Methodenwechsel in diesem Fall explizit verboten ist.</p>\n<p>In den Fällen, in denen Sie möchten, dass die verwendete Methode in <code>GET</code> geändert wird, verwenden Sie stattdessen <code>303 See Other</code>. Dies ist nützlich, wenn Sie auf eine <code>PUT</code>-Methode eine Antwort geben möchten, bei der es sich nicht um die hochgeladene Ressource, sondern um eine Bestätigungsmeldung wie „Sie haben XYZ erfolgreich hochgeladen“ handelt.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/302"
+  },
+  "303": {
+    "descriptionHtml": "<p>Der Antwortcode für den HTTP-Umleitungsstatus <code>303 See Other</code> gibt an, dass die Weiterleitungen nicht auf die angeforderte Ressource selbst verweisen, sondern auf eine andere Seite (z. B. eine Bestätigungsseite, eine Darstellung eines realen Objekts; siehe <a href=\"https://en.wikipedia.org/wiki/HTTPRange-14\">HTTPRange-14</a>; oder eine Upload-Fortschrittsseite).</p>\n<p>Dieser Antwortcode wird häufig als Ergebnis von <code>PUT</code> oder <code>POST</code> zurückgesendet.</p>\n<p>Die zum Anzeigen dieser umgeleiteten Seite verwendete Methode ist immer <code>GET</code>.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/303"
+  },
+  "304": {
+    "descriptionHtml": "<p>Der Antwortcode der HTTP-Clientumleitung <code>304 Not Modified</code> gibt an, dass keine Notwendigkeit besteht, die angeforderten Ressourcen erneut zu übertragen. Es handelt sich um eine implizite Umleitung zu einer zwischengespeicherten Ressource. Dies geschieht, wenn die Anforderungsmethode eine sichere Methode ist, wie z. B. <code>GET</code> oder <code>HEAD</code>, oder wenn die Anforderung bedingt ist und einen <code>If-None-Match</code>- oder einen <code>If-Modified-Since</code>-Header verwendet.</p>\n<p>Die Antwort darf keinen Text enthalten und muss die Header enthalten, die in einer entsprechenden <code>200 OK</code>-Antwort gesendet worden wären: <code>Cache-Control</code>, <code>Content-Location</code>, <code>Date</code>, <code>ETag</code>, <code>Expires</code> und <code>Vary</code>.</p>\n<aside><strong>Hinweis:</strong> Die Netzwerkfenster der Browser vieler Entwicklertools erzeugen überflüssige Anfragen, die zu 304-Antworten führen, sodass der Zugriff auf den lokalen Cache für Entwickler sichtbar ist.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/304"
+  },
+  "305": {
+    "descriptionHtml": "<aside><strong>Veraltet:</strong> Der Statuscode „HTTP 305 Use Proxy“ ist aus Sicherheitsgründen veraltet und viele HTTP-Clients ignorieren diesen Statuscode.</aside>\n<p>Der HTTP-Antwortstatuscode <code>305 Use Proxy</code> ist ein veralteter HTTP-Statuscode, der von einem Ursprungsserver zurückgegeben wird, um anzugeben, dass auf die angeforderte Ressource nur über einen Proxyserver zugegriffen werden kann.</p>\n<p>Der Statuscode <code>305 Use Proxy</code> wird verwendet, um den Client darüber zu informieren, dass die angeforderte Ressource über einen Proxyserver bezogen werden muss, und enthält diese Proxy-Adresse im HTTP-Header <code>Set-Proxy</code> oder im HTTP-Header <code>Location</code>.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status"
+  },
+  "306": {
+    "descriptionHtml": "<p>Dieser Statuscode wird in der HTTP-Statuscode-Registrierung nicht verwendet.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status"
+  },
+  "307": {
+    "descriptionHtml": "<p>Der Antwortcode für den HTTP-Umleitungsstatus <code>307 Temporary Redirect</code> zeigt an, dass die angeforderte Ressource vorübergehend zu der in den Headern <code>Location</code> angegebenen URL verschoben wurde.</p>\n<p>Die Methode und der Hauptteil der ursprünglichen Anfrage werden wiederverwendet, um die umgeleitete Anfrage auszuführen. In den Fällen, in denen Sie möchten, dass die verwendete Methode in <code>GET</code> geändert wird, verwenden Sie stattdessen <code>303 See Other</code>. Dies ist nützlich, wenn Sie auf eine <code>PUT</code>-Methode eine Antwort geben möchten, bei der es sich nicht um die hochgeladenen Ressourcen handelt, sondern um eine Bestätigungsmeldung (z. B. „Sie haben XYZ erfolgreich hochgeladen“).</p>\n<p>Der einzige Unterschied zwischen <code>307</code> und <code>302</code> besteht darin, dass <code>307</code> garantiert, dass die Methode und der Textkörper nicht geändert werden, wenn die umgeleitete Anfrage gestellt wird. Bei <code>302</code> haben einige alte Clients die Methode fälschlicherweise in <code>GET</code> geändert: Das Verhalten mit Nicht-GET-Methoden und <code>302</code> ist dann im Web unvorhersehbar, wohingegen das Verhalten mit <code>307</code> vorhersehbar ist. Bei <code>GET</code>-Anfragen ist ihr Verhalten identisch.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/307"
+  },
+  "308": {
+    "descriptionHtml": "<p>Der Antwortcode für den HTTP-Umleitungsstatus <code>308 Permanent Redirect</code> gibt an, dass die angeforderte Ressource definitiv zu der in den <code>Location</code>-Headern angegebenen URL verschoben wurde. Ein Browser leitet auf diese Seite weiter und Suchmaschinen aktualisieren ihre Links zu der Ressource (in der „SEO-Sprache“ heißt es, dass der „Link-Saft“ an die neue URL gesendet wird).</p>\n<p>Die Anforderungsmethode und der Textkörper werden nicht geändert, wohingegen <code>301</code> manchmal fälschlicherweise in eine <code>GET</code>-Methode geändert werden kann.</p>\n<aside><strong>Hinweis:</strong> Einige Webanwendungen verwenden die 308 Permanent Redirect möglicherweise auf nicht standardmäßige Weise und für andere Zwecke. Beispielsweise verwendet Google Drive eine 308 Resume Incomplete-Antwort, um dem Client anzuzeigen, wenn ein unvollständiger Upload ins Stocken geraten ist.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/308"
+  },
+  "400": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>400 Bad Request</code> zeigt an, dass der Server die Anfrage aufgrund eines vermeintlichen Clientfehlers (z. B. fehlerhafte Anfragesyntax, ungültiges Anfragenachrichten-Framing oder betrügerische Anfrageweiterleitung) nicht verarbeiten kann oder will.</p>\n<aside><strong>Warnung:</strong> Der Client sollte diese Anfrage nicht ohne Änderungen wiederholen.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/400"
+  },
+  "401": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>401 Unauthorized</code> zeigt an, dass die Clientanforderung nicht abgeschlossen wurde, da gültige Authentifizierungsdaten für die angeforderte Ressource fehlen.</p>\n<p>Dieser Statuscode wird mit einem HTTP-Antwortheader <code>WWW-Authenticate</code> gesendet, der Informationen darüber enthält, wie der Client die Ressource erneut anfordern kann, nachdem er den Benutzer zur Eingabe der Authentifizierungsdaten aufgefordert hat.</p>\n<p>Dieser Statuscode ähnelt dem Statuscode <code>403 Forbidden</code>, außer dass in Situationen, die zu diesem Statuscode führen, die Benutzerauthentifizierung den Zugriff auf die Ressource ermöglichen kann.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/401"
+  },
+  "402": {
+    "descriptionHtml": "<aside><strong>Experimentell:</strong> Dies ist eine experimentelle Technologie. Überprüfen Sie sorgfältig die Browserkompatibilitätstabelle, bevor Sie diese in der Produktion verwenden.</aside>\n<p>Der HTTP-<code>402 Payment Required</code> ist ein nicht standardmäßiger Antwortstatuscode, der für die zukünftige Verwendung reserviert ist. Dieser Statuscode wurde erstellt, um digitale Bargeld- oder (Mikro-)Zahlungssysteme zu ermöglichen und würde anzeigen, dass der angeforderte Inhalt erst verfügbar ist, wenn der Kunde eine Zahlung vornimmt.</p>\n<p>Manchmal weist dieser Statuscode darauf hin, dass die Anfrage nicht bearbeitet werden kann, bis der Kunde eine Zahlung geleistet hat. Es gibt jedoch keine Standardnutzungskonvention und verschiedene Unternehmen verwenden sie in unterschiedlichen Kontexten.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/402"
+  },
+  "403": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>403 Forbidden</code> zeigt an, dass der Server die Anfrage versteht, sich aber weigert, sie zu autorisieren.</p>\n<p>Dieser Status ähnelt <code>401</code>, aber für den Statuscode <code>403 Forbidden</code> macht eine erneute Authentifizierung keinen Unterschied. Der Zugriff ist an die Anwendungslogik gebunden, beispielsweise an unzureichende Rechte auf eine Ressource.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/403"
+  },
+  "404": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>404 Not Found</code> zeigt an, dass der Server die angeforderte Ressource nicht finden kann. Links, die zu einer <code>404</code>-Seite führen, werden oft als defekte oder tote Links bezeichnet und können anfällig für Linkfäule sein.</p>\n<p>Der Statuscode <code>404</code> gibt nur an, dass die Ressource fehlt, nicht jedoch, ob die Abwesenheit vorübergehend oder dauerhaft ist. Wenn eine Ressource dauerhaft entfernt wird, verwenden Sie stattdessen den Status <code>410 Gone</code>.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/404"
+  },
+  "405": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>405 Method Not Allowed</code> zeigt an, dass der Server die Anforderungsmethode kennt, die Zielressource diese Methode jedoch nicht unterstützt.</p>\n<p>Der Server muss ein <code>Allow</code>-Headerfeld in einer <code>405</code>-Statuscode-Antwort generieren. Das Feld muss eine Liste von Methoden enthalten, die die Zielressource derzeit unterstützt.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/405"
+  },
+  "406": {
+    "descriptionHtml": "<p>Der HTTP-Client-Fehlerantwortcode <code>406 Not Acceptable</code> weist darauf hin, dass der Server keine Antwort erzeugen kann, die der Liste akzeptabler Werte entspricht, die in den Headern der proaktiven Inhaltsverhandlung der Anforderung definiert sind, und dass der Server nicht bereit ist, eine Standarddarstellung bereitzustellen.</p>\n<p>Zu den Headern der proaktiven Inhaltsverhandlung gehören:</p>\n<ul>\n<li><code>Accept</code></li>\n<li><code>Accept-Encoding</code></li>\n<li><code>Accept-Language</code></li>\n</ul>\n<p>In der Praxis wird dieser Fehler sehr selten verwendet. Anstatt mit diesem Fehlercode zu antworten, der für den Endbenutzer kryptisch und schwer zu beheben wäre, ignorieren Server den relevanten Header und stellen dem Benutzer eine tatsächliche Seite bereit. Es wird davon ausgegangen, dass der Benutzer, auch wenn er nicht ganz zufrieden ist, dies einem Fehlercode vorziehen wird.</p>\n<p>Wenn ein Server einen solchen Fehlerstatus zurückgibt, sollte der Nachrichtentext die Liste der verfügbaren Darstellungen der Ressourcen enthalten, sodass der Benutzer zwischen ihnen wählen kann.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/406"
+  },
+  "407": {
+    "descriptionHtml": "<p>Der HTTP-Client-Fehlerstatus-Antwortcode <code>407 Proxy Authentication Required</code> zeigt an, dass die Anforderung nicht angewendet wurde, weil ihr gültige Authentifizierungsdaten für einen Proxyserver fehlen, der sich zwischen dem Browser und dem Server befindet, der auf die angeforderte Ressource zugreifen kann.</p>\n<p>Dieser Status wird mit einem <code>Proxy-Authenticate</code>-Header gesendet, der Informationen zur korrekten Autorisierung enthält.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/407"
+  },
+  "408": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>408 Request Timeout</code> bedeutet, dass der Server diese ungenutzte Verbindung schließen möchte. Es wird von einigen Servern über eine inaktive Verbindung gesendet, auch ohne vorherige Anfrage durch den Client.</p>\n<p>Ein Server sollte das Headerfeld <code>Connection</code> mit dem Wert close in der Antwort senden, da <code>408</code> impliziert, dass der Server beschlossen hat, die Verbindung zu schließen, anstatt weiter zu warten.</p>\n<p>Diese Antwort wird viel häufiger verwendet, da einige Browser wie Chrome, Firefox 27+ und IE9 HTTP-Vorverbindungsmechanismen verwenden, um das Surfen zu beschleunigen.</p>\n<aside><strong>Hinweis:</strong> Einige Server unterbrechen lediglich die Verbindung, ohne diese Nachricht zu senden.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/408"
+  },
+  "409": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>409 Conflict</code> weist auf einen Anforderungskonflikt mit dem aktuellen Status der Zielressource hin.</p>\n<p>Konflikte treten am wahrscheinlichsten als Reaktion auf eine <code>PUT</code>-Anfrage auf. Beispielsweise erhalten Sie möglicherweise die Antwort <code>409</code>, wenn Sie eine Datei hochladen, die älter als die auf dem Server vorhandene ist, was zu einem Versionskontrollkonflikt führt.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/409"
+  },
+  "410": {
+    "descriptionHtml": "<p>Der HTTP-Client-Fehlerantwortcode <code>410 Gone</code> weist darauf hin, dass der Zugriff auf die Zielressource auf dem Ursprungsserver nicht mehr verfügbar ist und dass dieser Zustand wahrscheinlich dauerhaft ist.</p>\n<p>Wenn Sie nicht wissen, ob dieser Zustand vorübergehend oder dauerhaft ist, sollten Sie stattdessen den Statuscode <code>404</code> verwenden.</p>\n<aside><strong>Hinweis:</strong> Eine 410-Antwort ist standardmäßig zwischenspeicherbar.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/410"
+  },
+  "411": {
+    "descriptionHtml": "<p>Der HTTP-Client-Fehlerantwortcode <code>411 Length Required</code> weist darauf hin, dass der Server die Annahme der Anfrage ohne definierten <code>Content-Length</code>-Header ablehnt.</p>\n<aside><strong>Hinweis:</strong> Laut Spezifikation wird beim Senden von Daten in einer Reihe von Blöcken der Content-Length-Header weggelassen und am Anfang jedes Blocks müssen Sie die Länge des aktuellen Blocks im Hexadezimalformat hinzufügen. Weitere Einzelheiten finden Sie unter Transfer-Encoding.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/411"
+  },
+  "412": {
+    "descriptionHtml": "<p>Der HTTP-Client-Fehlerantwortcode <code>412 Precondition Failed</code> zeigt an, dass der Zugriff auf die Zielressource verweigert wurde. Dies geschieht bei bedingten Anforderungen an andere Methoden als <code>GET</code> oder <code>HEAD</code>, wenn die durch die Header <code>If-Unmodified-Since</code> oder <code>If-None-Match</code> definierte Bedingung nicht erfüllt ist. In diesem Fall kann die Anfrage, normalerweise ein Upload oder eine Änderung einer Ressource, nicht gestellt werden und diese Fehlerantwort wird zurückgesendet.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/412"
+  },
+  "413": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>413 Content Too Large</code> zeigt an, dass die Anforderungsentität größer ist als die vom Server definierten Grenzwerte; Der Server schließt möglicherweise die Verbindung oder gibt ein Headerfeld <code>Retry-After</code> zurück.</p>\n<p>Vor RFC 9110 lautete die Antwortphrase für den Status „Payload Too Large“. Dieser Name wird immer noch häufig verwendet.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/413"
+  },
+  "414": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>414 URI Too Long</code> zeigt an, dass der vom Client angeforderte URI länger ist, als der Server zu interpretieren bereit ist.</p>\n<p>Es gibt einige seltene Bedingungen, unter denen dies auftreten kann:</p>\n<ul>\n<li>wenn ein Client eine <code>POST</code>-Anfrage fälschlicherweise in eine <code>GET</code>-Anfrage mit langen Abfrageinformationen umgewandelt hat,</li>\n<li>wenn der Client in eine Umleitungsschleife geraten ist (z. B. ein umgeleitetes URI-Präfix, das auf ein Suffix von sich selbst verweist),</li>\n<li>oder wenn der Server von einem Client angegriffen wird, der versucht, potenzielle Sicherheitslücken auszunutzen.</li>\n</ul>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/414"
+  },
+  "415": {
+    "descriptionHtml": "<p>Der HTTP-Client-Fehlerantwortcode <code>415 Unsupported Media Type</code> weist darauf hin, dass der Server die Annahme der Anfrage verweigert, da das Nutzlastformat in einem nicht unterstützten Format vorliegt.</p>\n<p>Das Formatproblem kann auf den in der Anfrage angegebenen <code>Content-Type</code> oder <code>Content-Encoding</code> zurückzuführen sein oder auf die direkte Überprüfung der Daten zurückzuführen sein.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/415"
+  },
+  "416": {
+    "descriptionHtml": "<p>Der HTTP-Fehlerantwortcode <code>416 Range Not Satisfiable</code> weist darauf hin, dass ein Server die angeforderten Bereiche nicht bedienen kann. Der wahrscheinlichste Grund ist, dass das Dokument solche Bereiche nicht enthält oder dass der Range-Headerwert zwar syntaktisch korrekt, aber keinen Sinn ergibt.</p>\n<p>Die <code>416</code>-Antwortnachricht enthält einen <code>Content-Range</code>, der einen nicht erfüllten Bereich angibt (das ist ein <code>&#x27;*&#x27;</code>), gefolgt von einem <code>&#x27;/&#x27;</code> und der aktuellen Länge der Ressource. Z.B. <code>Content-Range: bytes */12777</code>.</p>\n<p>Wenn dieser Fehler auftritt, brechen Browser normalerweise entweder den Vorgang ab (ein Download wird beispielsweise als nicht fortsetzbar betrachtet) oder fordern erneut das gesamte Dokument an.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/416"
+  },
+  "417": {
+    "descriptionHtml": "<p>Der HTTP-Clientfehlerantwortcode <code>417 Expectation Failed</code> gibt an, dass die im Header <code>Expect</code> der Anfrage angegebene Erwartung nicht erfüllt werden konnte.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/417"
+  },
+  "418": {
+    "descriptionHtml": "<p>Der HTTP-Client-Fehlerantwortcode <code>418 I&#x27;m a teapot</code> weist darauf hin, dass der Server sich weigert, Kaffee zuzubereiten, da es sich dauerhaft um eine Teekanne handelt.</p>\n<p>Eine kombinierte Kaffee-/Teekanne, die vorübergehend keinen Kaffee mehr hat, sollte stattdessen 503 zurückgeben. Dieser Fehler ist ein Verweis auf das Hyper Text Coffee Pot Control Protocol, das in Aprilscherzen aus den Jahren 1998 und 2014 definiert wurde.</p>\n<p>Einige Websites verwenden diese Antwort für Anfragen, die sie nicht bearbeiten möchten, beispielsweise automatisierte Abfragen.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/418"
+  },
+  "421": {
+    "descriptionHtml": "<p>Der HTTP-Client-Fehlerantwortcode <code>421 Misdirected Request</code> weist darauf hin, dass die Anfrage an einen Server weitergeleitet wurde, der keine Antwort erzeugen kann. Dies kann möglich sein, wenn eine Verbindung wiederverwendet wird oder wenn ein alternativer Dienst ausgewählt wird.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/421"
+  },
+  "422": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>422 Unprocessable Content</code> zeigt an, dass der Server den Inhaltstyp der Anforderungsentität versteht und die Syntax der Anforderungsentität korrekt ist, die enthaltenen Anweisungen jedoch nicht verarbeiten konnte.</p>\n<aside><strong>Warnung:</strong> Der Client sollte diese Anfrage nicht ohne Änderungen wiederholen.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/422"
+  },
+  "423": {
+    "descriptionHtml": "<p>Der HTTP-Fehlerantwortcode <code>423 Locked</code> gibt an, dass die angeforderte Ressource gesperrt ist, was bedeutet, dass nicht auf sie zugegriffen werden kann. Sein Inhalt sollte einige Informationen im XML-Format von WebDAV enthalten.</p>\n<aside><strong>Hinweis:</strong> Die Möglichkeit, eine Ressource zu sperren, ist spezifisch für einige WebDAV-Server. Browser, die auf Webseiten zugreifen, werden niemals auf diesen Statuscode stoßen; Im Fehlerfall wird es als generischer 400-Statuscode behandelt.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/423"
+  },
+  "424": {
+    "descriptionHtml": "<p>Der HTTP-Client-Fehlerantwortcode <code>424 Failed Dependency</code> gibt an, dass die Methode nicht für die Ressource ausgeführt werden konnte, da die angeforderte Aktion von einer anderen Aktion abhing und diese Aktion fehlgeschlagen ist.</p>\n<p>Normale Webserver geben diesen Statuscode normalerweise nicht zurück. Aber einige andere Protokolle, wie WebDAV, können es zurückgeben. Wenn beispielsweise in WebDAV eine <code>PROPPATCH</code>-Anfrage ausgegeben wurde und ein Befehl fehlschlägt, schlagen automatisch auch alle anderen Befehle mit <code>424 Failed Dependency</code> fehl.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/424"
+  },
+  "425": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>425 Too Early</code> zeigt an, dass der Server nicht bereit ist, das Risiko einzugehen, eine Anforderung zu verarbeiten, die möglicherweise wiederholt wird, was die Möglichkeit eines Replay-Angriffs birgt.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/425"
+  },
+  "426": {
+    "descriptionHtml": "<p>Der HTTP-Client-Fehlerantwortcode <code>426 Upgrade Required</code> weist darauf hin, dass der Server die Ausführung der Anforderung mit dem aktuellen Protokoll ablehnt, aber möglicherweise dazu bereit ist, nachdem der Client auf ein anderes Protokoll aktualisiert wurde.</p>\n<p>Der Server sendet mit dieser Antwort einen <code>Upgrade</code>-Header, um das/die erforderliche(n) Protokoll(e) anzugeben.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/426"
+  },
+  "428": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>428 Precondition Required</code> gibt an, dass der Server eine bedingte Anforderung erfordert.</p>\n<p>Normalerweise bedeutet dies, dass ein erforderlicher Vorbedingungsheader, wie z. B. <code>If-Match</code>, fehlt.</p>\n<p>Wenn ein Vorbedingungsheader nicht mit dem Status auf der Serverseite übereinstimmt, sollte die Antwort <code>412 Precondition Failed</code> lauten.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/428"
+  },
+  "429": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>429 Too Many Requests</code> zeigt an, dass der Benutzer in einem bestimmten Zeitraum zu viele Anfragen gesendet hat („Ratenbegrenzung“).</p>\n<p>In diese Antwort kann ein <code>Retry-After</code>-Header eingefügt werden, der angibt, wie lange gewartet werden muss, bevor eine neue Anfrage gestellt wird.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/429"
+  },
+  "431": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>431 Request Header Fields Too Large</code> zeigt an, dass der Server die Verarbeitung der Anfrage ablehnt, weil die HTTP-Header der Anfrage zu lang sind. Die Anfrage kann erneut übermittelt werden, nachdem die Größe der Anfrageheader reduziert wurde.</p>\n<p><code>431</code> kann verwendet werden, wenn die Gesamtgröße der Anforderungsheader zu groß ist oder wenn ein einzelnes Headerfeld zu groß ist. Um denjenigen zu helfen, die auf diesen Fehler stoßen, geben Sie im Antworttext an, welches der beiden das Problem ist. Geben Sie im Idealfall auch an, welche Header zu groß sind. Auf diese Weise können Benutzer versuchen, das Problem zu beheben, indem sie beispielsweise ihre Cookies löschen.</p>\n<p>Server erzeugen diesen Status häufig, wenn:</p>\n<ul>\n<li>Die <code>Referer</code>-URL ist zu lang</li>\n<li>In der Anfrage wurden zu viele Cookies gesendet</li>\n</ul>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/431"
+  },
+  "451": {
+    "descriptionHtml": "<p>Der HTTP-Client-Fehlerantwortcode <code>451 Unavailable For Legal Reasons</code> weist darauf hin, dass der Benutzer eine Ressource angefordert hat, die aus rechtlichen Gründen nicht verfügbar ist, beispielsweise eine Webseite, für die rechtliche Schritte eingeleitet wurden.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/451"
+  },
+  "500": {
+    "descriptionHtml": "<p>Der HTTP-Serverfehlerantwortcode <code>500 Internal Server Error</code> weist darauf hin, dass der Server auf eine unerwartete Bedingung gestoßen ist, die ihn daran gehindert hat, die Anforderung zu erfüllen.</p>\n<p>Bei dieser Fehlerantwort handelt es sich um eine generische „Catch-All“-Antwort. Normalerweise weist dies darauf hin, dass der Server keinen besseren <code>5xx</code>-Fehlercode als Antwort finden kann. Manchmal protokollieren Serveradministratoren Fehlerantworten wie den Statuscode <code>500</code> mit weiteren Details zur Anfrage, um zu verhindern, dass der Fehler in Zukunft erneut auftritt.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/500"
+  },
+  "501": {
+    "descriptionHtml": "<p>Der HTTP-Serverfehlerantwortcode <code>501 Not Implemented</code> bedeutet, dass der Server die zur Erfüllung der Anforderung erforderliche Funktionalität nicht unterstützt.</p>\n<p>Dieser Status kann auch einen <code>Retry-After</code>-Header senden, der dem Anforderer mitteilt, wann er noch einmal prüfen soll, ob die Funktionalität bis dahin unterstützt wird.</p>\n<p><code>501</code> ist die geeignete Antwort, wenn der Server die Anforderungsmethode nicht erkennt und sie für keine Ressource unterstützen kann. Die einzigen Methoden, die Server unterstützen müssen (und die daher nicht <code>501</code> zurückgeben dürfen), sind <code>GET</code> und <code>HEAD</code>.</p>\n<p>Wenn der Server die Methode zwar erkennt, sie aber absichtlich nicht unterstützt, lautet die entsprechende Antwort <code>405 Method Not Allowed</code>.</p>\n<aside><strong>Hinweis:</strong> Ein 501-Fehler kann normalerweise nicht auf der Clientseite behoben werden, sondern erfordert eine Korrektur durch den Webserver, auf den Sie zugreifen möchten.</aside>\n<aside><strong>Hinweis:</strong> Eine 501-Antwort kann standardmäßig zwischengespeichert werden. das heißt, es sei denn, die Caching-Header geben etwas anderes vor.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/501"
+  },
+  "502": {
+    "descriptionHtml": "<p>Der HTTP-Serverfehlerantwortcode <code>502 Bad Gateway</code> weist darauf hin, dass der Server, während er als Gateway oder Proxy fungierte, eine ungültige Antwort vom Upstream-Server erhalten hat.</p>\n<aside><strong>Hinweis:</strong> Ein Gateway kann sich auf verschiedene Dinge im Netzwerk beziehen und ein 502-Fehler kann normalerweise nicht auf der Clientseite behoben werden, sondern erfordert eine Korrektur durch den Webserver oder die Proxys, über die Sie Zugriff erhalten möchten.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/502"
+  },
+  "503": {
+    "descriptionHtml": "<p>Der HTTP-Serverfehlerantwortcode <code>503 Service Unavailable</code> zeigt an, dass der Server nicht bereit ist, die Anfrage zu verarbeiten.</p>\n<p>Häufige Ursachen sind ein Server, der wegen Wartungsarbeiten ausfällt oder überlastet ist. Diese Antwort sollte für temporäre Bedingungen verwendet werden und der HTTP-Header <code>Retry-After</code> sollte nach Möglichkeit die geschätzte Zeit für die Wiederherstellung des Dienstes enthalten.</p>\n<p>Caching-bezogene Header, die zusammen mit dieser Antwort gesendet werden, sollten beachtet werden, da der Status <code>503</code> oft ein vorübergehender Zustand ist und Antworten normalerweise nicht zwischengespeichert werden sollten.</p>\n<aside><strong>Hinweis:</strong> Zusammen mit dieser Antwort sollte eine benutzerfreundliche Seite gesendet werden, auf der das Problem erläutert wird.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/503"
+  },
+  "504": {
+    "descriptionHtml": "<p>Der HTTP-Serverfehlerantwortcode <code>504 Gateway Timeout</code> weist darauf hin, dass der Server, obwohl er als Gateway oder Proxy fungiert, nicht rechtzeitig eine Antwort vom Upstream-Server erhalten hat, die er zum Abschließen der Anforderung benötigte.</p>\n<aside><strong>Hinweis:</strong> Ein Gateway kann sich auf verschiedene Dinge im Netzwerk beziehen und ein 504-Fehler kann normalerweise nicht auf der Clientseite behoben werden, sondern erfordert eine Korrektur durch den Webserver oder die Proxys, über die Sie Zugriff erhalten möchten.</aside>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/504"
+  },
+  "505": {
+    "descriptionHtml": "<p>Der Server unterstützt die von der Anfrage verwendete HTTP-Version nicht.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/505"
+  },
+  "506": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>506 Variant Also Negotiates</code> kann im Zusammenhang mit Transparent Content Negotiation angegeben werden (siehe RFC 2295). Dieses Protokoll ermöglicht es einem Client, die beste Variante einer bestimmten Ressource abzurufen, wobei der Server mehrere Varianten unterstützt.</p>\n<p>Der Statuscode „Variant Also Negotiates“ weist auf einen internen Serverkonfigurationsfehler hin, bei dem die ausgewählte Variante selbst für die Teilnahme an der Inhaltsaushandlung konfiguriert ist und daher kein geeigneter Aushandlungsendpunkt ist.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/506"
+  },
+  "507": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>507 Insufficient Storage</code> kann im Kontext des WebDAV-Protokolls angegeben werden (siehe RFC 4918).</p>\n<p>Es weist darauf hin, dass eine Methode nicht ausgeführt werden konnte, da der Server die für den erfolgreichen Abschluss der Anforderung erforderliche Darstellung nicht speichern kann.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/507"
+  },
+  "508": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>508 Loop Detected</code> kann im Kontext des WebDAV-Protokolls angegeben werden.</p>\n<p>Es zeigt an, dass der Server einen Vorgang beendet hat, weil er beim Verarbeiten einer Anfrage mit <code>&quot;Depth: infinity&quot;</code> auf eine Endlosschleife gestoßen ist. Dieser Status zeigt an, dass der gesamte Vorgang fehlgeschlagen ist.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/508"
+  },
+  "510": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>510 Not Extended</code> wird im Kontext des HTTP Extension Framework gesendet, definiert in RFC 2774.</p>\n<p>In dieser Spezifikation kann ein Client eine Anfrage senden, die eine Erweiterungsdeklaration enthält, die die zu verwendende Erweiterung beschreibt. Wenn der Server eine solche Anfrage erhält, die beschriebenen Erweiterungen für die Anfrage jedoch nicht unterstützt werden, antwortet der Server mit dem Statuscode <code>510</code>.</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/510"
+  },
+  "511": {
+    "descriptionHtml": "<p>Der HTTP-Antwortstatuscode <code>511 Network Authentication Required</code> zeigt an, dass sich der Client authentifizieren muss, um Netzwerkzugriff zu erhalten.</p>\n<p>Dieser Status wird nicht von Ursprungsservern generiert, sondern von abfangenden Proxys, die den Zugriff auf das Netzwerk steuern.</p>\n<p>Netzwerkbetreiber verlangen manchmal eine Authentifizierung, die Annahme von Bedingungen oder andere Benutzerinteraktionen, bevor sie Zugriff gewähren (z. B. in einem Internetcafé oder an einem Flughafen). Sie identifizieren Kunden, die dies nicht getan haben, häufig anhand ihrer MAC-Adressen (Media Access Control).</p>",
+    "source": "https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Status/511"
+  }
+}

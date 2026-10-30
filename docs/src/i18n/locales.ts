@@ -1,10 +1,11 @@
 export const locales = {
   en: "English",
   de: "Deutsch",
-  pl: "Polski",
+  es: "Español",
   fr: "Français",
-  fi: "Suomi",
   ru: "Русский",
+  "zh-CN": "简体中文",
+  ko: "한국어",
 } as const;
 
 export type Locale = keyof typeof locales;

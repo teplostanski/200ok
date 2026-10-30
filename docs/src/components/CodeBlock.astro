@@ -1,0 +1,25 @@
+---
+interface Props {
+  text: string;
+  "data-curl-example"?: number;
+  "data-response-body"?: boolean;
+}
+
+const { text, ...attributes } = Astro.props;
+---
+
+<pre class="code-block">
+  <code {...attributes} set:text={text} />
+</pre>
+
+<style>
+  .code-block {
+    display: grid;
+    white-space: normal;
+  }
+
+  .code-block > code {
+    white-space: pre;
+    overflow-wrap: normal;
+  }
+</style>

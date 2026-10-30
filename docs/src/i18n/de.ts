@@ -1,7 +1,6 @@
 import type { MessageDictionary } from "./messages";
 
 export const de: MessageDictionary = {
-  inDevelopment: "In Entwicklung",
   docTitle: "API-Dokumentation",
   metaDescription:
     "200 OK — Service für HTTP-Anfragen und -Antworten. Untersuche Anfragen, teste Antworten und debugge Integrationen.",
@@ -14,6 +13,12 @@ export const de: MessageDictionary = {
   notFound: "Seite nicht gefunden",
   backToDocs: "Zur Dokumentation",
   github: "GitHub",
+  allStatuses: "Alle",
+  statusInformational: "Informationen",
+  statusSuccess: "Erfolg",
+  statusRedirection: "Weiterleitungen",
+  statusClientError: "Clientfehler",
+  statusServerError: "Serverfehler",
   statusCodes: "HTTP-Statuscodes",
   endpoints: "Endpunkte",
   ipCurrent: "Die IP-Adresse des Clients (IPv4 oder IPv6).",

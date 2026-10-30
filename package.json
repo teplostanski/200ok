@@ -22,7 +22,8 @@
     "typecheck:docs": "pnpm --dir docs check"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "http-status-codes": "^2.3.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.15",

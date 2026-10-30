@@ -6,6 +6,7 @@ import { responseFormat } from "../../middleware/response-format.js";
 import { echoRouter } from "./echo.js";
 import { headersRouter } from "./headers.js";
 import { ipRouter } from "./ip.js";
+import { statusRouter } from "./status.js";
 
 export const v1Router = Router();
 
@@ -14,6 +15,7 @@ v1Router.use(json({ limit: BODY_LIMIT_BYTES }));
 v1Router.use(ipRouter);
 v1Router.use(echoRouter);
 v1Router.use(headersRouter);
+v1Router.use(statusRouter);
 v1Router.use(apiNotFound);
 v1Router.use(bodyLimitError);
 v1Router.use(apiError);

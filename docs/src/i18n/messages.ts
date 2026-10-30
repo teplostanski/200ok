@@ -1,16 +1,22 @@
-import type { Locale } from "../../../src/locales";
 import { de } from "./de";
 import { en } from "./en";
-import { fi } from "./fi";
+import { es } from "./es";
 import { fr } from "./fr";
-import { pl } from "./pl";
+import { ko } from "./ko";
+import type { Locale } from "./locales";
 import { ru } from "./ru";
+import { zhCN } from "./zh-CN";
 
-export type { Locale } from "../../../src/locales";
+export type { Locale } from "./locales";
 
 export type MessageDictionary = Record<keyof typeof en, string>;
 
-export const messages = { en, ru, de, pl, fr, fi } satisfies Record<
-  Locale,
-  MessageDictionary
->;
+export const messages = {
+  en,
+  de,
+  es,
+  fr,
+  ru,
+  "zh-CN": zhCN,
+  ko,
+} satisfies Record<Locale, MessageDictionary>;

@@ -1,0 +1,254 @@
+{
+  "100": {
+    "descriptionHtml": "<p>HTTP <code>100 Continue</code> 信息状态响应代码表示到目前为止一切正常，客户端应继续请求，如果请求已完成，则忽略它。</p> <p>要让服务器检查请求的标头，客户端必须在其初始请求中发送 <code>Expect: 100-continue</code> 作为标头，并在发送正文之前接收 <code>100 Continue</code> 状态代码作为响应。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/100"
+  },
+  "101": {
+    "descriptionHtml": "<p>HTTP <code>101 Switching Protocols</code> 响应代码表示服务器切换到的协议。该协议在从客户端收到的<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Upgrade\">Upgrade</a>请求标头中指定。</p> <p>服务器在此响应中包含一个<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Upgrade\">Upgrade</a>响应标头，以指示它切换到的协议。</p> <p>以下文章中描述了该过程：<a href=\"https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Guides/Protocol_upgrade_mechanism\">协议升级机制</a></p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/101"
+  },
+  "102": {
+    "descriptionHtml": "<aside><strong>已弃用：</strong>此状态代码已弃用。使用时，客户端仍可能接受此响应，但会将其忽略。</aside>\n<p>HTTP <code>102 Processing</code> 信息状态响应代码向客户端指示已收到完整请求并且服务器正在处理该请求。</p>\n<p>仅当服务器预计请求需要很长时间时才会发送此状态代码。它告诉客户端您的请求尚未终止。</p>",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status#102_processing"
+  },
+  "103": {
+    "descriptionHtml": "<aside><strong>实验性：</strong>这是一项实验性技术。在生产中使用此功能之前，请仔细检查浏览器兼容性表。</aside> <p>服务器仍在准备响应时，可能会发送 HTTP <code>103 Early Hints</code> <a href=\"https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status\">信息响应</a>，并提示服务器期望最终响应将链接的资源。</p> <p>这使浏览器能够开始<a href=\"https://developer.mozilla.org/zh-CN/docs/Web/HTML/Reference/Attributes/rel/preload\">预加载</a>资源，而无需等待服务器准备并发送最终响应。</p> <p>早期提示响应主要用于与 <a href=\"https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Headers/Link\">Link</a> 标头一起使用，该标头指示要加载的资源。</p> <p>它还可能包含在处理早期提示时强制执行的 <a href=\"https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Guides/CSP\">Content-Security-Policy</a> 标头。</p> <p>服务器可能会发送多个<code>103</code> 响应，例如，在重定向之后。浏览器仅处理第一个早期提示响应，如果请求导致跨源重定向，则必须丢弃该响应。早期提示中预加载的资源实际上被预先添加到 <code>Document</code> 的 head 元素中，然后是最终响应中加载的资源。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/103"
+  },
+  "200": {
+    "descriptionHtml": "<p>HTTP <code>200 OK</code> 成功状态响应代码表示请求已成功。默认情况下，200 响应是可缓存的。</p>\n<p>成功的含义取决于HTTP请求方法：</p>\n<ul>\n<li><code>GET</code>：资源已获取并在消息正文中传输。</li>\n<li><code>HEAD</code>：表示标头包含在响应中，没有任何消息正文</li>\n<li><code>POST</code>：描述操作结果的资源在消息正文中传输</li>\n<li><code>TRACE</code>：消息正文包含服务器收到的请求消息。</li>\n</ul>\n<p><code>PUT</code>或<code>DELETE</code>的成功结果往往不是<code>200 OK</code>，而是<code>204 No Content</code>（或者第一次上传资源时为<code>201 Created</code>）。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/200"
+  },
+  "201": {
+    "descriptionHtml": "<p>HTTP <code>201 Created</code> 成功状态响应代码表示请求已成功并导致创建资源。</p> <p>在发送回响应之前，会有效创建新资源或新资源的描述和链接，并且新创建的项目会在消息正文中返回，位于请求的 URL 或 <code>Location</code> 标头值中的 URL 处。</p> <p>此状态码通常用于 <code>POST</code> 请求的结果。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/201"
+  },
+  "202": {
+    "descriptionHtml": "<p>HTTP <code>202 Accepted</code> 响应状态码表示请求已被接受处理，但处理尚未完成；事实上，处理可能尚未开始。</p> <p>该请求最终可能会或可能不会被执行，因为在实际处理时可能会不允许该请求。</p> <p><code>202</code> 是非承诺的，这意味着 HTTP 无法稍后发送异步响应来指示处理请求的结果。它适用于另一个进程或服务器处理请求或批处理的情况。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/202"
+  },
+  "203": {
+    "descriptionHtml": "<p>HTTP <code>203 Non-Authoritative Information</code> 响应状态表明请求已成功，但转换代理修改了源服务器 <code>200 OK</code> 响应中的有效负载。</p> <p><code>203</code> 响应与 <code>Warning</code> 标头代码的值 <code>214</code>（表示 <code>Transformation Applied</code>）类似，具有适用于任何状态代码的响应的额外优点。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/203"
+  },
+  "204": {
+    "descriptionHtml": "<p>HTTP <code>204 No Content</code> 成功状态响应代码表示请求已成功，但客户端不需要离开其当前页面。</p> <p>例如，在为 wiki 站点实现“保存并继续编辑”功能时可能会使用此代码。在这种情况下，将使用 <code>PUT</code> 请求来保存页面，并且将发送 <code>204 No Content</code> 响应来指示编辑器不应被其他页面替换。</p> <p>默认情况下，<code>204</code> 响应是可缓存的（此类响应中包含 <code>ETag</code> 标头）。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/204"
+  },
+  "205": {
+    "descriptionHtml": "<p>HTTP <code>205 Reset Content</code> 响应状态告诉客户端重置文档视图（即清除表单内容、重置画布状态或 UI）。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/205"
+  },
+  "206": {
+    "descriptionHtml": "<p>HTTP <code>206 Partial Content</code> 成功状态响应代码表示请求已成功，并且正文包含请求的数据范围，如请求的 Range 标头中所述。</p> <p>如果只有一个范围，则将整个响应的 <code>Content-Type</code> 设置为文档类型，并提供一个 <code>Content-Range</code>。</p> <p>如果发回多个范围，则返回<code>Content-Type</code>设置为<code>multipart/byteranges</code>，每个片段覆盖一个范围，用<code>Content-Range</code>和<code>Content-Type</code>描述它。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/206"
+  },
+  "207": {
+    "descriptionHtml": "<p>HTTP <code>207 Multi-Status</code> 响应代码表示可能存在混合响应。</p> <p>响应正文是带有 <code>multistatus</code> 根元素的 <code>text/xml</code> 或 <code>application/xml</code> HTTP 实体。 XML 正文将列出所有单独的响应代码。</p> <aside><strong>注意：</strong> 返回资源集合的功能是 WebDAV 协议的一部分（它可以由访问 WebDAV 服务器的 Web 应用程序接收）。浏览器访问网页永远不会遇到这个状态码。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/207"
+  },
+  "208": {
+    "descriptionHtml": "<p>HTTP <code>208 Already Reported</code> 响应状态用于 <a href=\"https://http.cat/status/207\">207 Multi-Status</a> 响应中，以节省空间并避免冲突。如果使用不同的路径多次请求同一资源（例如作为集合的一部分），则仅使用 <a href=\"https://http.cat/status/200\">200</a> 报告第一个资源。所有其他绑定的响应将使用此 208 状态代码进行报告，因此不会产生冲突并且响应会保持较短。</p>\n<aside><strong>注意：</strong>将资源绑定到多个路径的功能是 WebDAV 协议的扩展（它可以由访问 WebDAV 服务器的 Web 应用程序接收）。浏览器访问网页永远不会遇到这个状态码。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/208"
+  },
+  "226": {
+    "descriptionHtml": "<p>在增量编码中，HTTP <code>226 IM Used</code> 响应状态码表示服务器针对收到的 GET 请求返回了增量数据。IM 是 <em>Instance Manipulations（实例操作）</em> 的缩写，用来描述生成增量数据的算法。</p>\n<p>使用增量编码时，服务器对 <code>GET</code> 请求返回的是相对于某个基础文档的差异（称为增量），而不是完整的当前文档。客户端通过 HTTP 标头 <code>A-IM:</code> 指定要使用的差异算法，通过 <code>If-None-Match:</code> 告知服务器最后收到的版本。服务器生成增量，并在状态码为 <code>226</code> 的 HTTP 响应中返回。响应还包含 <code>IM:</code> 标头（指出所用算法）和 <code>Delta-Base:</code> 标头（其 <code>ETag</code> 对应于该增量所基于的文档）。</p>\n<aside><strong>注意：</strong>浏览器不支持 HTTP 增量编码。此状态码由特定客户端使用的自定义服务器返回。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/226"
+  },
+  "300": {
+    "descriptionHtml": "<p>HTTP <code>300 Multiple Choices</code> 重定向状态响应代码表示该请求有多个可能的响应。</p>\n<p>用户代理或用户应该选择其中之一。</p>\n<p>由于没有选择响应之一的标准化方法，因此很少使用此响应代码。</p>\n<p>如果服务器有首选选择，它应该生成 <code>Location</code> 标头。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/300"
+  },
+  "301": {
+    "descriptionHtml": "<p>HTTP <code>301 Moved Permanently</code> 重定向状态响应代码表示所请求的资源已明确移动到 <code>Location</code> 标头给出的 URL。浏览器重定向到新 URL，搜索引擎更新其资源链接。</p>\n<aside><strong>注意：</strong>虽然规范要求执行重定向时方法和主体保持不变，但并非所有用户代理都满足此要求。仅使用 301 代码作为 GET 或 HEAD 方法的响应，并使用 308 永久重定向作为 POST 方法，因为此状态明确禁止方法更改。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/301"
+  },
+  "302": {
+    "descriptionHtml": "<p>HTTP <code>302 Found</code> 重定向状态响应代码表示请求的资源已暂时移动到 <code>Location</code> 标头给出的 URL。浏览器重定向到此页面，但搜索引擎不会更新其到资源的链接（在“SEO 术语”中，据说链接权重不会发送到新的 URL）。</p> <p>即使规范要求在执行重定向时不得更改方法（和正文），但并非所有用户代理都遵守这一要求，仍有存在缺陷的实现。因此，建议仅将 <code>302</code> 代码设置为 <code>GET</code> 或 <code>HEAD</code> 方法的响应，并改用 <code>307 Temporary Redirect</code>，因为在这种情况下明确禁止方法更改。</p> <p>如果您希望将使用的方法更改为 <code>GET</code>，请改用 <code>303 See Other</code>。当您想要对 <code>PUT</code> 方法做出响应（该方法不是上传的资源而是一条确认消息（例如：“您已成功上传 XYZ”）时，这非常有用。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/302"
+  },
+  "303": {
+    "descriptionHtml": "<p>HTTP <code>303 See Other</code> 重定向状态响应代码表示重定向不会链接到所请求的资源本身，而是链接到另一个页面（例如确认页面，现实世界对象的表示；请参阅 <a href=\"https://en.wikipedia.org/wiki/HTTPRange-14\">HTTP range-14</a> ；或上传进度页面）。</p> <p>此响应代码通常作为 <code>PUT</code> 的结果发送回来或 <code>POST</code>。</p> <p>用于显示此重定向页面的方法始终是 <code>GET</code>。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/303"
+  },
+  "304": {
+    "descriptionHtml": "<p>HTTP <code>304 Not Modified</code> 客户端重定向响应码表示无需重传所请求的资源。这是对缓存资源的隐式重定向。当请求方法是安全方法（例如 <code>GET</code> 或 <code>HEAD</code>）时，或者当请求是有条件的并使用 <code>If-None-Match</code> 或 <code>If-Modified-Since</code> 标头时，就会发生这种情况。</p> <p>响应不得包含正文，并且必须包含在等效 <code>200 OK</code> 响应中发送的标头： <code>Cache-Control</code>、<code>Content-Location</code>、<code>Date</code>、<code>ETag</code>、<code>Expires</code> 和 <code>Vary</code>。</p> <aside><strong>注意：</strong> 许多开发者工具的浏览器网络面板会创建导致 304 响应的无关请求，以便开发人员看到对本地缓存的访问。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/304"
+  },
+  "305": {
+    "descriptionHtml": "<aside><strong>已弃用：</strong>出于安全考虑，HTTP 305 使用代理状态代码已被弃用，许多 HTTP 客户端都会忽略此状态代码。</aside>\n<p>HTTP 响应状态码 <code>305 Use Proxy</code> 是源服务器返回的已弃用的 HTTP 状态码，表示所请求的资源只能通过代理服务器访问。</p>\n<p><code>305 Use Proxy</code>状态码用于通知客户端所请求的资源必须通过代理服务器获取，并将该代理地址包含在<code>Set-Proxy</code> HTTP标头或<code>Location</code> HTTP标头中。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status"
+  },
+  "306": {
+    "descriptionHtml": "<p>此状态代码在 HTTP 状态代码注册表中未使用。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status"
+  },
+  "307": {
+    "descriptionHtml": "<p>HTTP <code>307 Temporary Redirect</code> 重定向状态响应代码表示请求的资源已暂时移动到 <code>Location</code> 标头给出的 URL。</p> <p>原始请求的方法和正文将被重用来执行重定向请求。如果您希望将使用的方法更改为 <code>GET</code>，请改用 <code>303 See Other</code>。当您想要对 <code>PUT</code> 方法给出一个答案，该方法不是上传的资源，而是一条确认消息（例如“您已成功上传 XYZ”）时，这非常有用。</p> <p><code>307</code> 和 <code>302</code> 之间的唯一区别是，<code>307</code> 保证在发出重定向请求时，方法和正文不会更改。对于 <code>302</code>，一些旧客户端错误地将方法更改为 <code>GET</code>：非 GET 方法和 <code>302</code> 的行为在 Web 上是不可预测的，而 <code>307</code> 的行为是可预测的。对于 <code>GET</code> 请求，它们的行为是相同的。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/307"
+  },
+  "308": {
+    "descriptionHtml": "<p>HTTP <code>308 Permanent Redirect</code> 重定向状态响应代码表示请求的资源已明确移动到 <code>Location</code> 标头给出的 URL。浏览器重定向到此页面，搜索引擎更新其到资源的链接（在“SEO 术语”中，据说链接权重被发送到新的 URL）。</p> <p>请求方法和正文不会更改，而 <code>301</code> 有时可能会错误地更改为 <code>GET</code> 方法。</p> <aside><strong>注意：</strong>某些 Web 应用程序可能会使用308 以非标准方式永久重定向并用于其他目的。例如，Google 云端硬盘使用 308 Resume Incomplete 响应来向客户端指示不完整上传何时停止。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/308"
+  },
+  "400": {
+    "descriptionHtml": "<p>HTTP <code>400 Bad Request</code> 响应状态代码表示服务器由于被认为是客户端错误（例如，格式错误的请求语法、无效的请求消息帧或欺骗性请求路由）而无法或不会处理请求。</p>\n<aside><strong>警告：</strong>客户端不应在未经修改的情况下重复此请求。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/400"
+  },
+  "401": {
+    "descriptionHtml": "<p>HTTP <code>401 Unauthorized</code> 响应状态代码表示客户端请求尚未完成，因为缺少所请求资源的有效身份验证凭据。</p> <p>此状态代码与 HTTP <code>WWW-Authenticate</code> 响应标头一起发送，其中包含有关客户端在提示用户输入身份验证凭据后如何再次请求资源的信息。</p> <p>此状态代码与 <code>403 Forbidden</code> 状态代码类似，不同之处在于在某些情况下产生此状态代码后，用户身份验证可以允许访问该资源。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/401"
+  },
+  "402": {
+    "descriptionHtml": "<aside><strong>实验性：</strong>这是一项实验性技术。在生产中使用它之前，请仔细检查浏览器兼容性表。</aside>\n<p>HTTP <code>402 Payment Required</code> 是一个非标准响应状态代码，保留供将来使用。创建此状态代码是为了启用数字现金或（微型）支付系统，并指示在客户付款之前所请求的内容不可用。</p>\n<p>有时，此状态代码表示在客户端付款之前无法处理请求。然而，不存在标准的使用约定，不同的实体在不同的上下文中使用它。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/402"
+  },
+  "403": {
+    "descriptionHtml": "<p>HTTP <code>403 Forbidden</code> 响应状态代码表示服务器理解该请求，但拒绝授权。</p>\n<p>该状态与<code>401</code>类似，但对于<code>403 Forbidden</code>状态码，重新验证没有区别。访问权限与应用程序逻辑相关，例如对资源的权限不足。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/403"
+  },
+  "404": {
+    "descriptionHtml": "<p>HTTP <code>404 Not Found</code> 响应状态代码表示服务器找不到所请求的资源。指向 <code>404</code> 页面的链接通常称为损坏链接或死链接，并且可能会受到链接腐烂的影响。</p> <p><code>404</code> 状态代码仅指示资源丢失：而不指示该丢失是暂时的还是永久的。如果资源被永久删除，请改用 <code>410 Gone</code> 状态。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/404"
+  },
+  "405": {
+    "descriptionHtml": "<p>HTTP <code>405 Method Not Allowed</code> 响应状态码表示服务器知道请求方法，但目标资源不支持该方法。</p>\n<p>服务器必须在 <code>405</code> 状态代码响应中生成 <code>Allow</code> 标头字段。该字段必须包含目标资源当前支持的方法列表。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/405"
+  },
+  "406": {
+    "descriptionHtml": "<p>HTTP <code>406 Not Acceptable</code> 客户端错误响应代码表示服务器无法生成与请求的主动内容协商标头中定义的可接受值列表相匹配的响应，并且服务器不愿意提供默认表示。</p> <p>主动内容协商标头包括：</p> <ul> <li><code>Accept</code></li> <li><code>Accept-Encoding</code></li> <li><code>Accept-Language</code></li> </ul> <p>实际上，这个错误很少使用。服务器不会使用此错误代码进行响应（这对于最终用户来说是神秘的且难以修复），而是忽略相关标头并向用户提供实际页面。假设即使用户不会完全满意，他们也会更喜欢这个而不是错误代码。</p> <p>如果服务器返回这样的错误状态，消息正文应包含资源的可用表示形式的列表，允许用户在其中进行选择。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/406"
+  },
+  "407": {
+    "descriptionHtml": "<p>HTTP <code>407 Proxy Authentication Required</code> 客户端错误状态响应代码表示请求尚未应用，因为它缺少浏览器和可以访问所请求资源的服务器之间的代理服务器的有效身份验证凭据。</p> <p>此状态与 <code>Proxy-Authenticate</code> 标头一起发送，其中包含有关如何正确授权的信息。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/407"
+  },
+  "408": {
+    "descriptionHtml": "<p>HTTP <code>408 Request Timeout</code> 响应状态代码意味着服务器想要关闭此未使用的连接。即使客户端之前没有任何请求，它也会由某些服务器在空闲连接上发送。</p> <p>服务器应该在响应中发送值为 close 的 <code>Connection</code> 标头，因为 <code>408</code> 意味着服务器已决定关闭连接而不是继续等待。</p> <p>由于某些浏览器（例如 Chrome、Firefox 27+ 和 IE9）使用 HTTP 预连接机制来加快速度，因此此响应的使用要多得多。 </p> <aside><strong>注意：</strong>有些服务器只是关闭连接而不发送此消息。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/408"
+  },
+  "409": {
+    "descriptionHtml": "<p>HTTP <code>409 Conflict</code> 响应状态代码表示请求与目标资源的当前状态冲突。</p>\n<p>响应 <code>PUT</code> 请求时最有可能发生冲突。例如，上传比服务器上现有文件旧的文件时，您可能会收到 <code>409</code> 响应，从而导致版本控制冲突。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/409"
+  },
+  "410": {
+    "descriptionHtml": "<p>HTTP <code>410 Gone</code> 客户端错误响应代码表示源服务器不再提供对目标资源的访问，并且这种情况可能是永久性的。</p>\n<p>如果您不知道这种情况是暂时的还是永久的，则应使用 <code>404</code> 状态代码。</p>\n<aside><strong>注意：</strong>默认情况下，410 响应是可缓存的。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/410"
+  },
+  "411": {
+    "descriptionHtml": "<p>HTTP <code>411 Length Required</code> 客户端错误响应代码表示服务器拒绝接受没有定义 <code>Content-Length</code> 标头的请求。</p> <aside><strong>注意：</strong>根据规范，当以一系列块发送数据时，Content-Length 标头被省略，并且在每个块的开头需要以十六进制格式添加当前块的长度。有关更多详细信息，请参阅 Transfer-Encoding。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/411"
+  },
+  "412": {
+    "descriptionHtml": "<p>HTTP <code>412 Precondition Failed</code> 客户端错误响应代码表示对目标资源的访问已被拒绝。当 <code>If-Unmodified-Since</code> 或 <code>If-None-Match</code> 标头定义的条件未满足时，除 <code>GET</code> 或 <code>HEAD</code> 之外的方法上的条件请求会发生这种情况。在这种情况下，无法发出请求（通常是上传或修改资源），并且会发回此错误响应。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/412"
+  },
+  "413": {
+    "descriptionHtml": "<p>HTTP <code>413 Content Too Large</code> 响应状态码表示请求实体大于服务器定义的限制；服务器可能会关闭连接或返回 <code>Retry-After</code> 标头字段。</p>\n<p>在 RFC 9110 之前，状态的响应短语是“Payload Too Large”。该名称至今仍被广泛使用。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/413"
+  },
+  "414": {
+    "descriptionHtml": "<p>HTTP <code>414 URI Too Long</code> 响应状态代码表明客户端请求的 URI 长度超过了服务器愿意解释的长度。</p> <p>在极少数情况下可能会发生这种情况：</p> <ul> <li>当客户端不正确地将 <code>POST</code> 请求转换为具有长查询信息的 <code>GET</code> 请求时，</li> <li>当客户端陷入重定向循环时（例如，指向其自身后缀的重定向 URI 前缀），</li> <li>或者当服务器受到试图利用潜在安全漏洞的客户端攻击时。</li> </ul>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/414"
+  },
+  "415": {
+    "descriptionHtml": "<p>HTTP <code>415 Unsupported Media Type</code> 客户端错误响应代码表示服务器拒绝接受请求，因为负载格式不受支持。</p> <p>格式问题可能是由于请求指示的 <code>Content-Type</code> 或 <code>Content-Encoding</code> 造成的，或者是直接检查数据的结果。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/415"
+  },
+  "416": {
+    "descriptionHtml": "<p>HTTP <code>416 Range Not Satisfiable</code> 错误响应代码表示服务器无法为请求的范围提供服务。最可能的原因是文档不包含此类范围，或者 Range 标头值虽然语法正确，但没有意义。</p>\n<p><code>416</code> 响应消息包含指示不满足范围的 <code>Content-Range</code>（即 <code>&#x27;*&#x27;</code>），后跟 <code>&#x27;/&#x27;</code> 和资源的当前长度。例如。 <code>Content-Range: bytes */12777</code>。</p>\n<p>面对此错误，浏览器通常会中止操作（例如，下载将被视为不可恢复）或再次请求整个文档。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/416"
+  },
+  "417": {
+    "descriptionHtml": "<p>HTTP <code>417 Expectation Failed</code> 客户端错误响应代码表示无法满足请求的 <code>Expect</code> 标头中给出的期望。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/417"
+  },
+  "418": {
+    "descriptionHtml": "<p>HTTP <code>418 I&#x27;m a teapot</code> 客户端错误响应代码表示服务器拒绝冲泡咖啡，因为它永远是一个茶壶。</p>\n<p>暂时没有咖啡的组合咖啡/茶壶应返回 503。此错误引用了 1998 年和 2014 年愚人节笑话中定义的超文本咖啡壶控制协议。</p>\n<p>某些网站使用此响应来处理他们不希望处理的请求，例如自动查询。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/418"
+  },
+  "421": {
+    "descriptionHtml": "<p>HTTP <code>421 Misdirected Request</code> 客户端错误响应代码表示请求被定向到无法生成响应的服务器。如果重用连接或选择替代服务，这可能是可能的。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/421"
+  },
+  "422": {
+    "descriptionHtml": "<p>HTTP <code>422 Unprocessable Content</code> 响应状态代码表示服务器了解请求实体的内容类型，并且请求实体的语法正确，但无法处理其中包含的指令。</p> <aside><strong>警告：</strong>客户端不应在未经修改的情况下重复此请求。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/422"
+  },
+  "423": {
+    "descriptionHtml": "<p>HTTP <code>423 Locked</code> 错误响应代码表示请求尝试访问的资源已被锁定，这意味着无法访问它。其内容应包含一些 WebDAV XML 格式的信息。</p>\n<aside><strong>注意：</strong>锁定资源的功能特定于某些 WebDAV 服务器。浏览器访问网页永远不会遇到这个状态码；如果发生错误，他们会将其作为通用 400 状态代码进行处理。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/423"
+  },
+  "424": {
+    "descriptionHtml": "<p>HTTP <code>424 Failed Dependency</code> 客户端错误响应代码表示无法对资源执行该方法，因为请求的操作依赖于另一个操作，并且该操作失败。</p>\n<p>常规网络服务器通常不会返回此状态代码。但其他一些协议（例如 WebDAV）可以返回它。例如，在 WebDAV 中，如果发出 <code>PROPPATCH</code> 请求，并且一个命令失败，则所有其他命令也会自动失败，并显示 <code>424 Failed Dependency</code>。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/424"
+  },
+  "425": {
+    "descriptionHtml": "<p>HTTP <code>425 Too Early</code> 响应状态代码表示服务器不愿意冒险处理可能重播的请求，这会产生重播攻击的可能性。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/425"
+  },
+  "426": {
+    "descriptionHtml": "<p>HTTP <code>426 Upgrade Required</code> 客户端错误响应代码表示服务器拒绝使用当前协议执行请求，但在客户端升级到其他协议后可能愿意执行此操作。</p> <p>服务器会发送带有此响应的 <code>Upgrade</code> 标头以指示所需的协议。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/426"
+  },
+  "428": {
+    "descriptionHtml": "<p>HTTP <code>428 Precondition Required</code> 响应状态代码表示服务器要求请求是有条件的。</p>\n<p>通常，这意味着缺少必需的前提条件标头，例如 <code>If-Match</code>。</p>\n<p>当前提条件标头与服务器端状态不匹配时，响应应为 <code>412 Precondition Failed</code>。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/428"
+  },
+  "429": {
+    "descriptionHtml": "<p>HTTP <code>429 Too Many Requests</code> 响应状态代码表示用户在给定时间内发送了太多请求（“速率限制”）。</p>\n<p>此响应中可能包含 <code>Retry-After</code> 标头，指示在发出新请求之前需要等待多长时间。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/429"
+  },
+  "431": {
+    "descriptionHtml": "<p>HTTP <code>431 Request Header Fields Too Large</code> 响应状态代码表示服务器拒绝处理请求，因为请求的 HTTP 标头太长。缩小请求头大小后，可以重新提交请求。</p> <p>当请求头总大小太大，或者单个头字段太大时，可以使用<code>431</code>。为了帮助那些遇到此错误的人，请在响应正文中指出两者中哪一个是问题所在；理想情况下，还包括哪些标头太大。这使用户可以尝试解决问题，例如通过清除 cookie。</p> <p>如果出现以下情况，服务器通常会生成此状态：</p> <ul> <li><code>Referer</code> URL 太长</li> <li>请求中发送的 Cookie 过多</li> </ul>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/431"
+  },
+  "451": {
+    "descriptionHtml": "<p>HTTP <code>451 Unavailable For Legal Reasons</code> 客户端错误响应代码表示用户请求的资源由于法律原因而不可用，例如已发出法律诉讼的网页。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/451"
+  },
+  "500": {
+    "descriptionHtml": "<p>HTTP <code>500 Internal Server Error</code> 服务器错误响应代码表示服务器遇到了意外情况，导致其无法完成请求。</p>\n<p>此错误响应是通用的“包罗万象”响应。通常，这表明服务器无法找到更好的 <code>5xx</code> 错误代码来响应。有时，服务器管理员会记录错误响应（例如 <code>500</code> 状态代码）以及有关请求的更多详细信息，以防止将来再次发生错误。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/500"
+  },
+  "501": {
+    "descriptionHtml": "<p>HTTP <code>501 Not Implemented</code> 服务器错误响应代码意味着服务器不支持完成请求所需的功能。</p>\n<p>此状态还可以发送 <code>Retry-After</code> 标头，告诉请求者何时检查以查看届时是否支持该功能。</p>\n<p>当服务器无法识别请求方法并且无法对任何资源支持该方法时，<code>501</code> 是适当的响应。服务器需要支持的唯一方法（因此不得返回 <code>501</code>）是 <code>GET</code> 和 <code>HEAD</code>。</p>\n<p>如果服务器确实识别该方法，但故意不支持它，则适当的响应是 <code>405 Method Not Allowed</code>。</p>\n<aside><strong>注意：</strong> 501 错误通常无法在客户端修复，但需要您尝试访问的 Web 服务器进行修复。</aside>\n<aside><strong>注意：</strong>默认情况下 501 响应是可缓存的；也就是说，除非缓存标头另有指示。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/501"
+  },
+  "502": {
+    "descriptionHtml": "<p>HTTP <code>502 Bad Gateway</code> 服务器错误响应代码表示服务器在充当网关或代理时从上游服务器接收到无效响应。</p>\n<aside><strong>注意：</strong>网关可能指的是网络中的不同事物，502 错误通常无法在客户端修复，但需要 Web 服务器或您尝试访问的代理进行修复。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/502"
+  },
+  "503": {
+    "descriptionHtml": "<p>HTTP <code>503 Service Unavailable</code> 服务器错误响应代码表示服务器尚未准备好处理请求。</p>\n<p>常见原因是服务器因维护而停机或过载。此响应应用于临时情况，并且 <code>Retry-After</code> HTTP 标头应（如果可能）包含服务恢复的估计时间。</p>\n<p>应注意随此响应一起发送的与缓存相关的标头，因为 <code>503</code> 状态通常是临时条件，通常不应缓存响应。</p>\n<aside><strong>注意：</strong>应与此响应一起发送解释问题的用户友好页面。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/503"
+  },
+  "504": {
+    "descriptionHtml": "<p>HTTP <code>504 Gateway Timeout</code> 服务器错误响应代码表示服务器在充当网关或代理时没有及时从上游服务器获得完成请求所需的响应。</p>\n<aside><strong>注意：</strong>网关可能指的是网络中的不同事物，并且 504 错误通常无法在客户端修复，但需要 Web 服务器或您尝试访问的代理进行修复。</aside>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/504"
+  },
+  "505": {
+    "descriptionHtml": "<p>服务器不支持请求使用的 HTTP 版本。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/505"
+  },
+  "506": {
+    "descriptionHtml": "<p>HTTP <code>506 Variant Also Negotiates</code> 响应状态代码可以在透明内容协商的上下文中给出（请参阅 RFC 2295）。该协议使客户端能够检索给定资源的最佳变体，而服务器支持多种变体。</p>\n<p>Variant Also Negotiates 状态码表示内部服务器配置错误，其中所选变体本身配置为参与内容协商，因此不是正确的协商端点。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/506"
+  },
+  "507": {
+    "descriptionHtml": "<p>HTTP <code>507 Insufficient Storage</code> 响应状态代码可以在 WebDAV 协议的上下文中给出（请参阅 RFC 4918）。</p>\n<p>它表示无法执行某个方法，因为服务器无法存储成功完成请求所需的表示。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/507"
+  },
+  "508": {
+    "descriptionHtml": "<p>HTTP <code>508 Loop Detected</code> 响应状态代码可以在 WebDAV 协议的上下文中给出。</p> <p>它指示服务器终止操作，因为在处理 <code>&quot;Depth: infinity&quot;</code> 请求时遇到无限循环。此状态表明整个操作失败。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/508"
+  },
+  "510": {
+    "descriptionHtml": "<p>HTTP <code>510 Not Extended</code> 响应状态代码在 RFC 2774 中定义的 HTTP 扩展框架的上下文中发送。</p> <p>在该规范中，客户端可以发送包含扩展声明的请求，该声明描述了要使用的扩展。如果服务器收到此类请求，但该请求不支持任何描述的扩展，则服务器会使用 <code>510</code> 状态代码进行响应。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/510"
+  },
+  "511": {
+    "descriptionHtml": "<p>HTTP <code>511 Network Authentication Required</code> 响应状态代码表示客户端需要进行身份验证才能获得网络访问权限。</p> <p>此状态不是由源服务器生成的，而是由控制网络访问的拦截代理生成的。</p> <p>网络运营商有时在授予访问权限之前需要进行一些身份验证、接受条款或其他用户交互（例如在网吧或机场）。他们经常使用媒体访问控制 (MAC) 地址来识别尚未这样做的客户端。</p>",
+    "source": "https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status/511"
+  }
+}

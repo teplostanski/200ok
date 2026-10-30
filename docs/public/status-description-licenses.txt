@@ -1,0 +1,288 @@
+HTTP status descriptions: attribution and modifications
+
+The English descriptions were imported from the Description sections of
+HTTP Cats (https://http.cat/), excluding See Also. Most originate from MDN
+Web Docs and are attributed to Mozilla Contributors under CC BY-SA 2.5:
+https://creativecommons.org/licenses/by-sa/2.5/
+
+The original source and intermediary URLs are listed below. Current MDN
+reference links displayed by the site may differ following MDN redirects.
+Descriptions for 306 and 505 are original project summaries. Entries whose
+source is HTTP Cats rather than MDN retain that provenance in this list.
+HTTP Cats copyright and MIT permission notice are reproduced below.
+
+Modifications by the 200 OK project:
+- Removed See Also sections and presentation-specific markup.
+- Added German, Spanish, French, Russian, Simplified Chinese and Korean
+  translations, retaining the original paragraph/list structure and code.
+- Translation drafts were generated with Google Translate and edited for
+  technical terminology. These are project translations, not official MDN
+  translations. The localized source links are references to MDN pages.
+- Localized MDN links where corresponding pages exist; otherwise kept the
+  English MDN reference. The source text itself has not been replaced with
+  a newer MDN revision.
+- Translations of CC BY-SA descriptions remain under CC BY-SA 2.5.
+
+Original sources:
+
+100 Continue
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/100
+Via: https://http.cat/status/100
+
+101 Switching Protocols
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/101
+Via: https://http.cat/status/101
+
+102 Processing
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/102
+Via: https://http.cat/status/102
+
+103 Early Hints
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/103
+Via: https://http.cat/status/103
+
+200 OK
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200
+Via: https://http.cat/status/200
+
+201 Created
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
+Via: https://http.cat/status/201
+
+202 Accepted
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202
+Via: https://http.cat/status/202
+
+203 Non-Authoritative Information
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/203
+Via: https://http.cat/status/203
+
+204 No Content
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/204
+Via: https://http.cat/status/204
+
+205 Reset Content
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/205
+Via: https://http.cat/status/205
+
+206 Partial Content
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/206
+Via: https://http.cat/status/206
+
+207 Multi-Status
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/207
+Via: https://http.cat/status/207
+
+208 Already Reported
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/208
+Via: https://http.cat/status/208
+
+226 IM Used
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/226
+Via: https://http.cat/status/226
+
+300 Multiple Choices
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/300
+Via: https://http.cat/status/300
+
+301 Moved Permanently
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/301
+Via: https://http.cat/status/301
+
+302 Found
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/302
+Via: https://http.cat/status/302
+
+303 See Other
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/303
+Via: https://http.cat/status/303
+
+304 Not Modified
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/304
+Via: https://http.cat/status/304
+
+305 Use Proxy
+Source: https://http.cat/status/305
+Via: https://http.cat/status/305
+
+306 (Unused)
+Source: https://www.iana.org/assignments/http-status-codes/
+Via: Original project summary
+
+307 Temporary Redirect
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+Via: https://http.cat/status/307
+
+308 Permanent Redirect
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/308
+Via: https://http.cat/status/308
+
+400 Bad Request
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Via: https://http.cat/status/400
+
+401 Unauthorized
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+Via: https://http.cat/status/401
+
+402 Payment Required
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402
+Via: https://http.cat/status/402
+
+403 Forbidden
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
+Via: https://http.cat/status/403
+
+404 Not Found
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+Via: https://http.cat/status/404
+
+405 Method Not Allowed
+Source: https://http.cat/status/405
+Via: https://http.cat/status/405
+
+406 Not Acceptable
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
+Via: https://http.cat/status/406
+
+407 Proxy Authentication Required
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/407
+Via: https://http.cat/status/407
+
+408 Request Timeout
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408
+Via: https://http.cat/status/408
+
+409 Conflict
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409
+Via: https://http.cat/status/409
+
+410 Gone
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/410
+Via: https://http.cat/status/410
+
+411 Length Required
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/411
+Via: https://http.cat/status/411
+
+412 Precondition Failed
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/412
+Via: https://http.cat/status/412
+
+413 Content Too Large
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+Via: https://http.cat/status/413
+
+414 URI Too Long
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/414
+Via: https://http.cat/status/414
+
+415 Unsupported Media Type
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/415
+Via: https://http.cat/status/415
+
+416 Range Not Satisfiable
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/416
+Via: https://http.cat/status/416
+
+417 Expectation Failed
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/417
+Via: https://http.cat/status/417
+
+418 I'm a Teapot
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/418
+Via: https://http.cat/status/418
+
+421 Misdirected Request
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/421
+Via: https://http.cat/status/421
+
+422 Unprocessable Content
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422
+Via: https://http.cat/status/422
+
+423 Locked
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/423
+Via: https://http.cat/status/423
+
+424 Failed Dependency
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/424
+Via: https://http.cat/status/424
+
+425 Too Early
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/425
+Via: https://http.cat/status/425
+
+426 Upgrade Required
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/426
+Via: https://http.cat/status/426
+
+428 Precondition Required
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/428
+Via: https://http.cat/status/428
+
+429 Too Many Requests
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+Via: https://http.cat/status/429
+
+431 Request Header Fields Too Large
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/431
+Via: https://http.cat/status/431
+
+451 Unavailable For Legal Reasons
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/451
+Via: https://http.cat/status/451
+
+500 Internal Server Error
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+Via: https://http.cat/status/500
+
+501 Not Implemented
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/501
+Via: https://http.cat/status/501
+
+502 Bad Gateway
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502
+Via: https://http.cat/status/502
+
+503 Service Unavailable
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
+Via: https://http.cat/status/503
+
+504 Gateway Timeout
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/504
+Via: https://http.cat/status/504
+
+505 HTTP Version Not Supported
+Source: https://www.iana.org/assignments/http-status-codes/
+Via: Original project summary
+
+506 Variant Also Negotiates
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/506
+Via: https://http.cat/status/506
+
+507 Insufficient Storage
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/507
+Via: https://http.cat/status/507
+
+508 Loop Detected
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/508
+Via: https://http.cat/status/508
+
+510 Not Extended
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/510
+Via: https://http.cat/status/510
+
+511 Network Authentication Required
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/511
+Via: https://http.cat/status/511
+
+HTTP Cats license notice:
+
+Copyright (c) 2015 Rogério Vicente
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

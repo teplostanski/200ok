@@ -1,7 +1,11 @@
 ---
+import { getReasonPhrase, StatusCodes } from "http-status-codes";
+import { localizedPath } from "../data/navigation";
 import { requestExamples } from "../data/request-examples";
 import { responsesFor } from "../data/responses";
 import { type Locale, messages } from "../i18n/messages";
+import { statusEndpointMessages } from "../i18n/status-endpoint";
+import CodeBlock from "./CodeBlock.astro";
 import ResponseModel from "./ResponseModel.astro";
 
 interface Props {
@@ -14,6 +18,15 @@ interface Props {
 const { path, methods, description, locale } = Astro.props;
 const t = messages[locale];
 const id = path.replaceAll("/", "-");
+const isStatus = path === "/status/{code}";
+const statusText = statusEndpointMessages[locale];
+const statusCodes = [
+  ...new Set(
+    Object.values(StatusCodes).filter(
+      (code): code is number => typeof code === "number",
+    ),
+  ),
+].sort((a, b) => a - b);
 const isEcho = path === "/echo";
 const responses = responsesFor(path, locale);
 const initialBody = JSON.stringify({ name: "Bob" });
@@ -21,123 +34,257 @@ const initialBody = JSON.stringify({ name: "Bob" });
 
 <article class="endpoint-card" data-endpoint={path} data-locale={locale}>
   <div class="endpoint-heading">
-    <h4><a data-endpoint-link href={path}><code>{path.split(/([/_])/).map((part) =>
-      part === "/" || part === "_"
-        ? <span class="endpoint-punctuation">{part}</span>
-        : part
-    )}<span class="endpoint-query" data-endpoint-query></span></code></a></h4>
+    <h4>
+      <a
+        data-endpoint-link
+        href={isStatus ? undefined : path}
+        aria-disabled={isStatus ? 'true' : undefined}
+        ><code
+          >{
+            path
+              .split(/([/_])/)
+              .map((part) =>
+                part === '/' || part === '_' ? (
+                  <span class="endpoint-punctuation">{part}</span>
+                ) : part !== '{code}' ? (
+                  part
+                ) : (
+                  <span data-status-code>{part}</span>
+                ),
+              )
+          }<span class="endpoint-query" data-endpoint-query></span></code
+        ></a>
+    </h4>
     <fieldset class="output-selector">
       <legend>{t.output}</legend>
       <div class="join output-options">
-        <input class="btn btn-sm join-item" type="radio" name={`output${id}`} value="json" aria-label="JSON" />
-        <input class="btn btn-sm join-item" type="radio" name={`output${id}`} value="pretty" aria-label="Pretty JSON" />
-        <input class="btn btn-sm join-item" type="radio" name={`output${id}`} value="text" aria-label={t.plainText} checked />
+        <input
+          class="btn btn-sm join-item"
+          type="radio"
+          name={`output${id}`}
+          value="json"
+          aria-label="JSON"
+        />
+        <input
+          class="btn btn-sm join-item"
+          type="radio"
+          name={`output${id}`}
+          value="pretty"
+          aria-label="Pretty JSON"
+        />
+        <input
+          class="btn btn-sm join-item"
+          type="radio"
+          name={`output${id}`}
+          value="text"
+          aria-label={t.plainText}
+          checked
+        />
       </div>
     </fieldset>
   </div>
+  {
+    isStatus && (
+      <div class="status-controls">
+        <label class="request-field">
+          <select class="select" data-status-select aria-label={statusText.code}>
+            <option value="" disabled selected>
+              {statusText.chooseCode}
+            </option>
+            {statusCodes.map((code) => (
+              <option value={code}>
+                {code} {getReasonPhrase(code)}
+              </option>
+            ))}
+          </select>
+        </label>
+        <a href={localizedPath('/status-codes', locale)}>
+          {statusText.reference}
+        </a>
+      </div>
+    )
+  }
   <div class="endpoint-methods" aria-label={t.httpMethods}>
-    {methods.map((method) => <span class="badge badge-sm method">{method}</span>)}
+    {
+      methods.map((method) => (
+        <span class="badge badge-sm method">{method}</span>
+      ))
+    }
   </div>
   <p>{description}</p>
+  {isStatus && (
+    <aside class="status-notice" role="note">
+      <strong>{statusText.important}:</strong>{' '}
+      {statusText.notice.split(/(204|205|304|1xx|200)/).map((part, index) =>
+        index % 2 === 1 ? <code>{part}</code> : part
+      )}
+    </aside>
+  )}
   <details class="collapse collapse-arrow endpoint-details">
     <summary class="collapse-title">{t.details}</summary>
     <div class="collapse-content">
-    <h5 class="responses-heading">{t.requestExamples}</h5>
-    {requestExamples(path, "text", undefined, locale).map(({ label, command }, index) => (
-      <div>
-        <p class="example-label">{label}</p>
-        <pre><code data-curl-example={index}>{command}</code></pre>
-      </div>
-    ))}
-    <h5 class="responses-heading">{t.responses}</h5>
-    {responses.map((response) => (
-      <div class="response-example">
-        <h6><span class="response-code">{response.status}</span> {response.label}</h6>
-        <p>{response.description}</p>
-        <div data-output-panel="text">
-          <p class="example-label">{t.example} · text/plain</p>
-          <pre><code>{response.text}</code></pre>
-        </div>
-        {["json", "pretty"].map((format) => (
-        <div data-output-panel={format} hidden>
-          <p class="example-label">{t.example} · application/json</p>
-          <pre><code>{JSON.stringify(response.json, null, format === "pretty" ? 2 : undefined)}</code></pre>
-          {response.schema && (
-            <Fragment>
-            <p class="example-label">{t.schema} · object</p>
-            <ResponseModel schema={response.schema} locale={locale} />
-            </Fragment>
-          )}
-        </div>
-        ))}
-      </div>
-    ))}
-    {isEcho && <p class="parser-note">{t.parserNote}</p>}
+      <h5 class="responses-heading">{t.requestExamples}</h5>
+      {
+        requestExamples(
+          isStatus ? '/status/200' : path,
+          'text',
+          undefined,
+          locale,
+        ).map(({ label, command }, index) => (
+          <div>
+            <p class="example-label">{label}</p>
+            <CodeBlock text={command} data-curl-example={index} />
+          </div>
+        ))
+      }
+      <h5 class="responses-heading">{t.responses}</h5>
+      {
+        responses.map((response) => (
+          <div class="response-example">
+            <h6>
+              <span class="response-code">{response.status}</span>{' '}
+              {response.label}
+            </h6>
+            <p>{response.description}</p>
+            <div data-output-panel="text">
+              <p class="example-label">{t.example} · text/plain</p>
+              <CodeBlock text={response.text} />
+            </div>
+            {['json', 'pretty'].map((format) => (
+              <div data-output-panel={format} hidden>
+                <p class="example-label">{t.example} · application/json</p>
+                <CodeBlock text={JSON.stringify(
+                      response.json,
+                      null,
+                      format === 'pretty' ? 2 : undefined,
+                    )} />
+                {response.schema && (
+                  <Fragment>
+                    <p class="example-label">{t.schema} · object</p>
+                    <ResponseModel schema={response.schema} locale={locale} />
+                  </Fragment>
+                )}
+              </div>
+            ))}
+          </div>
+        ))
+      }
+      {isEcho && <p class="parser-note">{t.parserNote}</p>}
     </div>
   </details>
   <form class="endpoint-execute" data-execute-form>
-    {isEcho && (
-      <Fragment>
-      <label class="request-field">{t.method}
-        <select class="select" name="method" data-request-method>
-          {methods.map((method) => <option value={method}>{method}</option>)}
-        </select>
-      </label>
-      <div data-request-body-fields hidden>
-        <label class="request-field">Content-Type
-          <select class="select" name="contentType" data-request-content-type>
-            <option value="application/json">application/json</option>
-            <option value="text/plain">text/plain</option>
-            <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
-            <option value="application/octet-stream">application/octet-stream</option>
-          </select>
-        </label>
-        <label class="request-field" data-text-body-label>{t.body}
-          <textarea class="textarea" name="body" data-request-body rows="4" spellcheck="false">{initialBody}</textarea>
-        </label>
-        <label class="request-field" data-file-body-label hidden>{t.file}
-          <input class="file-input" type="file" data-request-file />
-        </label>
-        <p class="request-hint">{t.bodyLimitHint}</p>
-      </div>
-      </Fragment>
-    )}
+    {
+      (isEcho || isStatus) && (
+        <Fragment>
+          <label class="request-field">
+            {t.method}
+            <select class="select" name="method" data-request-method>
+              {methods.map((method) => (
+                <option value={method}>{method}</option>
+              ))}
+            </select>
+          </label>
+          {isEcho && (
+            <div data-request-body-fields hidden>
+              <label class="request-field">
+                Content-Type
+                <select
+                  class="select"
+                  name="contentType"
+                  data-request-content-type
+                >
+                  <option value="application/json">application/json</option>
+                  <option value="text/plain">text/plain</option>
+                  <option value="application/x-www-form-urlencoded">
+                    application/x-www-form-urlencoded
+                  </option>
+                  <option value="application/octet-stream">
+                    application/octet-stream
+                  </option>
+                </select>
+              </label>
+              <label class="request-field" data-text-body-label>
+                {t.body}
+                <textarea
+                  class="textarea"
+                  name="body"
+                  data-request-body
+                  rows="4"
+                  spellcheck="false"
+                >{initialBody}</textarea>
+              </label>
+              <label class="request-field" data-file-body-label hidden>
+                {t.file}
+                <input class="file-input" type="file" data-request-file />
+              </label>
+              <p class="request-hint">{t.bodyLimitHint}</p>
+            </div>
+          )}
+        </Fragment>
+      )
+    }
     <div class="execute-actions">
-    <button type="submit" class="btn btn-neutral execute-button" data-execute-button aria-busy="false" aria-label={t.execute}>
-      <span class="execute-idle">{t.execute}</span>
-      <span class="loading loading-spinner loading-sm execute-busy" aria-hidden="true"></span>
-    </button>
-    <button type="button" class="btn btn-outline clear-button" data-clear-button disabled>{t.clear}</button>
+      <button
+        type="submit"
+        class="btn btn-neutral execute-button"
+        data-execute-button
+        disabled={isStatus}
+        aria-busy="false"
+        aria-label={t.execute}
+      >
+        <span class="execute-idle">{t.execute}</span>
+        <span
+          class="loading loading-spinner loading-sm execute-busy"
+          aria-hidden="true"></span>
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline clear-button"
+        data-clear-button
+        disabled>{t.clear}</button
+      >
     </div>
-    <p class="execution-notice" data-execution-notice role="status" aria-live="polite"></p>
+    <p
+      class="execution-notice"
+      data-execution-notice
+      role="status"
+      aria-live="polite"
+    >
+    </p>
     <div class="live-response" data-live-response hidden>
       <p class="request-hint" data-request-description></p>
       <p role="status" aria-live="polite" data-response-status></p>
-      <pre><code data-response-body></code></pre>
+      <CodeBlock text="" data-response-body />
     </div>
   </form>
 </article>
 
 <script>
-  import { isLocale, defaultLocale } from "../../../src/locales";
-  import { requestExamples } from "../data/request-examples";
-  import { messages } from "../i18n/messages";
+  import { isLocale, defaultLocale } from '../i18n/locales';
+  import { requestExamples } from '../data/request-examples';
+  import { messages } from '../i18n/messages';
 
-  for (const card of document.querySelectorAll<HTMLElement>("[data-endpoint]")) {
-    const locale = isLocale(card.dataset.locale) ? card.dataset.locale : defaultLocale;
+  for (const card of document.querySelectorAll<HTMLElement>(
+    '[data-endpoint]',
+  )) {
+    const locale = isLocale(card.dataset.locale)
+      ? card.dataset.locale
+      : defaultLocale;
     const t = messages[locale];
-    const link = card.querySelector<HTMLAnchorElement>("[data-endpoint-link]");
-    const query = link?.querySelector("[data-endpoint-query]");
+    const link = card.querySelector<HTMLAnchorElement>('[data-endpoint-link]');
+    const query = link?.querySelector('[data-endpoint-query]');
     const path = card.dataset.endpoint;
-    const form = card.querySelector<HTMLFormElement>("[data-execute-form]");
-    const button = card.querySelector<HTMLButtonElement>("[data-execute-button]");
-    const clear = card.querySelector<HTMLButtonElement>("[data-clear-button]");
-    const notice = card.querySelector<HTMLElement>("[data-execution-notice]");
-    const result = card.querySelector<HTMLElement>("[data-live-response]");
-    const status = card.querySelector<HTMLElement>("[data-response-status]");
-    const bodyOutput = card.querySelector<HTMLElement>("[data-response-body]");
+    const form = card.querySelector<HTMLFormElement>('[data-execute-form]');
+    const button = card.querySelector<HTMLButtonElement>(
+      '[data-execute-button]',
+    );
+    const clear = card.querySelector<HTMLButtonElement>('[data-clear-button]');
+    const notice = card.querySelector<HTMLElement>('[data-execution-notice]');
+    const result = card.querySelector<HTMLElement>('[data-live-response]');
+    const status = card.querySelector<HTMLElement>('[data-response-status]');
+    const bodyOutput = card.querySelector<HTMLElement>('[data-response-body]');
     const requestDescription = card.querySelector<HTMLElement>(
-      "[data-request-description]",
+      '[data-request-description]',
     );
     if (
       !clear ||
@@ -154,70 +301,89 @@ const initialBody = JSON.stringify({ name: "Bob" });
     )
       continue;
 
+    const statusSelect = card.querySelector<HTMLSelectElement>(
+      '[data-status-select]',
+    );
+    const resolvedPath = () =>
+      statusSelect?.value ? path.replace('{code}', statusSelect.value) : path;
+    const selectionMissing = () => !!statusSelect && !statusSelect.value;
     const methodSelect = card.querySelector<HTMLSelectElement>(
-      "[data-request-method]",
+      '[data-request-method]',
     );
     const typeSelect = card.querySelector<HTMLSelectElement>(
-      "[data-request-content-type]",
+      '[data-request-content-type]',
     );
     const textarea = card.querySelector<HTMLTextAreaElement>(
-      "[data-request-body]",
+      '[data-request-body]',
     );
-    const fileInput = card.querySelector<HTMLInputElement>("[data-request-file]");
+    const fileInput = card.querySelector<HTMLInputElement>(
+      '[data-request-file]',
+    );
     const bodyDrafts = new Map<string, string>([
-      ["application/json", textarea?.value ?? '{"name":"Bob"}'],
-      ["text/plain", "Hello!"],
-      ["application/x-www-form-urlencoded", "name=Bob&age=42"],
+      ['application/json', textarea?.value ?? '{"name":"Bob"}'],
+      ['text/plain', 'Hello!'],
+      ['application/x-www-form-urlencoded', 'name=Bob&age=42'],
     ]);
-    let bodyType = typeSelect?.value ?? "application/json";
+    let bodyType = typeSelect?.value ?? 'application/json';
 
-    typeSelect?.addEventListener("change", () => {
+    typeSelect?.addEventListener('change', () => {
       if (!textarea) return;
-      if (bodyType !== "application/octet-stream") {
+      if (bodyType !== 'application/octet-stream') {
         bodyDrafts.set(bodyType, textarea.value);
       }
       bodyType = typeSelect.value;
-      textarea.value = bodyDrafts.get(bodyType) ?? "";
+      textarea.value = bodyDrafts.get(bodyType) ?? '';
     });
 
     const selectedFormat = () =>
       card.querySelector<HTMLInputElement>('input[type="radio"]:checked')
-        ?.value ?? "text";
+        ?.value ?? 'text';
 
     const updateCurlExamples = () => {
       const examples = requestExamples(
-        path,
+        selectionMissing() ? '/status/200' : resolvedPath(),
         selectedFormat(),
         window.location.origin,
         locale,
       );
       for (const code of card.querySelectorAll<HTMLElement>(
-        "[data-curl-example]",
+        '[data-curl-example]',
       )) {
         code.textContent =
-          examples[Number(code.dataset.curlExample)]?.command ?? "";
+          examples[Number(code.dataset.curlExample)]?.command ?? '';
       }
     };
     updateCurlExamples();
 
-    card.addEventListener("change", () => {
+    card.addEventListener('change', () => {
       updateCurlExamples();
       const format = selectedFormat();
-      const suffix = format === "text" ? "" : `?${format}`;
-      link.setAttribute("href", `${path}${suffix}`);
+      const suffix = format === 'text' ? '' : `?${format}`;
+      if (selectionMissing()) link.removeAttribute('href');
+      else link.setAttribute('href', `${resolvedPath()}${suffix}`);
+      if (statusSelect) {
+        link.setAttribute('aria-disabled', String(selectionMissing()));
+        const code = link.querySelector('[data-status-code]');
+        if (code) code.textContent = statusSelect.value || '{code}';
+        button.disabled = selectionMissing() || !!activeRequest;
+      }
       query.textContent = suffix;
       for (const panel of card.querySelectorAll<HTMLElement>(
-        "[data-output-panel]",
+        '[data-output-panel]',
       )) {
         panel.hidden = panel.dataset.outputPanel !== format;
       }
       const fields = card.querySelector<HTMLElement>(
-        "[data-request-body-fields]",
+        '[data-request-body-fields]',
       );
-      if (fields) fields.hidden = methodSelect?.value === "GET";
-      const binary = typeSelect?.value === "application/octet-stream";
-      const textLabel = card.querySelector<HTMLElement>("[data-text-body-label]");
-      const fileLabel = card.querySelector<HTMLElement>("[data-file-body-label]");
+      if (fields) fields.hidden = methodSelect?.value === 'GET';
+      const binary = typeSelect?.value === 'application/octet-stream';
+      const textLabel = card.querySelector<HTMLElement>(
+        '[data-text-body-label]',
+      );
+      const fileLabel = card.querySelector<HTMLElement>(
+        '[data-file-body-label]',
+      );
       if (textLabel) textLabel.hidden = binary;
       if (fileLabel) fileLabel.hidden = !binary;
     });
@@ -225,31 +391,31 @@ const initialBody = JSON.stringify({ name: "Bob" });
     let activeRequest: AbortController | undefined;
     let requestId = 0;
 
-    clear.addEventListener("click", () => {
+    clear.addEventListener('click', () => {
       requestId++;
       activeRequest?.abort();
       activeRequest = undefined;
       result.hidden = true;
-      result.style.minHeight = "";
-      requestDescription.textContent = "";
-      status.textContent = "";
-      bodyOutput.textContent = "";
-      notice.textContent = "";
-      button.disabled = false;
-      button.setAttribute("aria-busy", "false");
+      result.style.minHeight = '';
+      requestDescription.textContent = '';
+      status.textContent = '';
+      bodyOutput.textContent = '';
+      notice.textContent = '';
+      button.disabled = selectionMissing();
+      button.setAttribute('aria-busy', 'false');
       clear.disabled = true;
     });
 
-    form.addEventListener("submit", async (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      const method = methodSelect?.value ?? "GET";
-      const url = link.getAttribute("href") ?? path;
+      const method = methodSelect?.value ?? 'GET';
+      const url = link.getAttribute('href') ?? path;
       if (button.disabled) return;
       const init: RequestInit = { method };
-      if (method !== "GET") {
-        const contentType = typeSelect?.value ?? "application/json";
-        init.headers = { "Content-Type": contentType };
-        if (contentType === "application/octet-stream") {
+      if (method !== 'GET' && typeSelect) {
+        const contentType = typeSelect?.value ?? 'application/json';
+        init.headers = { 'Content-Type': contentType };
+        if (contentType === 'application/octet-stream') {
           const file = fileInput?.files?.[0];
           if (!file) {
             notice.textContent = t.chooseFile;
@@ -257,7 +423,7 @@ const initialBody = JSON.stringify({ name: "Bob" });
           }
           init.body = file;
         } else {
-          init.body = textarea?.value ?? "";
+          init.body = textarea?.value ?? '';
         }
       }
       const currentRequest = ++requestId;
@@ -272,27 +438,63 @@ const initialBody = JSON.stringify({ name: "Bob" });
       result.hidden = false;
       clear.disabled = false;
       button.disabled = true;
-      button.setAttribute("aria-busy", "true");
-      notice.textContent = "";
+      button.setAttribute('aria-busy', 'true');
+      notice.textContent = '';
       try {
         const response = await fetch(url, init);
         const responseBody = await response.text();
         if (currentRequest !== requestId) return;
         requestDescription.textContent = `${method} ${url}`;
-        status.textContent = `${response.status} ${response.statusText} · ${response.headers.get("content-type") ?? t.noContentType}`;
+        status.textContent = `${response.status} ${response.statusText} · ${response.headers.get('content-type') ?? t.noContentType}`;
         bodyOutput.textContent = responseBody || t.emptyResponse;
         result.style.minHeight = `${result.getBoundingClientRect().height}px`;
-        notice.textContent = "";
+        notice.textContent = '';
       } catch (error) {
         if (currentRequest !== requestId) return;
         notice.textContent = `${t.requestFailed}: ${error instanceof Error ? error.message : String(error)}`;
       } finally {
         if (currentRequest === requestId) {
           activeRequest = undefined;
-          button.disabled = false;
-          button.setAttribute("aria-busy", "false");
+          button.disabled = selectionMissing();
+          button.setAttribute('aria-busy', 'false');
         }
       }
     });
   }
 </script>
+
+<style>
+  .status-notice {
+    margin-block: 1rem;
+    padding: 0.75rem 1rem;
+    border-inline-start: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .output-selector {
+    flex-wrap: wrap;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .status-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-block: 1rem;
+  }
+  .status-controls .request-field {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .status-controls .select {
+    width: 100%;
+  }
+  .status-controls a {
+    color: var(--accent);
+  }
+</style>

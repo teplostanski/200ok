@@ -21,4 +21,4 @@ export function navigationItems(locale: Locale): NavigationItem[] {
   ];
 }
 
-export { localizedPath } from "../../../src/locales";
+export { localizedPath } from "../i18n/locales";
