@@ -1,0 +1,70 @@
+---
+import "../styles/fonts.css";
+import mono from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url";
+import monoSemibold from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2?url";
+import sora from "@fontsource-variable/sora/files/sora-latin-wght-normal.woff2?url";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1200" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preload" href={sora} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={mono} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={monoSemibold} as="font" type="font/woff2" crossorigin />
+    <title>200 OK social preview</title>
+  </head>
+  <body>
+    <main>
+      <header><span class="wordmark">200ok.hacks.run</span></header>
+      <div class="content">
+        <section>
+          <h1>200<span>OK</span></h1>
+          <h2>HTTP Request<br />&amp; Response Service</h2>
+          <p>Inspect HTTP requests,<br />test responses, and<br />debug integrations.</p>
+        </section>
+        <aside aria-label="Example HTTP request and response">
+          <div class="terminal-bar"><span class="dots">● ● ●</span><span>request / response</span></div>
+          <div class="terminal-body">
+            <div class="request"><span>GET</span> /v1/echo?pretty</div>
+            <div class="response">HTTP/1.1 <strong>200 OK</strong></div>
+            <pre>{`{
+  "method": "GET",
+  "body": null
+}`}</pre>
+            <div class="ready"><i></i>Ready when you are.</div>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(html), :global(body) { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  :global(body) { font-family: "Sora Variable", sans-serif; color: #e7eef2; background: #0d1216; }
+  main { width: 1200px; height: 630px; padding: 36px 48px; display: flex; flex-direction: column; gap: 24px; position: relative; background: radial-gradient(ellipse at 90% 30%, #1b383c 0%, transparent 58%), linear-gradient(140deg, #0d1216, #11181e); }
+  header { display: flex; justify-content: space-between; align-items: center; font-family: "IBM Plex Mono", monospace; }
+  header { color: #a7b4bc; font-size: 16px; letter-spacing: 1px; }
+  .wordmark { display: flex; align-items: center; gap: 12px; color: #e7eef2; font-weight: 600; font-size: 38px; }
+  i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #4db6a5; }
+  .content { display: grid; grid-template-columns: minmax(0, 1fr) 520px; align-items: center; gap: 40px; flex: 1; min-height: 0; }
+  h1 { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 124px; line-height: 1; letter-spacing: -8px; margin: 0 0 18px; }
+  h1 span { color: #4db6a5; margin-left: 15px; }
+  h2 { font-size: 38px; line-height: 1.25; letter-spacing: -1px; font-weight: 500; margin: 0 0 20px; }
+  p { color: #a7b4bc; font-size: 32px; line-height: 1.4; margin: 0; }
+  aside { position: absolute; right: 48px; top: 50%; width: 520px; transform: translateY(-50%); border: 1px solid #385054; border-radius: 16px; background: #111a20; box-shadow: 0 24px 60px #0004; font-family: "IBM Plex Mono", monospace;  }
+  .terminal-bar { display: flex; justify-content: space-between; padding: 18px 24px; border-bottom: 1px solid #293b41; color: #a7b4bc; font-size: 24px; }
+  .dots { letter-spacing: 4px; color: #547478; }
+  .terminal-body { padding: 24px 28px; font-size: 32px; line-height: 1.3; }
+  .request { color: #e7eef2; margin-bottom: 20px; }
+  .request span { color: #4db6a5; margin-right: 9px; }
+  .response { color: #a7b4bc; }
+  strong { color: #4db6a5; font-weight: 600; }
+  pre { font: inherit; color: #c6efe6; line-height: 1.45; margin: 18px 0 20px; }
+  .ready { border-top: 1px solid #293b41; padding-top: 18px; color: #a7b4bc; font-size: 24px; }
+  .ready i { width: 7px; height: 7px; margin-right: 8px; }
+</style>
