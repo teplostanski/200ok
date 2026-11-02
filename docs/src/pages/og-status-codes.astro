@@ -1,0 +1,55 @@
+---
+import "../styles/fonts.css";
+import mono from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url";
+import monoSemibold from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2?url";
+import sora from "@fontsource-variable/sora/files/sora-latin-wght-normal.woff2?url";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1200" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preload" href={sora} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={mono} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={monoSemibold} as="font" type="font/woff2" crossorigin />
+    <title>HTTP Status Codes social preview</title>
+  </head>
+  <body>
+    <main>
+      <header>200ok.hacks.run</header>
+      <section>
+        <h1>HTTP<br />Status<br /><span>Codes</span></h1>
+        <p>A cozy, minimal guide<br />to HTTP status codes.</p>
+      </section>
+      <aside aria-label="Example HTTP status codes">
+        <div class="row success"><strong>200</strong><span>OK</span></div>
+        <div class="row redirect"><strong>301</strong><span>Moved<br />Permanently</span></div>
+        <div class="row client"><strong>404</strong><span>Not Found</span></div>
+        <div class="row server"><strong>500</strong><span>Internal<br />Server Error</span></div>
+      </aside>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(html), :global(body) { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  :global(body) { font-family: "Sora Variable", sans-serif; color: #e7eef2; background: #0d1216; }
+  main { width: 1200px; height: 630px; padding: 36px 48px; position: relative; background: radial-gradient(ellipse at 90% 30%, #1b383c 0%, transparent 58%), linear-gradient(140deg, #0d1216, #11181e); }
+  header { font-family: "IBM Plex Mono", monospace; font-size: 38px; font-weight: 600; letter-spacing: 1px; }
+  section { position: absolute; left: 48px; top: 133px; width: 530px; }
+  h1 { font-size: 82px; line-height: 1.06; letter-spacing: -3px; font-weight: 600; margin: 0 0 26px; }
+  h1 span { color: #4db6a5; }
+  p { color: #a7b4bc; font-size: 32px; line-height: 1.4; margin: 0; }
+  aside { position: absolute; right: 48px; top: 50%; transform: translateY(-50%); width: 520px; padding: 4px 28px; border: 1px solid #385054; border-radius: 16px; background: #111a20; box-shadow: 0 24px 60px #0004; }
+  .row { display: grid; grid-template-columns: 140px 1fr; gap: 24px; align-items: center; min-height: 112px; }
+  .row + .row { border-top: 1px solid #293b41; }
+  strong { font-family: "IBM Plex Mono", monospace; font-size: 64px; font-weight: 600; letter-spacing: -2px; }
+  .row span { font-size: 28px; line-height: 1.3; }
+  .success strong { color: #4db6a5; }
+  .redirect strong { color: #8cbef3; }
+  .client strong { color: #e7bd70; }
+  .server strong { color: #ef938d; }
+</style>

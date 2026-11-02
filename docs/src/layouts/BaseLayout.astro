@@ -17,18 +17,21 @@ interface Props {
   locale: Locale;
   title: string;
   description?: string;
+  ogImage?: string;
+  ogImageAlt?: string;
 }
 
 const {
   title,
   locale,
+  ogImage = "/og-image.png",
+  ogImageAlt = "200 OK: HTTP Request & Response Service",
   description = messages[Astro.props.locale].metaDescription,
 } = Astro.props;
 const t = messages[locale];
 const pageTitle = `${title} - 200 OK`;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
-const ogImageUrl = new URL("/og-image.png", Astro.site);
-const ogImageAlt = "200 OK: HTTP Request & Response Service";
+const ogImageUrl = new URL(ogImage, Astro.site);
 ---
 
 <!doctype html>
