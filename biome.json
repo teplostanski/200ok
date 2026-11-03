@@ -1,28 +1,25 @@
 {
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@teplostanski/biome-config/configs/base"],
   "files": {
     "includes": ["**", "!!dist", "!!node_modules", "!!docs/.astro"]
   },
-  "formatter": {
-    "enabled": true,
-    "indentStyle": "space",
-    "indentWidth": 2
-  },
+  "overrides": [
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off",
+            "noUnusedVariables": "off"
+          }
+        }
+      }
+    }
+  ],
   "css": {
     "parser": {
       "tailwindDirectives": true
-    }
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "preset": "none"
-    }
-  },
-  "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": "on"
-      }
     }
   }
 }

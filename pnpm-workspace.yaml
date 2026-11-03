@@ -3,3 +3,7 @@ packages:
 
 allowBuilds:
   esbuild: true
+
+minimumReleaseAgeExclude:
+  - astro@7.4.6
+  - "@teplostanski/biome-config@1.0.0"

@@ -1,87 +1,83 @@
-import { type Request, type Response, Router } from "express";
-import { ROUTES } from "../../constants.js";
-import { echoBody } from "../../middleware/echo-body.js";
-import { send } from "../../utils/send.js";
+import { type Request, type Response, Router } from 'express'
+import { ROUTES } from '../../constants.js'
+import { echoBody } from '../../middleware/echo-body.js'
+import { send } from '../../utils/send.js'
 
-export const echoRouter = Router();
-echoRouter.use(ROUTES.echo, echoBody);
+export const echoRouter = Router()
+echoRouter.use(ROUTES.echo, echoBody)
 
 const createEchoPayload = (method: string, body: unknown) => {
   if (Buffer.isBuffer(body)) {
     const binaryPayload = {
-      encoding: "base64",
+      encoding: 'base64',
       sizeBytes: body.length,
-      data: body.toString("base64"),
-    };
+      data: body.toString('base64'),
+    }
 
-    return { method, body: binaryPayload };
+    return { method, body: binaryPayload }
   }
 
-  return { method, body: body ?? null };
-};
+  return { method, body: body ?? null }
+}
 
 const formatValueToText = (value: unknown, depth: number = 0): string => {
-  if (typeof value === "string") {
-    return JSON.stringify(value);
+  if (typeof value === 'string') {
+    return JSON.stringify(value)
   }
 
-  if (value === null || typeof value !== "object") {
-    return String(value);
+  if (value === null || typeof value !== 'object') {
+    return String(value)
   }
 
   if (Object.keys(value).length === 0) {
-    return Array.isArray(value) ? "[]" : "{}";
+    return Array.isArray(value) ? '[]' : '{}'
   }
 
-  const indent = "\u0020".repeat(depth * 2);
+  const indent = '\u0020'.repeat(depth * 2)
 
   if (Array.isArray(value)) {
     return value
-      .map((item) => {
-        if (
-          item !== null &&
-          typeof item === "object" &&
-          Object.keys(item).length > 0
-        ) {
-          const nestedText = formatValueToText(item, depth + 1);
-          return `${indent}-\n${nestedText}`;
+      .map(item => {
+        if (item !== null && typeof item === 'object' && Object.keys(item).length > 0) {
+          const nestedText = formatValueToText(item, depth + 1)
+          return `${indent}-\n${nestedText}`
         }
 
-        return `${indent}- ${formatValueToText(item)}`;
+        return `${indent}- ${formatValueToText(item)}`
       })
-      .join("\n");
+      .join('\n')
   }
 
   const lines = Object.entries(value).map(([key, nestedValue]) => {
     if (
       nestedValue !== null &&
-      typeof nestedValue === "object" &&
+      typeof nestedValue === 'object' &&
       Object.keys(nestedValue).length > 0
     ) {
-      const nestedText = formatValueToText(nestedValue, depth + 1);
+      const nestedText = formatValueToText(nestedValue, depth + 1)
 
-      return `${indent}${key}:\n${nestedText}`;
+      return `${indent}${key}:\n${nestedText}`
     }
 
-    return `${indent}${key}: ${formatValueToText(nestedValue)}`;
-  });
+    return `${indent}${key}: ${formatValueToText(nestedValue)}`
+  })
 
-  return lines.join("\n");
-};
+  return lines.join('\n')
+}
 
 const handleEcho = (req: Request, res: Response) => {
-  const { method, body } = createEchoPayload(req.method, req.body);
+  const { method, body } = createEchoPayload(req.method, req.body)
 
   const formatEchoAsText = (method: string, body: unknown) => {
-    const bodyText = formatValueToText(body);
-    return `${method}\n\n${bodyText}`;
-  };
+    const bodyText = formatValueToText(body)
+    return `${method}\n\n${bodyText}`
+  }
 
-  send({ res, json: { method, body }, text: formatEchoAsText(method, body) });
-};
+  send({ res, json: { method, body }, text: formatEchoAsText(method, body) })
+}
 
-echoRouter.get(ROUTES.echo, handleEcho);
-echoRouter.post(ROUTES.echo, handleEcho);
-echoRouter.put(ROUTES.echo, handleEcho);
-echoRouter.patch(ROUTES.echo, handleEcho);
-echoRouter.delete(ROUTES.echo, handleEcho);
+echoRouter.get(ROUTES.echo, handleEcho)
+echoRouter.post(ROUTES.echo, handleEcho)
+echoRouter.put(ROUTES.echo, handleEcho)
+echoRouter.patch(ROUTES.echo, handleEcho)
+echoRouter.delete(ROUTES.echo, handleEcho)

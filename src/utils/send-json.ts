@@ -1,18 +1,8 @@
-import type { Response } from "express";
-import { FORMATS } from "../constants.js";
+import type { Response } from 'express'
+import { FORMATS } from '../constants.js'
 
-export const sendJson = (
-  res: Response,
-  body: unknown,
-  status: number = res.statusCode,
-) =>
+export const sendJson = (res: Response, body: unknown, status: number = res.statusCode) =>
   res
     .status(status)
-    .type("application/json")
-    .send(
-      JSON.stringify(
-        body,
-        null,
-        res.locals.format === FORMATS.prettyJson ? 2 : undefined,
-      ),
-    );
+    .type('application/json')
+    .send(JSON.stringify(body, null, res.locals.format === FORMATS.prettyJson ? 2 : undefined))

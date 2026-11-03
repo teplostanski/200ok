@@ -12,6 +12,8 @@
     "build": "pnpm build:server && pnpm build:docs",
     "start": "node --env-file-if-exists=.env --enable-source-maps dist/server.js",
     "typecheck": "pnpm typecheck:server && pnpm typecheck:docs",
+    "check": "biome check .",
+    "check:fix": "biome check --write .",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
@@ -26,7 +28,8 @@
     "http-status-codes": "^2.3.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.15",
+    "@biomejs/biome": "^2.6.5",
+    "@teplostanski/biome-config": "1.0.0",
     "@types/express": "^5.0.6",
     "@types/node": "^24.19.0",
     "listhen": "^1.10.1",

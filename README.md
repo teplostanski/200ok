@@ -115,14 +115,14 @@ curl -fsS https://example.com/health
 
 Add these repository secrets under **Settings → Secrets and variables → Actions**:
 
-| Secret | Value |
-| --- | --- |
-| `VPS_HOST` | VPS address or hostname |
-| `VPS_USER` | SSH deployment user |
-| `VPS_PORT` | SSH port |
-| `VPS_DEPLOY_PATH` | Absolute deployment directory path |
-| `VPS_SSH_KEY` | Complete SSH private key without a passphrase; its public key must be in the user's `authorized_keys` |
-| `VPS_KNOWN_HOSTS` | Verified host-key record matching `VPS_HOST` and `VPS_PORT` |
+| Secret            | Value                                                                                                 |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| `VPS_HOST`        | VPS address or hostname                                                                               |
+| `VPS_USER`        | SSH deployment user                                                                                   |
+| `VPS_PORT`        | SSH port                                                                                              |
+| `VPS_DEPLOY_PATH` | Absolute deployment directory path                                                                    |
+| `VPS_SSH_KEY`     | Complete SSH private key without a passphrase; its public key must be in the user's `authorized_keys` |
+| `VPS_KNOWN_HOSTS` | Verified host-key record matching `VPS_HOST` and `VPS_PORT`                                           |
 
 Connect to the VPS once and verify its host fingerprint. Retrieve the known-hosts record locally:
 
@@ -158,16 +158,16 @@ curl -i http://127.0.0.1:3000/health
 sudo journalctl -u caddy -n 50 --no-pager
 ```
 
-| Problem | Check |
-| --- | --- |
-| Missing `APP_IMAGE` or `TRUST_PROXY` | Set both in the deployment directory's `.env`. |
-| SSH authentication fails | Check the user, port, private key, and `authorized_keys`. The workflow requires a key without a passphrase. |
-| Host-key verification fails | Check `VPS_KNOWN_HOSTS` against the configured host and port. Verify any changed fingerprint before replacing the record. |
-| Image pull denied | Check GHCR visibility or log in as the deployment user with package read access. |
-| Docker permission denied | The SSH user must be able to run Docker without `sudo`. |
-| HTTPS returns `502` | Check container health, the Caddy upstream, and both services' logs. |
-| Client IP is incorrect | Check `TRUST_PROXY` against the Docker network gateway and recreate the container after changing `.env`. |
-| SSH connection times out | Check the address, port, firewall, and access from GitHub-hosted runners. |
+| Problem                              | Check                                                                                                                     |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| Missing `APP_IMAGE` or `TRUST_PROXY` | Set both in the deployment directory's `.env`.                                                                            |
+| SSH authentication fails             | Check the user, port, private key, and `authorized_keys`. The workflow requires a key without a passphrase.               |
+| Host-key verification fails          | Check `VPS_KNOWN_HOSTS` against the configured host and port. Verify any changed fingerprint before replacing the record. |
+| Image pull denied                    | Check GHCR visibility or log in as the deployment user with package read access.                                          |
+| Docker permission denied             | The SSH user must be able to run Docker without `sudo`.                                                                   |
+| HTTPS returns `502`                  | Check container health, the Caddy upstream, and both services' logs.                                                      |
+| Client IP is incorrect               | Check `TRUST_PROXY` against the Docker network gateway and recreate the container after changing `.env`.                  |
+| SSH connection times out             | Check the address, port, firewall, and access from GitHub-hosted runners.                                                 |
 
 After fixing a deployment issue, use **Re-run failed jobs** in GitHub Actions.
 
