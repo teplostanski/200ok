@@ -37,18 +37,51 @@
   margin: 0 0 16px;
   font-size: 1rem;
 }
+.status-description code {
+  color: var(--ink);
+}
 .status-group h2 code {
   color: var(--accent);
 }
+.status-group[data-status-group="1xx"] {
+  --status-color: #7654a3;
+  --status-tint: #baa2df;
+}
+.status-group[data-status-group="2xx"] {
+  --status-color: #1f6f63;
+  --status-tint: #4db6a5;
+}
+.status-group[data-status-group="3xx"] {
+  --status-color: #285f98;
+  --status-tint: #8cbef3;
+}
+.status-group[data-status-group="4xx"] {
+  --status-color: #805b1d;
+  --status-tint: #e7bd70;
+}
+.status-group[data-status-group="5xx"] {
+  --status-color: #a13e38;
+  --status-tint: #ef938d;
+}
 .status-group .collapse-title .method {
+  color: var(--status-color);
+  background: color-mix(in srgb, var(--status-tint) 18%, var(--surface-solid));
   font-size: 1rem;
   margin-inline-end: 12px;
   letter-spacing: 0.05rem;
+}
+@media (prefers-color-scheme: dark) {
+  .status-group .collapse-title .method {
+    color: var(--status-tint);
+  }
 }
 .status-group .collapse-content p {
   margin: 0 0 12px;
   line-height: 1.7;
   color: var(--ink-soft);
+}
+.status-attribution a {
+  overflow-wrap: anywhere;
 }
 .status-group .collapse-content a {
   color: var(--accent);
@@ -75,9 +108,6 @@
   margin-block: 6px;
   line-height: 1.7;
 }
-.status-description code {
-  color: var(--ink);
-}
 .status-description aside,
 .status-description blockquote {
   margin: 16px 0;
@@ -94,9 +124,6 @@
   font-size: 0.75rem;
 }
 
-.status-attribution a {
-  overflow-wrap: anywhere;
-}
 .status-license {
   margin-top: 24px;
   font-size: 0.75rem;
