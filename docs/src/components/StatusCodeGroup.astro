@@ -1,16 +1,16 @@
 ---
-import type { statusCodes } from "../data/status-codes";
-import type { Locale } from "../i18n/messages";
-import { statusMessages } from "../i18n/status";
+import type { statusCodes } from '../data/status-codes'
+import type { Locale } from '../i18n/messages'
+import { statusMessages } from '../i18n/status'
 
 interface Props {
-  locale: Locale;
-  id: string;
-  title: string;
-  statuses: (typeof statusCodes)[number][];
+  locale: Locale
+  id: string
+  title: string
+  statuses: (typeof statusCodes)[number][]
 }
-const { id, title, statuses, locale } = Astro.props;
-const t = statusMessages[locale];
+const { id, title, statuses, locale } = Astro.props
+const t = statusMessages[locale]
 ---
 
 <section class="status-group" data-status-group={id} aria-labelledby={`status-${id}`}>

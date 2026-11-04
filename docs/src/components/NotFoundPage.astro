@@ -1,14 +1,14 @@
 ---
-import { localizedPath } from "../i18n/locales";
-import { type Locale, messages } from "../i18n/messages";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { localizedPath } from '../i18n/locales'
+import { type Locale, messages } from '../i18n/messages'
+import BaseLayout from '../layouts/BaseLayout.astro'
 
 interface Props {
-  locale: Locale;
+  locale: Locale
 }
 
-const { locale } = Astro.props;
-const t = messages[locale];
+const { locale } = Astro.props
+const t = messages[locale]
 ---
 
 <BaseLayout locale={locale} title={`404 · ${t.notFound}`}>

@@ -1,40 +1,38 @@
 ---
-import { type Locale, messages } from "../i18n/messages";
+import { type Locale, messages } from '../i18n/messages'
 
 interface Schema {
-  type?: string | string[];
-  description?: string;
-  const?: unknown;
-  items?: Schema;
-  anyOf?: Schema[];
-  properties?: Record<string, Schema>;
-  required?: string[];
-  additionalProperties?: Schema | boolean;
+  type?: string | string[]
+  description?: string
+  const?: unknown
+  items?: Schema
+  anyOf?: Schema[]
+  properties?: Record<string, Schema>
+  required?: string[]
+  additionalProperties?: Schema | boolean
 }
 interface Props {
-  locale: Locale;
-  schema: Schema;
+  locale: Locale
+  schema: Schema
 }
-const { schema, locale } = Astro.props;
-const t = messages[locale];
+const { schema, locale } = Astro.props
+const t = messages[locale]
 const typeName = (field: Schema): string => {
-  if (field.anyOf) return field.anyOf.map(typeName).join(" | ");
-  if (field.type === "array") return `${typeName(field.items ?? {})}[]`;
-  return Array.isArray(field.type)
-    ? field.type.join(" | ")
-    : (field.type ?? "unknown");
-};
+  if (field.anyOf) return field.anyOf.map(typeName).join(' | ')
+  if (field.type === 'array') return `${typeName(field.items ?? {})}[]`
+  return Array.isArray(field.type) ? field.type.join(' | ') : (field.type ?? 'unknown')
+}
 const rows = Object.entries(schema.properties ?? {}).map(([name, field]) => ({
   name,
   field,
   required: schema.required?.includes(name) ?? false,
-}));
-if (typeof schema.additionalProperties === "object") {
+}))
+if (typeof schema.additionalProperties === 'object') {
   rows.push({
     name: t.headerName,
     field: schema.additionalProperties,
     required: false,
-  });
+  })
 }
 ---
 <div class="response-model">

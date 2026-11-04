@@ -1,19 +1,19 @@
 ---
-import "../styles/status-codes.css";
-import { localizedStatusCodes } from "../data/status-translations";
-import { type Locale, messages } from "../i18n/messages";
-import { statusMessages } from "../i18n/status";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import DocsNavigation from "./DocsNavigation.astro";
-import StatusCodeGroup from "./StatusCodeGroup.astro";
+import '../styles/status-codes.css'
+import { localizedStatusCodes } from '../data/status-translations'
+import { type Locale, messages } from '../i18n/messages'
+import { statusMessages } from '../i18n/status'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import DocsNavigation from './DocsNavigation.astro'
+import StatusCodeGroup from './StatusCodeGroup.astro'
 
 interface Props {
-  locale: Locale;
+  locale: Locale
 }
-const { locale } = Astro.props;
-const t = messages[locale];
-const statusText = statusMessages[locale];
-const statusCodes = localizedStatusCodes(locale);
+const { locale } = Astro.props
+const t = messages[locale]
+const statusText = statusMessages[locale]
+const statusCodes = localizedStatusCodes(locale)
 const groups = [
   t.statusInformational,
   t.statusSuccess,
@@ -23,14 +23,12 @@ const groups = [
 ].map((title, index) => ({
   id: `${index + 1}xx`,
   title,
-  statuses: statusCodes.filter(
-    ({ code }) => Math.floor(code / 100) === index + 1,
-  ),
-}));
+  statuses: statusCodes.filter(({ code }) => Math.floor(code / 100) === index + 1),
+}))
 const filters = [
-  { id: "all", title: t.allStatuses },
+  { id: 'all', title: t.allStatuses },
   ...groups.map(({ id }) => ({ id, title: id })),
-];
+]
 ---
 
 <BaseLayout locale={locale} title={t.statusCodes} ogImage="/og-status-codes.png" ogImageAlt="HTTP Status Codes: 200 OK, 301 Moved Permanently, 404 Not Found, 500 Internal Server Error">

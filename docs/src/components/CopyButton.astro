@@ -1,0 +1,74 @@
+---
+import { type Locale, messages } from '../i18n/messages'
+
+interface Props {
+  locale: Locale
+}
+const t = messages[Astro.props.locale]
+---
+
+<button type="button" class="copy-btn" data-state="idle"
+  data-label={t.copyCode} data-success={t.codeCopied} data-error={t.copyCodeFailed}
+  aria-label={t.copyCode} title={t.copyCode}>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <g class="icon-copy"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></g>
+    <path class="icon-success" d="m5 12 4 4L19 6"/>
+    <g class="icon-error"><circle cx="12" cy="12" r="9"/><path d="M12 7v6m0 4h.01"/></g>
+  </svg>
+</button>
+<span class="copy-status" role="status" aria-live="polite"></span>
+
+<script>
+  for (const button of document.querySelectorAll<HTMLButtonElement>('.copy-btn')) {
+    button.addEventListener('click', async () => {
+      const code = button.closest('[data-code-block]')?.querySelector('code');
+      const status = button.nextElementSibling;
+      if (!code || !status) return;
+      button.disabled = true;
+      let state = 'success';
+      let label = button.dataset.success ?? '';
+      try {
+        await navigator.clipboard.writeText(code.textContent ?? '');
+      } catch {
+        state = 'error';
+        label = button.dataset.error ?? '';
+      }
+      button.dataset.state = state;
+      button.title = label;
+      button.setAttribute('aria-label', label);
+      status.textContent = label;
+      window.setTimeout(() => {
+        button.dataset.state = 'idle';
+        button.title = button.dataset.label ?? '';
+        button.setAttribute('aria-label', button.dataset.label ?? '');
+        button.disabled = false;
+        status.textContent = '';
+      }, 2000);
+    });
+  }
+</script>
+
+<style>
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    background: var(--surface-solid);
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+  }
+  .copy-btn:hover:not(:disabled) { color: var(--accent); background: var(--accent-soft); border-color: var(--accent); }
+  .copy-btn:disabled { cursor: default; }
+  .copy-btn[data-state='success'] { color: var(--accent); background: var(--copied); }
+  .copy-btn[data-state='error'] { color: var(--color-error); }
+  .icon-success, .icon-error { display: none; }
+  [data-state='success'] .icon-copy, [data-state='error'] .icon-copy { display: none; }
+  [data-state='success'] .icon-success, [data-state='error'] .icon-error { display: inline; }
+  .copy-status { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  @media (prefers-reduced-motion: reduce) { .copy-btn { transition: none; } }
+</style>

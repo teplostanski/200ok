@@ -1,8 +1,8 @@
 ---
-import NotFoundPage from "../components/NotFoundPage.astro";
-import { localeFromPath } from "../i18n/locales";
+import NotFoundPage from '../components/NotFoundPage.astro'
+import { localeFromPath } from '../i18n/locales'
 
-const locale = localeFromPath(Astro.url.pathname);
+const locale = localeFromPath(Astro.url.pathname)
 ---
 
 <NotFoundPage locale={locale} />

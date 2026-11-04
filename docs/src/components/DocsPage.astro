@@ -1,72 +1,73 @@
 ---
-import { type Locale, messages } from "../i18n/messages";
-import { statusEndpointMessages } from "../i18n/status-endpoint";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import DocsNavigation from "./DocsNavigation.astro";
-import EndpointCard from "./EndpointCard.astro";
+import { type Locale, messages } from '../i18n/messages'
+import { statusEndpointMessages } from '../i18n/status-endpoint'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import CodeBlock from './CodeBlock.astro'
+import DocsNavigation from './DocsNavigation.astro'
+import EndpointCard from './EndpointCard.astro'
 
 interface Props {
-  locale: Locale;
+  locale: Locale
 }
-const { locale } = Astro.props;
-const t = messages[locale];
+const { locale } = Astro.props
+const t = messages[locale]
 
 const groups = [
   {
-    title: "Status",
-    id: "status",
+    title: 'Status',
+    id: 'status',
     endpoints: [
       {
-        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-        path: "/status/{code}",
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+        path: '/status/{code}',
         description: statusEndpointMessages[locale].description,
       },
     ],
   },
   {
-    title: "IP",
-    id: "ip",
+    title: 'IP',
+    id: 'ip',
     endpoints: [
       {
-        methods: ["GET"],
-        path: "/ip",
+        methods: ['GET'],
+        path: '/ip',
         description: t.ipCurrent,
       },
       {
-        methods: ["GET"],
-        path: "/ip/v4",
+        methods: ['GET'],
+        path: '/ip/v4',
         description: t.ipv4,
       },
       {
-        methods: ["GET"],
-        path: "/ip/v6",
+        methods: ['GET'],
+        path: '/ip/v6',
         description: t.ipv6,
       },
     ],
   },
   {
-    title: "Echo",
-    id: "echo",
+    title: 'Echo',
+    id: 'echo',
     endpoints: [
       {
-        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-        path: "/echo",
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+        path: '/echo',
         description: t.echoDescription,
       },
     ],
   },
   {
-    title: "Headers",
-    id: "headers",
+    title: 'Headers',
+    id: 'headers',
     endpoints: [
       {
-        methods: ["GET"],
-        path: "/headers",
+        methods: ['GET'],
+        path: '/headers',
         description: t.headersDescription,
       },
     ],
   },
-];
+]
 ---
 
 <BaseLayout title={t.docTitle} locale={locale}>
@@ -79,29 +80,94 @@ const groups = [
     </div>
   </div>
 
-  <section aria-labelledby="response-format">
-    <h2 id="response-format">{t.output}</h2>
-    <p class="format-note">{t.formatNote.split("`").map((part, index) =>
-      index % 2 === 1 ? <code>{part}</code> : part
-    )}</p>
-  </section>
+  <div class="docs-settings">
+    <details class="collapse collapse-arrow docs-setting" name="docs-settings" open>
+      <summary class="collapse-title">Base URL</summary>
+      <div class="collapse-content" data-base-url>
+        <p>{Astro.url.origin}</p>
+      </div>
+    </details>
+    <details class="collapse collapse-arrow docs-setting" name="docs-settings" id="response-format">
+      <summary class="collapse-title">{t.output}</summary>
+      <div class="collapse-content">
+        <p class="format-note">{t.formatNote.split("`").map((part, index) =>
+          index % 2 === 1 ? <code>{part}</code> : part
+        )}</p>
+      </div>
+    </details>
+    <details class="collapse collapse-arrow docs-setting" name="docs-settings">
+      <summary class="collapse-title">{t.runLocally}</summary>
+      <div class="collapse-content">
+        <CodeBlock lang="shellscript" text="docker run --rm -p 3000:3000 ghcr.io/teplostanski/200ok:latest" />
+        <p class="local-address"><a href="http://localhost:3000">http://localhost:3000</a></p>
+      </div>
+    </details>
+  </div>
 
-  <section aria-labelledby="endpoints">
-    <h2 id="endpoints">{t.endpoints}</h2>
+  <div class="endpoint-groups">
     {groups.map(({ title, id, endpoints }) => (
       <section class="endpoint-group" aria-labelledby={`group-${id}`}>
-        <h3 id={`group-${id}`}>{title}</h3>
+        <h2 id={`group-${id}`}>{title}</h2>
         <div class="endpoints">
           {endpoints.map((endpoint) => <EndpointCard {...endpoint} locale={locale} />)}
         </div>
       </section>
     ))}
-  </section>
+  </div>
 
 </BaseLayout>
 
-<style>
+<script>
+  const baseUrl = document.querySelector('[data-base-url] code');
+  if (baseUrl) baseUrl.textContent = window.location.origin;
+</script>
 
+<style>
+  .endpoint-groups {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .docs-settings {
+    width: 100%;
+    min-width: 0;
+    margin-top: 2rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .docs-setting {
+    border-radius: 0;
+  }
+
+  [data-base-url] :global([data-code-block]) {
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .docs-setting + .docs-setting {
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .docs-setting > .collapse-title {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .local-address {
+    margin-top: 1rem;
+  }
+
+  .local-address a {
+    color: var(--accent);
+  }
+
+  .local-platform {
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+  }
 
   .rand-link {
     color: var(--accent);

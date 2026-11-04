@@ -1,35 +1,31 @@
 ---
-import { getReasonPhrase, StatusCodes } from "http-status-codes";
-import { localizedPath } from "../data/navigation";
-import { requestExamples } from "../data/request-examples";
-import { responsesFor } from "../data/responses";
-import { type Locale, messages } from "../i18n/messages";
-import { statusEndpointMessages } from "../i18n/status-endpoint";
-import CodeBlock from "./CodeBlock.astro";
-import ResponseModel from "./ResponseModel.astro";
+import { getReasonPhrase, StatusCodes } from 'http-status-codes'
+import { localizedPath } from '../data/navigation'
+import { requestExamples } from '../data/request-examples'
+import { responsesFor } from '../data/responses'
+import { type Locale, messages } from '../i18n/messages'
+import { statusEndpointMessages } from '../i18n/status-endpoint'
+import CodeBlock from './CodeBlock.astro'
+import ResponseModel from './ResponseModel.astro'
 
 interface Props {
-  locale: Locale;
-  path: string;
-  methods: string[];
-  description: string;
+  locale: Locale
+  path: string
+  methods: string[]
+  description: string
 }
 
-const { path, methods, description, locale } = Astro.props;
-const t = messages[locale];
-const id = path.replaceAll("/", "-");
-const isStatus = path === "/status/{code}";
-const statusText = statusEndpointMessages[locale];
+const { path, methods, description, locale } = Astro.props
+const t = messages[locale]
+const id = path.replaceAll('/', '-')
+const isStatus = path === '/status/{code}'
+const statusText = statusEndpointMessages[locale]
 const statusCodes = [
-  ...new Set(
-    Object.values(StatusCodes).filter(
-      (code): code is number => typeof code === "number",
-    ),
-  ),
-].sort((a, b) => a - b);
-const isEcho = path === "/echo";
-const responses = responsesFor(path, locale);
-const initialBody = JSON.stringify({ name: "Bob" });
+  ...new Set(Object.values(StatusCodes).filter((code): code is number => typeof code === 'number')),
+].sort((a, b) => a - b)
+const isEcho = path === '/echo'
+const responses = responsesFor(path, locale)
+const initialBody = JSON.stringify({ name: 'Bob' })
 ---
 
 <article class="endpoint-card" data-endpoint={path} data-locale={locale}>
@@ -133,7 +129,7 @@ const initialBody = JSON.stringify({ name: "Bob" });
         ).map(({ label, command }, index) => (
           <div>
             <p class="example-label">{label}</p>
-            <CodeBlock text={command} data-curl-example={index} />
+            <CodeBlock lang="shellscript" text={command} data-curl-example={index} />
           </div>
         ))
       }
@@ -153,7 +149,7 @@ const initialBody = JSON.stringify({ name: "Bob" });
             {['json', 'pretty'].map((format) => (
               <div data-output-panel={format} hidden>
                 <p class="example-label">{t.example} · application/json</p>
-                <CodeBlock text={JSON.stringify(
+                <CodeBlock lang="json" text={JSON.stringify(
                       response.json,
                       null,
                       format === 'pretty' ? 2 : undefined,
@@ -260,6 +256,7 @@ const initialBody = JSON.stringify({ name: "Bob" });
 </article>
 
 <script>
+  import { updateCode } from '../lib/highlight';
   import { isLocale, defaultLocale } from '../i18n/locales';
   import { requestExamples } from '../data/request-examples';
   import { messages } from '../i18n/messages';
@@ -349,8 +346,7 @@ const initialBody = JSON.stringify({ name: "Bob" });
       for (const code of card.querySelectorAll<HTMLElement>(
         '[data-curl-example]',
       )) {
-        code.textContent =
-          examples[Number(code.dataset.curlExample)]?.command ?? '';
+        updateCode(code, examples[Number(code.dataset.curlExample)]?.command ?? '', 'shellscript');
       }
     };
     updateCurlExamples();
@@ -446,7 +442,8 @@ const initialBody = JSON.stringify({ name: "Bob" });
         if (currentRequest !== requestId) return;
         requestDescription.textContent = `${method} ${url}`;
         status.textContent = `${response.status} ${response.statusText} · ${response.headers.get('content-type') ?? t.noContentType}`;
-        bodyOutput.textContent = responseBody || t.emptyResponse;
+        updateCode(bodyOutput, responseBody || t.emptyResponse,
+          response.headers.get('content-type')?.includes('json') ? 'json' : 'text');
         result.style.minHeight = `${result.getBoundingClientRect().height}px`;
         notice.textContent = '';
       } catch (error) {

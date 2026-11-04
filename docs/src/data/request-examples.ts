@@ -1,22 +1,20 @@
-import { type Locale, messages } from "../i18n/messages";
+import { type Locale, messages } from '../i18n/messages'
 
 export function requestExamples(
   path: string,
   format: string,
-  origin = "http://localhost:3000",
-  locale: Locale = "en",
+  origin = 'http://localhost:3000',
+  locale: Locale = 'en',
 ): { label: string; command: string }[] {
-  const t = messages[locale];
+  const t = messages[locale]
   const host =
-    origin === "https://200ok.hacks.run"
-      ? "200ok.hacks.run"
-      : origin.replace(/^http:\/\//, "");
-  const url = `${host}${path}${format === "json" || format === "pretty" ? `?${format}` : ""}`;
-  const target = format !== "text" ? `'${url}'` : url;
-  if (path === "/echo") {
+    origin === 'https://200ok.hacks.run' ? '200ok.hacks.run' : origin.replace(/^http:\/\//, '')
+  const url = `${host}${path}${format === 'json' || format === 'pretty' ? `?${format}` : ''}`
+  const target = format !== 'text' ? `'${url}'` : url
+  if (path === '/echo') {
     return [
       {
-        label: "POST · JSON",
+        label: 'POST · JSON',
         command: `curl ${target} \\\n  -H 'Content-Type: application/json' \\\n  --data-binary '{"name":"Bob"}'`,
       },
       {
@@ -31,15 +29,15 @@ export function requestExamples(
         label: `POST · ${t.binaryFile}`,
         command: `curl ${target} \\\n  -H 'Content-Type: application/octet-stream' \\\n  --data-binary '@./file.bin'`,
       },
-    ];
+    ]
   }
-  if (path === "/headers") {
+  if (path === '/headers') {
     return [
       {
         label: t.customHeader,
         command: `curl ${target} \\\n  -H 'X-Test: hello'`,
       },
-    ];
+    ]
   }
-  return [{ label: "GET", command: `curl ${target}` }];
+  return [{ label: 'GET', command: `curl ${target}` }]
 }
