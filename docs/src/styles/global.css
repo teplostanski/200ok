@@ -479,6 +479,16 @@ footer {
   gap: 16px;
 }
 
+.build-info {
+  white-space: nowrap;
+}
+
+.build-info a {
+  color: var(--accent);
+  font-weight: inherit;
+  letter-spacing: normal;
+}
+
 .btn,
 .select,
 .textarea,

@@ -54,6 +54,11 @@ jobs:
           REPOSITORY: ${{ github.repository }}
         run: echo "name=ghcr.io/${REPOSITORY,,}" >> "$GITHUB_OUTPUT"
       - uses: docker/setup-buildx-action@v4
+      - name: Read build metadata
+        id: build-metadata
+        run: |
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "date=$(git show -s --format=%cI HEAD)" >> "$GITHUB_OUTPUT"
       - name: Log in to GHCR
         uses: docker/login-action@v4
         with:
@@ -66,6 +71,9 @@ jobs:
           context: .
           platforms: linux/amd64
           push: true
+          build-args: |
+            BUILD_COMMIT=${{ steps.build-metadata.outputs.commit }}
+            BUILD_COMMIT_DATE=${{ steps.build-metadata.outputs.date }}
           tags: |
             ${{ steps.image.outputs.name }}:latest
             ${{ steps.image.outputs.name }}:sha-${{ github.sha }}

@@ -14,6 +14,8 @@ RUN pnpm install --frozen-lockfile
 COPY tsconfig.json tsconfig.build.json ./
 COPY src ./src
 COPY docs ./docs
+ARG BUILD_COMMIT
+ARG BUILD_COMMIT_DATE
 RUN pnpm build
 
 FROM dependencies AS production-dependencies

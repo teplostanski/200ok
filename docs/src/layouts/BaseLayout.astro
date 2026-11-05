@@ -1,37 +1,33 @@
 ---
-import plexMono from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url";
-import plexMonoSemibold from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2?url";
-import soraLatin from "@fontsource-variable/sora/files/sora-latin-wght-normal.woff2?url";
-import "../styles/site.css";
+import plexMono from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url'
+import plexMonoSemibold from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2?url'
+import soraLatin from '@fontsource-variable/sora/files/sora-latin-wght-normal.woff2?url'
+import '../styles/site.css'
 
-import {
-  defaultLocale,
-  localeCodes,
-  locales,
-  localizedPath,
-} from "../i18n/locales";
-import { type Locale, messages } from "../i18n/messages";
-import { languageUrl } from "../i18n/paths";
+import { defaultLocale, localeCodes, locales, localizedPath } from '../i18n/locales'
+import { type Locale, messages } from '../i18n/messages'
+import { languageUrl } from '../i18n/paths'
+import { buildInfo } from '../lib/build-info'
 
 interface Props {
-  locale: Locale;
-  title: string;
-  description?: string;
-  ogImage?: string;
-  ogImageAlt?: string;
+  locale: Locale
+  title: string
+  description?: string
+  ogImage?: string
+  ogImageAlt?: string
 }
 
 const {
   title,
   locale,
-  ogImage = "/og-image.png",
-  ogImageAlt = "200 OK: HTTP Request & Response Service",
+  ogImage = '/og-image.png',
+  ogImageAlt = '200 OK: HTTP Request & Response Service',
   description = messages[Astro.props.locale].metaDescription,
-} = Astro.props;
-const t = messages[locale];
-const pageTitle = `${title} - 200 OK`;
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
-const ogImageUrl = new URL(ogImage, Astro.site);
+} = Astro.props
+const t = messages[locale]
+const pageTitle = `${title} - 200 OK`
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
+const ogImageUrl = new URL(ogImage, Astro.site)
 ---
 
 <!doctype html>
@@ -90,6 +86,12 @@ const ogImageUrl = new URL(ogImage, Astro.site);
       <a class="brand" href={localizedPath("/", locale)}>200 OK</a>
       <div class="header-tools">
         <span>API v1</span>
+        {buildInfo && (
+          <span class="build-info">
+            build <a href={`https://github.com/teplostanski/200ok/commit/${buildInfo.commit}`}>{buildInfo.shortCommit}</a>
+            {' · updated '}<time datetime={buildInfo.date}>{buildInfo.date}</time>
+          </span>
+        )}
         <select class="select select-sm language-switch" aria-label={t.language} data-language-select>
           {localeCodes.map((code) => (
             <option value={code} lang={code} selected={locale === code}>{locales[code]}</option>
