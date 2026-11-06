@@ -2,6 +2,7 @@ name: http-server
 
 services:
   app:
+    container_name: 200ok-app-1
     image: ${APP_IMAGE:?Set APP_IMAGE to the published image tag}
     ports:
       - "127.0.0.1:3000:3000"
