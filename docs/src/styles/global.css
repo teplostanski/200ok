@@ -312,7 +312,7 @@ footer {
   align-items: flex-start;
   gap: 20px;
 }
-.endpoint-heading h4 {
+.endpoint-heading h3 {
   min-width: 0;
   margin: 0;
   font-size: 1.1rem;
@@ -360,7 +360,7 @@ footer {
   padding-top: 16px;
   border-top: 1px solid var(--line);
 }
-.response-example h6 {
+.response-example h5 {
   font-size: 0.9rem;
   margin: 0;
 }

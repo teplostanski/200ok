@@ -31,11 +31,34 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm audit
       - run: pnpm build
+
+  docker-check:
+    name: Docker smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@v4
+      - name: Build test image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          load: true
+          push: false
+          tags: 200ok-ci:test
+          cache-from: type=gha,scope=smoke
+          cache-to: type=gha,scope=smoke,mode=max
+      - name: Test running image
+        run: bash scripts/docker-smoke.sh 200ok-ci:test
 
   publish:
     name: Publish Docker image
-    needs: checks
+    needs: [checks, docker-check]
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -121,6 +144,10 @@ jobs:
             "$VPS_USER@$VPS_HOST" \
             "mkdir -p -- $remote_path && cd -- $remote_path && cat > compose.yaml.next" \
             < compose.production.yaml
+          ssh -p "$VPS_PORT" -o BatchMode=yes -o StrictHostKeyChecking=yes \
+            "$VPS_USER@$VPS_HOST" \
+            "cd -- $remote_path && cat > .env.production.next" \
+            < .env.production
       - name: Pull image and update container
         run: |
           remote_args=$(python3 -c 'import os, shlex; print(shlex.join([os.environ["DEPLOY_IMAGE"], os.environ["VPS_DEPLOY_PATH"]]))')
@@ -129,14 +156,15 @@ jobs:
           set -euo pipefail
           cd -- "$2"
           export APP_IMAGE="$1"
-          docker compose -p http-server -f compose.yaml.next config --quiet
-          docker compose -p http-server -f compose.yaml.next pull app
+          mv .env.production.next .env.production
+          docker compose --env-file .env.production --env-file .env -p http-server -f compose.yaml.next config --quiet
+          docker compose --env-file .env.production --env-file .env -p http-server -f compose.yaml.next pull app
           mv compose.yaml.next compose.yaml
-          docker compose -p http-server up -d --wait --wait-timeout 90
+          docker compose --env-file .env.production --env-file .env -p http-server up -d --wait --wait-timeout 90
           touch .env
           sed -i '/^APP_IMAGE=/d' .env
           printf '\nAPP_IMAGE=%s\n' "$APP_IMAGE" >> .env
-          docker compose -p http-server ps
+          docker compose --env-file .env.production --env-file .env -p http-server ps
           REMOTE
       - name: Remove SSH credentials
         if: always()

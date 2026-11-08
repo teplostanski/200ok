@@ -1,4 +1,6 @@
 export const en = {
+  localJsonDepth:
+    'JSON nesting defaults to 64 object or array levels. For deeper local tests, set JSON_MAX_DEPTH between 1 and 512. The 100 KiB body limit still applies.',
   runLocally: 'Run locally',
   copyCode: 'Copy code',
   codeCopied: 'Copied',

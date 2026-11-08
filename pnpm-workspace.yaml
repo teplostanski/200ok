@@ -4,6 +4,11 @@ packages:
 allowBuilds:
   esbuild: true
 
+# astro2tsx uses core 1.x but omits its matching runtime dependency.
+packageExtensions:
+  "@astrojs/astro2tsx@0.1.3":
+    dependencies:
+      "@emnapi/runtime": "1.11.3"
+
 minimumReleaseAgeExclude:
-  - astro@7.4.6
-  - "@teplostanski/biome-config@1.0.0"
+  - "@teplostanski/biome-config"

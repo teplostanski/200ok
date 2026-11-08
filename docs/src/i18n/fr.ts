@@ -1,6 +1,8 @@
 import type { MessageDictionary } from './messages'
 
 export const fr: MessageDictionary = {
+  localJsonDepth:
+    'La limite par défaut est de 64 niveaux d’objets ou de tableaux JSON. Pour des tests locaux plus profonds, définissez JSON_MAX_DEPTH entre 1 et 512. La limite de 100 Kio du corps reste applicable.',
   runLocally: 'Exécuter en local',
   copyCode: 'Copier le code',
   codeCopied: 'Copié',

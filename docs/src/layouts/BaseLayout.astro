@@ -26,8 +26,14 @@ const {
 } = Astro.props
 const t = messages[locale]
 const pageTitle = `${title} - 200 OK`
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
-const ogImageUrl = new URL(ogImage, Astro.site)
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url)
+const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url)
+const pagePath = Astro.url.pathname.replace(/\/+$/, '')
+const markdownPath = pagePath.endsWith('/status-codes') ? `${pagePath}.md` : `${pagePath}/index.md`
+const hasMarkdown = localeCodes.some(code => {
+  const prefix = code === defaultLocale ? '' : `/${code}`
+  return pagePath === prefix || pagePath === `${prefix}/status-codes`
+})
 ---
 
 <!doctype html>
@@ -37,6 +43,7 @@ const ogImageUrl = new URL(ogImage, Astro.site)
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    {hasMarkdown && <link rel="alternate" type="text/markdown" href={markdownPath} />}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="200 OK" />
     <meta property="og:title" content={pageTitle} />
@@ -103,6 +110,8 @@ const ogImageUrl = new URL(ogImage, Astro.site)
     <footer>
       <span>© 2026-present Teplostanski Igor</span>
       <a href="https://github.com/teplostanski/200ok">GitHub</a>
+      {hasMarkdown && <a href={markdownPath}>Markdown</a>}
+      <a href="/llms.txt">llms.txt</a>
       <p class="footer-signoff">Happy hacking!</p>
     </footer>
   </body>

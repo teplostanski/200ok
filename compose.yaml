@@ -2,10 +2,14 @@ services:
   app:
     build: .
     ports:
-      - "127.0.0.1:${PORT:-3000}:3000"
+      - "${BIND_HOST:?Set BIND_HOST}:${PUBLISHED_PORT:?Set PUBLISHED_PORT}:${PORT:?Set PORT}"
     environment:
-      HOST: 0.0.0.0
-      PORT: "3000"
-      TRUST_PROXY: ${TRUST_PROXY:-}
+      NODE_ENV: ${NODE_ENV:?Set NODE_ENV}
+      HOST: ${HOST:?Set HOST}
+      PORT: ${PORT:?Set PORT}
+      TRUST_PROXY: ${TRUST_PROXY?Set TRUST_PROXY, empty disables proxy trust}
+      BASE_URL: ${BASE_URL:?Set BASE_URL}
+      BODY_LIMIT_BYTES: ${BODY_LIMIT_BYTES:?Set BODY_LIMIT_BYTES}
+      JSON_MAX_DEPTH: ${JSON_MAX_DEPTH:?Set JSON_MAX_DEPTH}
     restart: unless-stopped
     stop_grace_period: 15s

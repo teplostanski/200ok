@@ -1,6 +1,8 @@
 import type { MessageDictionary } from './messages'
 
 export const zhCN: MessageDictionary = {
+  localJsonDepth:
+    '默认最多允许 64 层 JSON 对象或数组嵌套。如需在本地测试更深的嵌套，请将 JSON_MAX_DEPTH 设置为 1 到 512。请求体大小仍限制为 100 KiB。',
   runLocally: '本地运行',
   copyCode: '复制代码',
   codeCopied: '已复制',

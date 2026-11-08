@@ -1,13 +1,9 @@
 import { app } from './app.js'
 
-const port = Number(process.env.PORT ?? 3000)
-const host = process.env.HOST ?? '0.0.0.0'
-if (!Number.isInteger(port) || port < 1 || port > 65535) {
-  throw new Error('PORT must be an integer between 1 and 65535')
-}
+import { HOST, PORT } from './runtime-config.js'
 
-const server = app.listen(port, host, () => {
-  console.info(`Server listening on http://${host}:${port}`)
+const server = app.listen(PORT, HOST, () => {
+  console.info(`Server listening on http://${HOST.includes(':') ? `[${HOST}]` : HOST}:${PORT}`)
 })
 server.on('error', error => {
   console.error('Server failed:', error.message)

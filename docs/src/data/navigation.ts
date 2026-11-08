@@ -4,7 +4,7 @@ type NavigationItem =
   | { label: string; kind: 'internal'; path: string; disabled?: boolean }
   | { label: string; kind: 'external'; href: string }
 
-export function navigationItems(locale: Locale): NavigationItem[] {
+export const navigationItems = (locale: Locale): NavigationItem[] => {
   const t = messages[locale]
   return [
     { label: t.reference, kind: 'internal', path: '/' },

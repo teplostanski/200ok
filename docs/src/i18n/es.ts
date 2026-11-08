@@ -1,6 +1,8 @@
 import type { MessageDictionary } from './messages'
 
 export const es: MessageDictionary = {
+  localJsonDepth:
+    'El límite predeterminado es de 64 niveles de objetos o arrays JSON. Para pruebas locales más profundas, configure JSON_MAX_DEPTH entre 1 y 512. Se mantiene el límite de 100 KiB para el cuerpo.',
   runLocally: 'Ejecutar localmente',
   copyCode: 'Copiar código',
   codeCopied: 'Copiado',

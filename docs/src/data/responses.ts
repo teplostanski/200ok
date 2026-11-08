@@ -19,7 +19,7 @@ const objectSchema = (properties: Record<string, unknown>) => ({
   additionalProperties: false,
 })
 
-export function responsesFor(path: string, locale: Locale = 'en'): ResponseExample[] {
+export const responsesFor = (path: string, locale: Locale = 'en'): ResponseExample[] => {
   const t = messages[locale]
   let success: ResponseExample
   if (path === '/status/{code}') {
