@@ -179,8 +179,8 @@ importers:
         specifier: ^2.6.5
         version: 2.6.6
       '@teplostanski/biome-config':
-        specifier: 2.0.0
-        version: 2.0.0(@biomejs/biome@2.6.6)
+        specifier: 2.0.1
+        version: 2.0.1(@biomejs/biome@2.6.6)
       '@types/express':
         specifier: ^5.0.6
         version: 5.0.6
@@ -1259,8 +1259,8 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7 || ^8
 
-  '@teplostanski/biome-config@2.0.0':
-    resolution: {integrity: sha512-yadAACwYMyvi5DwfNCDUbV0yffedCY9fy30BP9W7h0GYVWb5ICfl364sP80X/ytdaGKHcUfzr3bRe2ry36Xd+Q==}
+  '@teplostanski/biome-config@2.0.1':
+    resolution: {integrity: sha512-jrsKGo4ioHbBptLyCzTCr5D6VfJrbqnQRjV91TtGSW2j7RAWXMO/oQ4NrCQ/kJT5b3kasmirLVZVrptZzLbKDQ==}
     peerDependencies:
       '@biomejs/biome': ^2.6.5
 
@@ -3597,7 +3597,7 @@ snapshots:
       tailwindcss: 4.3.4
       vite: 8.3.6(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)
 
-  '@teplostanski/biome-config@2.0.0(@biomejs/biome@2.6.6)':
+  '@teplostanski/biome-config@2.0.1(@biomejs/biome@2.6.6)':
     dependencies:
       '@biomejs/biome': 2.6.6
 
