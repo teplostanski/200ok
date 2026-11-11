@@ -34,7 +34,7 @@
     "@biomejs/biome": "^2.6.5",
     "@teplostanski/biome-config": "2.0.1",
     "@types/express": "^5.0.6",
-    "@types/node": "^24.19.2",
+    "@types/node": "^26.0.0",
     "husky": "^9.1.7",
     "listhen": "^1.10.1",
     "tsx": "^4.23.15",
