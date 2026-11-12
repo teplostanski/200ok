@@ -13,14 +13,14 @@ const highlighter = createHighlighterCoreSync({
   engine: createJavaScriptRegexEngine(),
 })
 
-export function highlight(text: string, lang: CodeLanguage) {
+export const highlight = (text: string, lang: CodeLanguage) => {
   return highlighter.codeToTokens(text, {
     lang,
     themes: { light: 'github-light', dark: 'github-dark' },
   }).tokens
 }
 
-export function updateCode(element: HTMLElement, text: string, lang: CodeLanguage) {
+export const updateCode = (element: HTMLElement, text: string, lang: CodeLanguage) => {
   element.textContent = text
   // Keep large responses readable without blocking the UI with tokenization.
   if (lang === 'text' || text.length > 50_000) return

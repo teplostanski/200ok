@@ -1,14 +1,13 @@
 import { type Locale, messages } from '../i18n/messages'
 
-export function requestExamples(
+export const requestExamples = (
   path: string,
   format: string,
   origin = 'http://localhost:3000',
   locale: Locale = 'en',
-): { label: string; command: string }[] {
+): { label: string; command: string }[] => {
   const t = messages[locale]
-  const host =
-    origin === 'https://200ok.hacks.run' ? '200ok.hacks.run' : origin.replace(/^http:\/\//, '')
+  const host = origin.replace(/^http:\/\//, '')
   const url = `${host}${path}${format === 'json' || format === 'pretty' ? `?${format}` : ''}`
   const target = format !== 'text' ? `'${url}'` : url
   if (path === '/echo') {

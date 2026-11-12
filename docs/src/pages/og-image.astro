@@ -18,7 +18,7 @@ import sora from '@fontsource-variable/sora/files/sora-latin-wght-normal.woff2?u
   </head>
   <body>
     <main>
-      <header><span class="wordmark">200ok.hacks.run</span></header>
+      <header><span class="wordmark">{Astro.site?.host ?? Astro.url.host}</span></header>
       <div class="content">
         <section>
           <h1>200<span>OK</span></h1>

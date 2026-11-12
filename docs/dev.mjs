@@ -22,7 +22,7 @@ try {
   const address = api.address.address
   const host = address === '0.0.0.0' ? '127.0.0.1' : address === '::' ? '::1' : address
   const target = `http://${host.includes(':') ? `[${host}]` : host}:${api.address.port}`
-  await dev({
+  const docs = await dev({
     root: new URL('./', import.meta.url),
     vite: {
       server: {
@@ -35,6 +35,8 @@ try {
       },
     },
   })
+  app.locals.documentationOrigin =
+    docs.resolvedUrls.local[0] ?? `http://localhost:${docs.address.port}`
 } catch (error) {
   await api.close()
   throw error

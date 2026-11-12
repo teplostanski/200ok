@@ -1,6 +1,8 @@
 import type { MessageDictionary } from './messages'
 
 export const ko: MessageDictionary = {
+  localJsonDepth:
+    '기본 JSON 중첩 한도는 객체 또는 배열 64단계입니다. 더 깊은 로컬 테스트에는 JSON_MAX_DEPTH를 1~512로 설정하세요. 본문 크기 제한 100 KiB는 그대로 적용됩니다.',
   runLocally: '로컬에서 실행',
   copyCode: '코드 복사',
   codeCopied: '복사됨',

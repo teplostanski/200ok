@@ -1,6 +1,8 @@
 import type { MessageDictionary } from './messages'
 
 export const ru: MessageDictionary = {
+  localJsonDepth:
+    'По умолчанию допускается 64 уровня объектов или массивов JSON. Для более глубоких локальных тестов задайте JSON_MAX_DEPTH от 1 до 512. Лимит тела 100 КиБ сохраняется.',
   runLocally: 'Запустить локально',
   copyCode: 'Скопировать код',
   codeCopied: 'Скопировано',

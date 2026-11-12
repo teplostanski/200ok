@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1
 
 FROM node:24-bookworm-slim AS base
+ARG BASE_URL
+ENV BASE_URL=${BASE_URL}
 WORKDIR /app
 
 FROM base AS dependencies
@@ -10,7 +12,7 @@ COPY docs/package.json ./docs/package.json
 RUN npm install --global "$(node -p 'require("./package.json").packageManager')"
 
 FROM dependencies AS build
-RUN pnpm install --frozen-lockfile
+RUN HUSKY=0 pnpm install --frozen-lockfile
 COPY tsconfig.json tsconfig.build.json ./
 COPY src ./src
 COPY docs ./docs
@@ -19,7 +21,7 @@ ARG BUILD_COMMIT_DATE
 RUN pnpm build
 
 FROM dependencies AS production-dependencies
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --frozen-lockfile --prod --ignore-scripts
 
 FROM base AS runtime
 ENV NODE_ENV=production HOST=0.0.0.0 PORT=3000

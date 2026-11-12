@@ -30,7 +30,7 @@ const initialBody = JSON.stringify({ name: 'Bob' })
 
 <article class="endpoint-card" data-endpoint={path} data-locale={locale}>
   <div class="endpoint-heading">
-    <h4>
+    <h3>
       <a
         data-endpoint-link
         href={isStatus ? undefined : path}
@@ -50,7 +50,7 @@ const initialBody = JSON.stringify({ name: 'Bob' })
               )
           }<span class="endpoint-query" data-endpoint-query></span></code
         ></a>
-    </h4>
+    </h3>
     <fieldset class="output-selector">
       <legend>{t.output}</legend>
       <div class="join output-options">
@@ -119,12 +119,12 @@ const initialBody = JSON.stringify({ name: 'Bob' })
   <details class="collapse collapse-arrow endpoint-details">
     <summary class="collapse-title">{t.details}</summary>
     <div class="collapse-content">
-      <h5 class="responses-heading">{t.requestExamples}</h5>
+      <h4 class="responses-heading">{t.requestExamples}</h4>
       {
         requestExamples(
           isStatus ? '/status/200' : path,
           'text',
-          undefined,
+          import.meta.env.PROD ? Astro.site?.origin : Astro.url.origin,
           locale,
         ).map(({ label, command }, index) => (
           <div>
@@ -133,14 +133,14 @@ const initialBody = JSON.stringify({ name: 'Bob' })
           </div>
         ))
       }
-      <h5 class="responses-heading">{t.responses}</h5>
+      <h4 class="responses-heading">{t.responses}</h4>
       {
         responses.map((response) => (
           <div class="response-example">
-            <h6>
+            <h5>
               <span class="response-code">{response.status}</span>{' '}
               {response.label}
-            </h6>
+            </h5>
             <p>{response.description}</p>
             <div data-output-panel="text">
               <p class="example-label">{t.example} · text/plain</p>

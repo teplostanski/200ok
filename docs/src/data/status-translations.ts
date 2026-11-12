@@ -21,7 +21,7 @@ const translations: Record<Exclude<Locale, 'en'>, Record<number, StatusTranslati
   ko,
 }
 
-export function localizedStatusCodes(locale: Locale) {
+export const localizedStatusCodes = (locale: Locale) => {
   if (locale === 'en') return statusCodes
 
   return statusCodes.map(status => {

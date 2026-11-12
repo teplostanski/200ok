@@ -33,6 +33,38 @@ Or build and run with Docker:
 docker compose up -d --build --wait
 ```
 
+## Request limits and checks
+
+Request bodies default to a limit of 100 KiB after decompression. Set
+`BODY_LIMIT_BYTES` to a positive safe integer in bytes to change it (for example,
+`1048576` for 1 MiB). The limit applies to JSON, text, form and binary bodies.
+Larger bodies return 413 with the configured `limitBytes` in JSON responses.
+JSON nesting defaults to 64 object or array levels; deeper bodies return 400 before
+response formatting. The outermost object or array counts as level 1. Malformed JSON
+also returns 400. Set `JSON_MAX_DEPTH` to an integer from 1 to 512 at startup to change
+the nesting limit. The upper bound protects the recursive response formatter; the
+body size limit remains independent.
+
+Development and production can use different environment values:
+
+```sh
+BODY_LIMIT_BYTES=1048576 JSON_MAX_DEPTH=256 pnpm dev
+BODY_LIMIT_BYTES=102400 JSON_MAX_DEPTH=64 pnpm start
+```
+
+For local Docker testing:
+
+```sh
+docker run --rm -e BODY_LIMIT_BYTES=1048576 -e JSON_MAX_DEPTH=256 -p 3000:3000 ghcr.io/teplostanski/200ok:latest
+```
+
+With production Compose, set `BODY_LIMIT_BYTES` and `JSON_MAX_DEPTH` in the VPS `.env` file and recreate the
+container. Defaults are 102400 bytes and 64 levels when omitted. These settings require an image built from
+this version of the source; an older published image may not support these settings.
+
+Run `pnpm test` for HTTP security regression tests, `pnpm typecheck` for type checks,
+and `pnpm audit` for known dependency vulnerabilities. CI runs these before publishing.
+
 ## VPS deployment
 
 The included workflow builds an image in GHCR and deploys it over SSH using Docker Compose. HTTPS is handled by Caddy on the host.
@@ -177,3 +209,59 @@ After fixing a deployment issue, use **Re-run failed jobs** in GitHub Actions.
 
 [service-status-badge]: https://img.shields.io/website?url=https%3A%2F%2F200ok.hacks.run%2Fhealth&label=service&up_message=online&down_message=offline
 [service-url]: https://200ok.hacks.run
+
+### Base URL
+
+Set `BASE_URL=https://api.example.com` in the root `.env` file to configure the
+origin for API documentation links and documentation builds. Use an HTTP(S)
+origin with no path, query, fragment or credentials.
+
+Without `BASE_URL`, API links use the request origin; during `pnpm dev`, they
+point to the actual Astro development port. Building static documentation requires
+an explicit `BASE_URL`. No deployment domain is hardcoded in application code.
+
+`docker compose up -d --build` reads `BASE_URL` from `.env` and passes it as a build
+argument. Docker stores that value in the image environment, so the build and
+running API share one setting. Alternatively, pass it once when building manually:
+
+```sh
+docker build --build-arg BASE_URL=https://api.example.com -t 200ok-local .
+docker run --rm -p 3000:3000 200ok-local
+```
+
+For published images, set the GitHub Actions repository variable `BASE_URL`.
+Production Compose uses the value already stored in the image.
+Canonical URLs, Markdown and `llms.txt` are generated at build time: changing the
+deployment domain requires rebuilding the image. Overriding only the runtime
+environment does not rewrite static documentation.
+
+## Automated dependency updates
+
+Renovate manages npm dependencies, Docker base images and GitHub Actions through
+`renovate.json`. Regular updates wait three days after release. Only patch updates
+of npm dependencies and devDependencies already on version 1.0 or later can merge
+automatically after successful checks. Minor, major, pre-1.0, Docker, Actions and
+lockfile-maintenance updates require manual merging.
+
+Security fixes use GitHub Dependabot alerts and target the lowest fixed version.
+They bypass the regular release-age delay but retain the patch-only automerge
+policy and CI checks. Fixes requiring a minor or major update need manual review.
+An alert without a fixed version cannot be automatically resolved. The daily
+`Security audit` workflow runs `pnpm audit` against the lockfile at 05:23 UTC;
+audit findings or registry errors fail the workflow. Audit failures do not directly
+edit dependencies: Renovate prepares fix PRs based on supported vulnerability alerts.
+
+Repository setup (required before automerge is enabled operationally):
+
+1. Install the [Mend Renovate GitHub App](https://github.com/apps/renovate) for this repository.
+2. Enable the dependency graph and Dependabot alerts, including read access to
+   alerts for Renovate. Leave Dependabot security-update PRs disabled to avoid duplicates.
+3. Protect `main`: require pull requests, the `Check and build` and `Docker smoke test`
+   status checks, and an up-to-date branch. Do not grant Renovate a bypass of these checks.
+   If required reviews are enabled, automated merges will also wait for approval.
+4. Enable GitHub Actions failure notifications to receive daily audit failures.
+
+Renovate performs the merge itself (`platformAutomerge: false`) after checks pass;
+GitHub's native auto-merge setting is not required. CI builds and smoke-tests the
+Docker image before publication. A merge into `main` triggers the existing VPS
+deployment. Successful checks cover tested behavior, not every possible regression.

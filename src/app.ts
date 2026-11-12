@@ -2,6 +2,7 @@ import { fileURLToPath } from 'node:url'
 import express from 'express'
 import { ROOT_API_PATHS, ROUTES } from './constants.js'
 import { apiError, apiNotFound } from './middleware/api-error.js'
+import { documentation } from './middleware/documentation.js'
 import { responseFormat } from './middleware/response-format.js'
 import { healthRouter } from './routes/health.js'
 import { v1Router } from './routes/v1/index.js'
@@ -16,6 +17,8 @@ if (process.env.TRUST_PROXY?.trim()) {
 
 app.use((_req, res, next) => {
   res.set('Cache-Control', 'no-store')
+  res.set('X-Content-Type-Options', 'nosniff')
+  res.set('Referrer-Policy', 'no-referrer')
   res.set('x-glhf', 'teplostanski coded this')
   next()
 })
@@ -38,6 +41,7 @@ app.use((req, res, next) => {
 })
 
 const docsDirectory = fileURLToPath(new URL('../dist/docs/', import.meta.url))
+app.use(documentation(docsDirectory))
 app.use(express.static(docsDirectory, { cacheControl: false }))
 
 app.use(responseFormat)

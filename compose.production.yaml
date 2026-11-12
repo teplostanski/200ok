@@ -9,6 +9,8 @@ services:
     environment:
       HOST: "0.0.0.0"
       PORT: "3000"
+      BODY_LIMIT_BYTES: ${BODY_LIMIT_BYTES:-102400}
+      JSON_MAX_DEPTH: ${JSON_MAX_DEPTH:-64}
       TRUST_PROXY: ${TRUST_PROXY:?Set TRUST_PROXY in the VPS .env file}
     restart: unless-stopped
     stop_grace_period: 15s

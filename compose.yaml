@@ -1,6 +1,9 @@
 services:
   app:
-    build: .
+    build:
+      context: .
+      args:
+        BASE_URL: ${BASE_URL:?Set BASE_URL in the root .env file}
     ports:
       - "127.0.0.1:${PORT:-3000}:3000"
     environment:

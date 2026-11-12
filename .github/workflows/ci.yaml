@@ -31,11 +31,38 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm audit
       - run: pnpm build
+        env:
+          BASE_URL: ${{ vars.BASE_URL || 'http://localhost:3000' }}
+
+  docker-check:
+    name: Docker smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@v4
+      - name: Build test image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          load: true
+          push: false
+          tags: 200ok-ci:test
+          build-args: |
+            BASE_URL=http://localhost:3000
+          cache-from: type=gha,scope=smoke
+          cache-to: type=gha,scope=smoke,mode=max
+      - name: Test running image
+        run: bash scripts/docker-smoke.sh 200ok-ci:test
 
   publish:
     name: Publish Docker image
-    needs: checks
+    needs: [checks, docker-check]
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -72,6 +99,7 @@ jobs:
           platforms: linux/amd64
           push: true
           build-args: |
+            BASE_URL=${{ vars.BASE_URL }}
             BUILD_COMMIT=${{ steps.build-metadata.outputs.commit }}
             BUILD_COMMIT_DATE=${{ steps.build-metadata.outputs.date }}
           tags: |

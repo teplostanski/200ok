@@ -1,6 +1,8 @@
 import type { MessageDictionary } from './messages'
 
 export const de: MessageDictionary = {
+  localJsonDepth:
+    'Standardmäßig sind 64 JSON-Objekt- oder Array-Ebenen erlaubt. Für tiefere lokale Tests setzen Sie JSON_MAX_DEPTH auf einen Wert von 1 bis 512. Das Größenlimit von 100 KiB gilt weiterhin.',
   runLocally: 'Lokal starten',
   copyCode: 'Code kopieren',
   codeCopied: 'Kopiert',

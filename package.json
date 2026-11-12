@@ -8,12 +8,13 @@
     "node": ">=24"
   },
   "scripts": {
+    "check": "pnpm lint && pnpm typecheck",
+    "check:server": "pnpm check && pnpm test && pnpm build:server",
+    "check:full": "pnpm check:server && pnpm build:docs",
     "dev": "tsx watch --env-file-if-exists=.env docs/dev.mjs",
     "build": "pnpm build:server && pnpm build:docs",
     "start": "node --env-file-if-exists=.env --enable-source-maps dist/server.js",
     "typecheck": "pnpm typecheck:server && pnpm typecheck:docs",
-    "check": "biome check .",
-    "check:fix": "biome check --write .",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
@@ -21,17 +22,20 @@
     "build:server": "tsc -p tsconfig.build.json",
     "build:docs": "pnpm --dir docs build",
     "typecheck:server": "tsc --noEmit",
-    "typecheck:docs": "pnpm --dir docs check"
+    "typecheck:docs": "pnpm --dir docs check",
+    "test": "pnpm build:server && node --test tests/*.test.mjs",
+    "prepare": "husky"
   },
   "dependencies": {
-    "express": "^5.2.1",
+    "express": "^5.3.0",
     "http-status-codes": "^2.3.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.6.5",
-    "@teplostanski/biome-config": "1.0.0",
+    "@teplostanski/biome-config": "2.0.0",
     "@types/express": "^5.0.6",
-    "@types/node": "^24.19.0",
+    "@types/node": "^24.19.2",
+    "husky": "^9.1.7",
     "listhen": "^1.10.1",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"

@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 
-function readBuildInfo() {
+const readBuildInfo = () => {
   let commit = process.env.BUILD_COMMIT
   let date = process.env.BUILD_COMMIT_DATE
 

@@ -18,7 +18,7 @@ import sora from '@fontsource-variable/sora/files/sora-latin-wght-normal.woff2?u
   </head>
   <body>
     <main>
-      <header>200ok.hacks.run</header>
+      <header>{Astro.site?.host ?? Astro.url.host}</header>
       <section>
         <h1>HTTP<br />Status<br /><span>Codes</span></h1>
         <p>A cozy, minimal guide<br />to HTTP status codes.</p>

@@ -84,7 +84,7 @@ const groups = [
     <details class="collapse collapse-arrow docs-setting" name="docs-settings" open>
       <summary class="collapse-title">Base URL</summary>
       <div class="collapse-content" data-base-url>
-        <p>{Astro.url.origin}</p>
+        <p>{import.meta.env.PROD ? (Astro.site?.origin ?? Astro.url.origin) : Astro.url.origin}</p>
       </div>
     </details>
     <details class="collapse collapse-arrow docs-setting" name="docs-settings" id="response-format">
@@ -95,11 +95,13 @@ const groups = [
         )}</p>
       </div>
     </details>
-    <details class="collapse collapse-arrow docs-setting" name="docs-settings">
+    <details class="collapse collapse-arrow docs-setting" name="docs-settings" id="run-locally">
       <summary class="collapse-title">{t.runLocally}</summary>
       <div class="collapse-content">
         <CodeBlock lang="shellscript" text="docker run --rm -p 3000:3000 ghcr.io/teplostanski/200ok:latest" />
         <p class="local-address"><a href="http://localhost:3000">http://localhost:3000</a></p>
+        <p>{t.localJsonDepth}</p>
+        <CodeBlock lang="shellscript" text="docker run --rm -e JSON_MAX_DEPTH=256 -p 3000:3000 ghcr.io/teplostanski/200ok:latest" />
       </div>
     </details>
   </div>
@@ -118,8 +120,15 @@ const groups = [
 </BaseLayout>
 
 <script>
-  const baseUrl = document.querySelector('[data-base-url] code');
+  const baseUrl = document.querySelector('[data-base-url] p');
   if (baseUrl) baseUrl.textContent = window.location.origin;
+  const openLinkedSection = () => {
+    if (window.location.hash !== '#run-locally') return;
+    const section = document.querySelector<HTMLDetailsElement>('#run-locally');
+    if (section) section.open = true;
+  };
+  openLinkedSection();
+  window.addEventListener('hashchange', openLinkedSection);
 </script>
 
 <style>
